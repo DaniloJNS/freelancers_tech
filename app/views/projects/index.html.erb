@@ -1,0 +1,7 @@
+<%= @projects.each do |p| %>
+  <section>
+    <%= content_tag :p, p.title %>
+    <%= content_tag :p, p.description %>
+    <%= content_tag :p, p.deadline_submission %>
+  </section>
+<% end %>
