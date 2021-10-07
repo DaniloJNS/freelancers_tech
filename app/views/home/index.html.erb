@@ -5,6 +5,14 @@
   <nav>
     <%= link_to 'Ver Projetos', projects_path %>
   </nav>
+  <nav>
+    <%= link_to 'Entrar Sou Usuario', new_user_session_path %>
+    <%# escolher entre usuario e freelancer %>
+  </nav>
+  <% if user_signed_in? %>
+    <small>Logado como <%= current_user.email %></small>
+  <% end %>
+ 
 </header>
 
 

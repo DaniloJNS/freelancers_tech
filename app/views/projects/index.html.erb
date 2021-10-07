@@ -1,7 +1,15 @@
-<%= @projects.each do |p| %>
+<aside>
+  <% if @projects.empty? %>
+  <p>Ops, no momento não temos projetos abertos</p>
+  <p>Tente novamente mais tarde</p>
+  <% end %>
+  <%# usar class text-alert do bootstrap aqui%>
+</aside>
+<% @projects.each do |p| %>
   <section>
     <%= content_tag :p, p.title %>
     <%= content_tag :p, p.description %>
     <%= content_tag :p, p.deadline_submission %>
   </section>
 <% end %>
+<%= link_to 'Voltar', root_path %>
