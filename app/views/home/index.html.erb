@@ -1,18 +1,5 @@
-<header>
-  <h3>
-    Bem-vindo ao freelancers tech
-  </h3>
-  <nav>
-    <%= link_to 'Ver Projetos', projects_path %>
-  </nav>
-  <nav>
-    <%= link_to 'Entrar Sou Usuario', new_user_session_path %>
-    <%# escolher entre usuario e freelancer %>
-  </nav>
-  <% if user_signed_in? %>
-    <small>Logado como <%= current_user.email %></small>
-  <% end %>
- 
-</header>
-
-
+<%# <%= render "partials/nav_bar" %1> %>
+<% content_for :nav_bar do%>
+  <li class='active'><%= link_to 'Home', root_path%></li>
+  <li class=''><%= link_to 'Ver projetos', projects_path%></li>
+<% end %>
