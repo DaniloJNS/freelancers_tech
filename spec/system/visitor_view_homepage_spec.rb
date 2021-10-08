@@ -5,6 +5,6 @@ describe 'visitor view home page' do
   it 'succefully' do
     visit root_path
 
-    expect(page).to have_content("Bem-vindo ao freelancers tech") 
+    expect(page).to have_content("FreelancersTech") 
   end
 end

@@ -1,5 +1,9 @@
 <%# <%= render "partials/nav_bar" %1> %>
 <% content_for :nav_bar do%>
   <li class='active'><%= link_to 'Home', root_path%></li>
-  <li class=''><%= link_to 'Ver projetos', projects_path%></li>
+  <li class=''><%= link_to 'Ver Projetos', projects_path%></li>
+  <% if user_signed_in? %>
+    <li class=''><%= link_to 'Novo Projeto', new_project_path %></li>
+  <% else %>
+  <% end %>
 <% end %>
