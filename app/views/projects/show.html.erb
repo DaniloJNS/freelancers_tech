@@ -1,7 +1,24 @@
 <div class="container">
  <aside>
-  <%=content_tag :p, @project.title %>
-  <%=content_tag :p, @project.description %>
+   <dl class='row'>
+     <dt>Título </dt>
+     <dd><%= @project.title %></dd>
+
+     <dt>Descrição</dt>
+     <dd><%=  @project.description %></dd>
+
+     <dt>Prazo para submissões</dt>
+     <dd><%= @project.deadline_submission %></dd>
+
+     <dt>Preço máximo por hora</dt>
+     <dd><%= number_to_currency(@project.max_price_per_hour) %></dd>
+
+     <dt>Remoto</dt>
+     <dd><%=  @project.remote ? 'Sim': 'Não' %></dd>
+
+     <dt>Anuciador</dt>
+     <dd><%= @project.user.email %></dd>
+   </dl>
  </aside> 
  <%= link_to "Voltar", root_path %>
 </div>

@@ -29,7 +29,7 @@ describe 'user view project' do
    
    expect(page).to have_content('Blog da manu')
    expect(page).to have_content('Um simples blog') 
-   expect(page).to have_content('2023-12-11')
+   expect(page).to have_content('11/12/2023')
    expect(page).to_not have_content("Portal Escolar") 
  end
 

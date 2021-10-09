@@ -36,3 +36,5 @@ module FreelancersTech
     config.generators.system_tests = nil
   end
 end
+ Time::DATE_FORMATS[:default] = "%d/%m/%Y %H:%M"
+ Date::DATE_FORMATS[:default] = "%d/%m/%Y"

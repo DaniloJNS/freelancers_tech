@@ -23,10 +23,10 @@ describe 'visitor view projects' do
 
     expect(page).to have_content("Ecommerce de carros")
     expect(page).to have_content("uma plataforma para venda, troca e compra de carros")
-    expect(page).to have_content("2021-12-21") 
+    expect(page).to have_content("21/12/2021") 
     expect(page).to have_content("Portal Escolar")
     expect(page).to have_content("Um portal para gerenciamento de atividades escolares")
-    expect(page).to have_content("2021-10-10")
+    expect(page).to have_content("10/10/2021")
   end
 
   it 'and theres no projects available' do
