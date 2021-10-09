@@ -7,8 +7,11 @@ describe 'visitor view projects' do
     expect(page).to have_link('Ver Projetos', href: projects_path)
   end
   it 'succefully' do
+    danilo = User.create!(email: 'danilo@treinadev.com.br', password: '1234567')
+
+    login_as danilo, scope: :user
     Project.create!(title: 'Ecommerce de carros', description: 'uma plataforma para venda, '\
-                    'troca e compra de carros', deadline_submission: '21/12/2021')
+                    'troca e compra de carros', deadline_submission: '21/12/2021', user: danilo)
     visit root_path
     click_on "Ver Projetos"
 

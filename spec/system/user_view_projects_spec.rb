@@ -14,7 +14,7 @@ describe 'user view project' do
  it 'successfully' do
    danilo = User.create!(email: 'danilo@treinadev.com.br', password: '1234567')
    blog = Project.create!(title: 'Blog da manu', description: 'Um simples blog',
-                         deadline_submission: '11/12/2023')
+                         deadline_submission: '11/12/2023', user: danilo)
 
    login_as danilo, scope: :user
 
