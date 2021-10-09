@@ -4,7 +4,7 @@ describe 'visitor view projects' do
   it 'using menu' do
     visit root_path
 
-    expect(page).to have_link('Ver Projetos', href: projects_path)
+    expect(page).to have_link('Ver Projetos', href: public_projects_path)
   end
   it 'succefully' do
     danilo = User.create!(email: 'danilo@treinadev.com.br', password: '1234567')

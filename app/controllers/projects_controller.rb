@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
   def index
-    @projects = Project.all
+    @projects = current_user.project
   end
   def new
     @project = Project.new
@@ -16,6 +16,9 @@ class ProjectsController < ApplicationController
     else
       render 'new'
     end
+  end
+  def public
+    @projects = Project.all
   end
   private
   def params_private
