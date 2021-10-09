@@ -16,7 +16,7 @@ describe 'user log in' do
     fill_in "Password", with: "1234567"
     click_on "Log in"
     
-    expect(page).to have_content('Signed in successfully.') 
+    expect(page).to have_content('Login efetuado com sucesso!') 
     expect(page).to have_content("Logado como #{danilo.email}") 
   end 
 end
