@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_08_235343) do
+ActiveRecord::Schema.define(version: 2021_10_09_185515) do
 
   create_table "projects", force: :cascade do |t|
     t.string "title"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2021_10_08_235343) do
     t.datetime "updated_at", precision: 6, null: false
     t.date "deadline_submission"
     t.integer "user_id", null: false
+    t.boolean "remote", default: false
+    t.decimal "max_price_per_hour"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 

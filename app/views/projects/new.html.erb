@@ -6,6 +6,12 @@
   <%= p.label :description, "Descrição" %>
   <%= p.text_field :description %>
 
+  <%= p.label :remote, "remoto" %>
+  <%= p.check_box :remote %>
+
+  <%= p.label :max_price_per_hour, "Custo máximo por hora" %>
+  <%= p.number_field :max_price_per_hour %>
+
   <%= p.label :deadline_submission, "Receber propostas até:" %>
   <%= p.date_field :deadline_submission %>
 

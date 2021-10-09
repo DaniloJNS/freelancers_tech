@@ -19,7 +19,9 @@ describe 'user register project' do
 
     fill_in "Título", with: 'Pet Shop Mobile'
     fill_in "Descrição", with: 'Uma aplicativo android para venda de produtos para pets'
+    fill_in "Custo máximo por hora", with: 200
     fill_in 'Receber propostas até:', with: "14/04/22"
+    check "remoto"
     click_on 'Enviar'
 
 
