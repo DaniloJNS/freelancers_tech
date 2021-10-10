@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
   end
   private
   def params_private
-    params.require(:project).permit(:title,:description,:deadline_submission)
+    params.require(:project).permit(:title,:description,:deadline_submission, :max_price_per_hour,
+                                   :remote)
   end
 end

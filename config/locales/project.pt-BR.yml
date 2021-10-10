@@ -1,0 +1,13 @@
+---
+pt-BR:
+  activerecord:
+    model:
+      project: "Projeto"
+    attributes:
+      project:
+        title: "Título"
+        description: "Descrição"
+        deadline_submission: "Prazo para submissão"
+        max_price_per_hour: "Preço máximo por hora"
+        remote: "Remoto"
+        user: "Usuário"

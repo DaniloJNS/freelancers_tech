@@ -1,3 +1,12 @@
+
+<% if @project.errors.any? %>
+   <ul>
+      <% @project.errors.full_messages.each do |error| %>
+         <li><%= error %></li>
+      <% end %>
+   </ul>
+<% end %>
+
 <%=form_with model: @project do |p| %>
 
   <%= p.label :title, "Título" %>
