@@ -1,20 +1,15 @@
-
 <div class="container">
-  <aside>
-    <% if @projects.empty? %>
-    <p>Ops, no momento não temos projetos abertos</p>
-    <p>Tente novamente mais tarde</p>
-    <% end %>
-    <%# usar class text-alert do bootstrap aqui%>
-  </aside>
-  <% @projects.each do |p| %>
-    <section>
-      <p>
-        <%= link_to p.title, project_path(p) %>
-      </p>
-      <%= content_tag :p, p.description %>
-      <%= content_tag :p, p.deadline_submission %>
-    </section>
-  <% end %> 
+  
+    <aside>
+
+      <% if @projects.empty? %>
+        <div class="alert alert-warning">
+          <p >Ops, no momento não temos projetos abertos</p>
+          <p >Tente novamente mais tarde</p>
+        </div>
+      <% end %>
+      <%# usar class text-alert do bootstrap aqui%>
+    </aside>
+  <%= render '/shared/listen_project', object: @projects %>
+  <%= link_to 'Voltar', root_path %>
 </div>
-<%= link_to 'Voltar', root_path %>

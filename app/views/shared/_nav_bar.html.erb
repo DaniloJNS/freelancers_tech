@@ -12,9 +12,20 @@
         
         <li><%= link_to 'Meus Projetos', projects_path %></li>
         <li><small>Logado como <%= current_user.email %></small></li>
+        <li> <%= button_to 'Sair', destroy_user_session_path, method: :delete %> </li>
       <% else %>
         <li><a href=<%= new_user_registration_path%>><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         <li><a href=<%= new_user_session_path%>><span class="glyphicon glyphicon-log-in"></span> Entrar Sou Usuario</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <span class="glyphicon glyphicon-log-in"></span>
+            Entrar
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href=<%= new_user_session_path%>>Sou usuario</a></li>
+            <li><a href="#">Sou propietario</a></li>
+          </ul>
+        </li>
       <% end %>
       
     </ul>

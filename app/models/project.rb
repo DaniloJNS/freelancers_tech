@@ -5,4 +5,5 @@ class Project < ApplicationRecord
             presence: true
 
   validates :max_price_per_hour, :numericality => { :greater_than => 0 }
+  # TODO deadline_submission validation in the past
 end
