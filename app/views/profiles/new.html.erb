@@ -1,0 +1,15 @@
+<%= form_with model: [current_professional, @profile] do |p|%>
+  <%= p.label :name, "Nome" %>
+  <%= p.text_field :name %>
+  
+  <%= p.label :social_name, "Nome social" %>
+  <%= p.text_field :social_name %>
+
+  <%= p.label :description, "Descrição" %>
+  <%= p.text_field :description %>
+
+  <%= p.label :birth_date, "Data de Nascimento" %>
+  <%= p.date_field :birth_date %>
+
+  <%= p.submit "Enviar"%>
+<% end %>

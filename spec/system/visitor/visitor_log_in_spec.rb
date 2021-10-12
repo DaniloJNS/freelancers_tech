@@ -26,7 +26,7 @@ describe 'visitor log in' do
     expect(page).to have_content('Login efetuado com sucesso!') 
     expect(page).to have_content("Logado como #{danilo.email}") 
   end 
-  it 'successfully as user and return root path' do
+  it 'successfully as professional and return root path' do
     danilo = User.create!(email: 'danilo@treinadev.com.br', password: '1234567')
 
     visit root_path
@@ -36,19 +36,23 @@ describe 'visitor log in' do
     fill_in "Senha", with: danilo.password
     click_on "Enviar"
     
+
+    expect(current_path).to eq(root_path) 
     expect(page).to have_content('Login efetuado com sucesso!') 
     expect(page).to have_content("Logado como #{danilo.email}") 
   end
-  it 'successfully as user and return root path' do
-      carla = User.create!(email: 'carla@treinadev.com.br', password: '1234567')
+  it 'successfully as professional and return root path' do
+      carla = Professional.create!(email: 'carla@treinadev.com.br', password: '1234567')
+      Profile.create!(name: carla, description: 'desenvolvedora', birth_date: '11/12/1990', 
+                      professional: carla)
 
-      visit root_path
-      click_on "Entrar Sou Usuario"
+      visit new_professional_session_path
 
       fill_in "Email", with: carla.email
       fill_in "Senha", with: carla.password
       click_on "Enviar"
       
+      expect(current_path).to eq(root_path) 
       expect(page).to have_content('Login efetuado com sucesso!') 
       expect(page).to have_content("Logado como #{carla.email}") 
     end
