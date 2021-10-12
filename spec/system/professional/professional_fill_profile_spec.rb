@@ -42,5 +42,16 @@ describe 'professional fill profile' do
     expect(current_path).to eq(root_path) 
     expect(page).to have_content('Seu perfil está completo!')
   end
+  it 'with fields empty' do
+    danilo = Professional.create!(email: "danilo@tech.com.br", password: "1234567")
 
+    login_as danilo, scope: :professional
+
+    visit new_professional_profile_path(danilo)
+    click_on "Enviar"
+
+    expect(page).to have_content('Nome não pode ficar em branco')
+    expect(page).to have_content('Descrição não pode ficar em branco')
+    expect(page).to have_content('Data de Nascimento não pode ficar em branco')
+  end
 end

@@ -1,0 +1,13 @@
+---
+pt-BR:
+  activerecord:
+    model:
+      profile: "Perfil"
+    attributes:
+      profile:
+        name: "Nome"
+        description: "Descrição"
+        birth_date: "Data de Nascimento"
+        social_name: "Nome social"
+        professional: "Profissional"
+        age: "Idade"

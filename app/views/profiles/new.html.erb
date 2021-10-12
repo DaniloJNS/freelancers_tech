@@ -1,15 +1,24 @@
-<%= form_with model: [current_professional, @profile] do |p|%>
-  <%= p.label :name, "Nome" %>
-  <%= p.text_field :name %>
-  
-  <%= p.label :social_name, "Nome social" %>
-  <%= p.text_field :social_name %>
+<div class='container'>
+  <% if @profile.errors.any? %>
+    <ul>
+      <% @profile.errors.full_messages.each do |error| %>
+        <li> <%= error %> </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form_with model: [current_professional, @profile] do |p|%>
+    <%= p.label :name, "Nome" %>
+    <%= p.text_field :name %>
+    
+    <%= p.label :social_name, "Nome social" %>
+    <%= p.text_field :social_name %>
 
-  <%= p.label :description, "Descrição" %>
-  <%= p.text_field :description %>
+    <%= p.label :description, "Descrição" %>
+    <%= p.text_field :description %>
 
-  <%= p.label :birth_date, "Data de Nascimento" %>
-  <%= p.date_field :birth_date %>
+    <%= p.label :birth_date, "Data de Nascimento" %>
+    <%= p.date_field :birth_date %>
 
-  <%= p.submit "Enviar"%>
-<% end %>
+    <%= p.submit "Enviar"%>
+  <% end %>
+</div>
