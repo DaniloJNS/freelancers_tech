@@ -11,6 +11,6 @@ class Project < ApplicationRecord
   def date_past
       errors.add(:deadline_submission,
                  'não pode está no passado') if not deadline_submission.nil? and 
-                Date.current > deadline_submission
+                deadline_submission.before? Date.current
   end
 end
