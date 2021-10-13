@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+  layout 'main'
   def new
     @profile = Profile.new
   end
