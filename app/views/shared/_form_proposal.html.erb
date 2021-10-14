@@ -1,0 +1,22 @@
+<% if @proposal.errors.present? %>
+  <ul>
+  <%= @proposal.errors.full_messages.each do |erro| %>
+      <li> <%= erro %> </li>
+    <% end %>
+  </ul>
+  <% end %>
+<%= form_with model: @proposal, url: project_proposals_path(@project) do |pl|%>
+  <%= pl.label :justification, "Justificativa" %>
+  <%= pl.text_field :justification %>
+
+  <%= pl.label :price_hour, "Valor/Hora" %>
+  <%= pl.number_field :price_hour %>
+
+  <%= pl.label :weekly_hour, "Horas por semana" %>
+  <%= pl.number_field :weekly_hour, step: 1, min: 1 %>
+
+  <%= pl.label :completion_deadline, "Prazo de conclusão" %>
+  <%= pl.date_field :completion_deadline %>
+
+  <%= pl.submit "Enviar"%>
+<% end %>

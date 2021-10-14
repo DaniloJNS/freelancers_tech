@@ -1,0 +1,11 @@
+---
+pt-BR:
+  activerecord:
+    model:
+      proposal: "Proposta"
+    attributes:
+      proposal:
+        justification: "Justificativa"
+        price_hour: "Preço por hora"
+        weekly_hour: "Horas por semana"
+        completion_deadline: "Prazo de conclusão"

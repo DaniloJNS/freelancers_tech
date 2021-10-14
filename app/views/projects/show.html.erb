@@ -20,5 +20,13 @@
      <dd><%= @project.user.email %></dd>
    </dl>
  </aside> 
+ <% if current_professional.present? %> 
+    <% if current_professional.proposal.find_by(project_id: @project.id).blank?%>
+      <%= render '/shared/form_proposal' %>
+    <% else %>
+       <%= link_to "Visualizar proposta", proposal_path(current_professional.proposal
+                                                                     .find_by(project_id: @project.id)) %>
+    <% end %>
+ <% end %>
  <%= link_to "Voltar", root_path %>
 </div>

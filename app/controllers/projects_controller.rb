@@ -5,13 +5,16 @@ class ProjectsController < ApplicationController
   layout 'main'
   def show
     @project = Project.find(params[:id])
+    @proposal = Proposal.new
   end
   def index
     @projects = current_user.project
   end
+
   def new
     @project = Project.new
   end
+
   def create
     @project = Project.new(project_params)
     if @project.save
@@ -20,13 +23,14 @@ class ProjectsController < ApplicationController
       render 'new'
     end
   end
+
   def public
     @projects = Project.all
   end
+
   def search
     parameter = search_params
-    @projects = Project.where('title like ? OR description like ?',
-                             "%#{parameter}%", "%#{parameter}%")
+    @projects = Project.where('title like ? OR description like ?', "%#{parameter}%", "%#{parameter}%")
     if @projects.blank?
       @projects = Project.all
       flash[:alert] =  'Sua pesquisa não encontrou nenhum projeto correspondente'
@@ -34,6 +38,7 @@ class ProjectsController < ApplicationController
 
     render :public
   end
+
   private
   def project_params
     {user_id: current_user.id, **params.require(:project).permit(:title,:description,:deadline_submission, :max_price_per_hour,

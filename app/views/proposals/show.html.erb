@@ -1,0 +1,19 @@
+<aside>
+  <dt>Justificativa</dt>
+  <dd> <%= @proposal.justification %> </dd>
+
+  <dt>Preço por hora</dt>
+  <dd> <%= number_to_currency @proposal.price_hour %> </dd>
+
+  <dt>Horas por semana</dt>
+  <dd> <%= @proposal.weekly_hour %> </dd>
+
+  <dt>Prazo de conclusão</dt>
+  <dd> <%= @proposal.completion_deadline %> </dd>
+
+  <dt>Solicitante</dt>
+  <dd>
+    nome: <%= @proposal.professional.profile.name %>  </hr>
+    email: <%= @proposal.professional.email %> 
+  </dd>
+</aside>
