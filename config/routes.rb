@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   
   resources :projects, only: [:new, :index, :show, :create] do
     get 'public', on: :collection
+    get 'search', on: :collection
   end
   resources :professionals do
     resources :profiles, only: %i[ new create]

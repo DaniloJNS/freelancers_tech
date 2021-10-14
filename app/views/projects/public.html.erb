@@ -7,8 +7,10 @@
           <p >Tente novamente mais tarde</p>
         </div>
       <% end %>
-      <%# usar class text-alert do bootstrap aqui%>
     </aside>
+  <% if professional_signed_in? %>
+    <%= render 'shared/search' %>
+  <% end %>
   <%= render '/shared/listen_project', object: @projects %>
   <%= link_to 'Voltar', root_path %>
 </div>

@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
   def create
-    @project = Project.new(params_private)
+    @project = Project.new(project_params)
     if @project.save
       redirect_to project_path(@project)
     else
@@ -23,10 +23,23 @@ class ProjectsController < ApplicationController
   def public
     @projects = Project.all
   end
+  def search
+    parameter = search_params
+    @projects = Project.where('title like ? OR description like ?',
+                             "%#{parameter}%", "%#{parameter}%")
+    if @projects.blank?
+      @projects = Project.all
+      flash[:alert] =  'Sua pesquisa não encontrou nenhum projeto correspondente'
+    end
 
+    render :public
+  end
   private
-  def params_private
+  def project_params
     {user_id: current_user.id, **params.require(:project).permit(:title,:description,:deadline_submission, :max_price_per_hour,
                                    :remote)}
+  end
+  def search_params
+    params.require(:q)
   end
 end
