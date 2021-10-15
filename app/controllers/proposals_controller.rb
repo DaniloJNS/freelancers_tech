@@ -1,4 +1,6 @@
 class ProposalsController < ApplicationController
+  before_action :authenticate_professional!, only: [:create]
+  before_action :authenticate_professional_user!, only: [:show]
   def create
     @proposal = current_professional.proposal.build(proposal_params)
     if @proposal.save

@@ -1,0 +1,13 @@
+
+<div class="container">
+  <aside>
+    <% if @projects.empty? %>
+      <p>Ops, você ainda não tem propostas na plataforma</p>
+      <p>Faça sua primeira proposta agora</p>
+      <%= link_to "Projetos", public_projects_path, :class => "btn btn-info" %>
+    <% end %>
+    <%# usar class text-alert do bootstrap aqui%>
+  </aside>
+  <%= render '/shared/listen_project', object: @projects %>
+  <%= link_to 'Voltar', root_path %>
+</div>

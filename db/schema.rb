@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2021_10_14_203629) do
     t.text "justification"
     t.decimal "price_hour"
     t.integer "weekly_hour"
-    t.date "completion_deadline"
+    t.integer "completion_deadline"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "professional_id", null: false

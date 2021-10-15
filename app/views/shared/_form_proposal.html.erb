@@ -16,7 +16,7 @@
   <%= pl.number_field :weekly_hour, step: 1, min: 1 %>
 
   <%= pl.label :completion_deadline, "Prazo de conclusão" %>
-  <%= pl.date_field :completion_deadline %>
+  <%= pl.number_field :completion_deadline, step: 1, min: 1 %>
 
   <%= pl.submit "Enviar"%>
 <% end %>

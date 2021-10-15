@@ -4,7 +4,7 @@ class CreateProposals < ActiveRecord::Migration[6.1]
       t.text :justification
       t.decimal :price_hour
       t.integer :weekly_hour
-      t.date :completion_deadline
+      t.integer :completion_deadline
 
       t.timestamps
     end

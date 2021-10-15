@@ -18,9 +18,19 @@ describe 'professional without profile' do
 
     login_as danilo, scope: :professional
     get projects_path(blog)
+    # get root_path
 
-    expect(current_path).to eq(new_professional_profile_path) 
-    expect(page).to have_content("Por favor complete seu perfil antes de acessar "\
-                                "a plataforma")
+    expect(response).to have_http_status(:unauthorized)
+    expect(response.body).to include('Para continuar, efetue login ou registre-se') 
+  end
+  it 'cannot view your project index' do
+
+    danilo = Professional.create!(email: 'danilo@tech.com.br', password: '123456')
+
+    login_as danilo, scope: :professional
+
+    get professional_projects_path(danilo)
+
+    expect(response).to have_http_status(:moved_permanently) 
   end
 end

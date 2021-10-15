@@ -24,7 +24,7 @@ describe 'profissional submit proposal' do
    fill_in "Justificativa", with: "Sou um gênio"
    fill_in "Valor/Hora", with: "100"
    fill_in "Horas por semana", with: "20"
-   fill_in "Prazo de conclusão", with: "12/12/2021"
+   fill_in "Prazo de conclusão", with: 50
    click_on "Enviar"
     
    expect(current_path).to_not eq(project_path(blog)) 
@@ -32,7 +32,7 @@ describe 'profissional submit proposal' do
    expect(page).to have_content('Sou um gênio')
    expect(page).to have_content('R$ 100,00')
    expect(page).to have_content(/20/)
-   expect(page).to have_content('12/12/2021')
+   expect(page).to have_content(/50/)
    expect(page).to have_content(danilo.profile.name)
    expect(page).to have_content(danilo.email)
  end
@@ -79,7 +79,7 @@ describe 'profissional submit proposal' do
    Profile.create!(name: 'danilo', description: 'dev java', birth_date: '13/8/1990',
                    professional: danilo) 
    proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
-                              completion_deadline: '14/11/2021', professional: danilo, project: blog)
+                              completion_deadline: 50, professional: danilo, project: blog)
 
    login_as danilo, scope: :professional
     

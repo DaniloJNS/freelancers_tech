@@ -24,9 +24,13 @@
     <% if current_professional.proposal.find_by(project_id: @project.id).blank?%>
       <%= render '/shared/form_proposal' %>
     <% else %>
-       <%= link_to "Visualizar proposta", proposal_path(current_professional.proposal
-                                                                     .find_by(project_id: @project.id)) %>
+      <nav>
+         <%= link_to "Visualizar proposta", proposal_path(current_professional.proposal
+                                                                       .find_by(project_id: @project.id)) %>
+      </nav>
     <% end %>
  <% end %>
- <%= link_to "Voltar", root_path %>
+    <nav>
+      <%= link_to "Voltar", root_path %>
+    </nav>
 </div>

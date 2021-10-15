@@ -11,7 +11,12 @@ class ApplicationController < ActionController::Base
     if current_professional.present? and current_professional.profile.blank?
 	redirect_to(new_professional_profile_path(current_professional),
 		   notice: 'Por favor complete seu perfil antes de acessar a plata'\
-		   'forma')
+		   'forma', status: :moved_permanently)
+    end
+  end
+  def authenticate_professional_user!
+    if current_professional.blank? and current_user.blank?
+      redirect_to(root_path, notice: 'Faça o login')
     end
   end
 end

@@ -4,6 +4,9 @@
         <li> <%= button_to 'Sair', destroy_user_session_path, method: :delete %> </li>
 <% end %>
 <% if professional_signed_in?%>
+        <% if current_professional.profile.present? %>
+        <li><%= link_to 'Meus Projetos', professional_projects_path(current_professional.profile.name) %></li>
+        <% end %>
         <li><small>Logado como <%= current_professional.email %></small></li>
         <li> <%= button_to 'Sair', destroy_professional_session_path, method: :delete %> </li>
 <% else %>

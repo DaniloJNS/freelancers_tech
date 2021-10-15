@@ -12,4 +12,8 @@ Rails.application.routes.draw do
   resources :professionals do
     resources :profiles, only: %i[ new create]
   end
+  scope ':name', as: 'professional' do
+    get 'my_projects', to: 'professionals/projects#index', as: :projects
+    get ':title', to: 'professionals/projects#show', as: :project
+  end
 end
