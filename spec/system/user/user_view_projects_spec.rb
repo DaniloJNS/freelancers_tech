@@ -34,10 +34,21 @@ describe 'user view project' do
  end
 
  it 'and theres no avaliable projects' do
-  danilo = User.create!(email: 'danilo@treinadev.com.br', password: '1234567')
-  
+   danilo = User.create!(email: 'danilo@treinadev.com.br', password: '1234567')
+   marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
 
-  login_as danilo, scope: :user
-  visit root_path
+   portal_escolar =  Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
+                                     'atividades escolares', deadline_submission: 3.day.from_now, remote: true,
+                                     max_price_per_hour: 150, user: marcia)
+   login_as danilo, scope: :user
+
+   visit root_path
+   click_on "Meus Projetos"
+   
+   expect(current_path).to eq(projects_path) 
+   expect(page).to have_content('Ops, vocẽ ainda não cadastrou projetos na plataforma')
+   expect(page).to have_content('Cadastre seu primeiro projeto agora')
+   expect(page).to have_link('Novo Projeto')
+   expect(page).to_not have_content(portal_escolar.title)
  end
 end

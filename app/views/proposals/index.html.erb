@@ -1,0 +1,14 @@
+<% @proposals.each do |p| %>
+  <div class="well">
+     <section>
+       <h3>
+         <strong>Candidato: </strong> <hr>
+         <%= p.professional.profile.name %>
+         <%= p.professional.email %>
+       </h3>
+       <p>
+         <%= link_to 'Visualizar Proposta', proposal_path(p) %>
+        </p>
+    </section>
+  </div>
+<% end %>

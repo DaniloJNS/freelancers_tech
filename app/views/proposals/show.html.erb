@@ -16,4 +16,15 @@
     nome: <%= @proposal.professional.profile.name %>  </br>
     email: <%= @proposal.professional.email %> 
   </dd>
+  <% unless @proposal.pending?%>
+      <dd>Status</dd>
+      <dt> <%= Proposal.human_enum_name(:status, @proposal.status) %></dt>
+  <% end %>
+  <% if @proposal.pending? and current_user.present? and
+      current_user.project.exists? @proposal.project.id %>
+    <%= button_to "Aceitar", { action: 'update', id: @proposal.id, status: 'accepted' }, 
+      { method: :patch, data: { confirm: 'tem certeza?' } } %>
+    <%= button_to "Recusar", { action: 'update', id: @proposal.id, status: 'refused' }, 
+      { method: :patch, data: { confirm: 'tem certeza?' } } %>
+  <% end %>
 </aside>

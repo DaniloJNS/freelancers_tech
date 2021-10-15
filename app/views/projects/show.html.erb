@@ -30,6 +30,12 @@
       </nav>
     <% end %>
  <% end %>
+ <% if current_user.present? and 
+       current_user.project.exists? @project[:id] %>
+    <nav>
+       <%= link_to 'Ver Propostas', project_proposals_path(@project) %>
+    </nav>
+ <% end %>
     <nav>
       <%= link_to "Voltar", root_path %>
     </nav>
