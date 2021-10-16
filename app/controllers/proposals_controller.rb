@@ -19,8 +19,14 @@ class ProposalsController < ApplicationController
   end
   def update
     @proposal = Proposal.find(params[:id])
-    @proposal.update!(status: params[:status])
-    redirect_to(proposal_path(@proposal), notice: 'Proposta aceita com sucesso!')
+    @proposal.status = params[:status]
+    @proposal.feedback = params[:feedback] if @proposal.refused?
+    if @proposal.save
+      redirect_to(proposal_path(@proposal), notice: 'Proposta aceita com sucesso!')
+    else
+      @params = params
+      render :show
+    end
   end
   private
   def update_proposal_params

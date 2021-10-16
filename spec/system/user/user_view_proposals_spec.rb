@@ -132,7 +132,8 @@ describe 'user view proposals' do
    login_as carlos, scope: :user
    visit proposal_path(proposal_portal)
    click_on "Recusar" 
-
+   fill_in "Feedback", with: "adasda"
+   click_on "Enviar"
    expect(page).to have_content('Proposta aceita com sucesso')
    expect(page).to have_content('Recusado')
    expect(page).to_not have_button('Aceitar')

@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   resources :projects, only: [:new, :index, :show, :create] do
     get 'public', on: :collection
     get 'search', on: :collection
-    resources :proposals, only: %i[create show index update], shallow: true
+    resources :proposals, only: %i[create show index], shallow: true
   end
+  match 'proposals/:id', to: 'proposals#update', via: [:patch, :put, :post]
   resources :professionals do
     resources :profiles, only: %i[ new create]
   end
