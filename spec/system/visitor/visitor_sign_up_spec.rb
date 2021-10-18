@@ -3,15 +3,15 @@ require 'rails_helper'
 describe 'vistor sign up' do
   it 'using menu as professional' do
     visit root_path
-    click_on "Inscrever-se"
+    click_on "Inscreva-se"
 
-    expect(page).to have_link('Sou FreelancerTech', href: new_professional_registration_path)
+    expect(page).to have_link('Novo FreelancerTech', href: new_professional_registration_path)
   end
   it 'using menu as user' do
     visit root_path
-    click_on "Inscrever-se"
+    click_on "Inscreva-se"
 
-    expect(page).to have_link('Sou Usuário', href: new_user_registration_path)
+    expect(page).to have_link('Novo Usuário', href: new_user_registration_path)
   end
   it 'successfully as professional' do
 

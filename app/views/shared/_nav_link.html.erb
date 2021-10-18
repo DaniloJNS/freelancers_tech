@@ -1,36 +1,55 @@
 <% if user_signed_in? %>
-        <li><%= link_to 'Meus Projetos', projects_path %></li>
-        <li><small>Logado como <%= current_user.email %></small></li>
-        <li> <%= button_to 'Sair', destroy_user_session_path, method: :delete %> </li>
+        <%= link_to 'Meus Projetos', projects_path, class: "nav-text nav-link none" %>
+        <%= link_to 'Novo Projeto', new_project_path, class: "nav-text nav-link none" %>
+        <div class="dropdown">
+        <button id="b-drop"href="" 
+                   class="py-2 px-2 font-medium text-gray-500 rounded hover:bg-blue-600 hover:ring-4 hover:ring-indigo-300 hover:text-white transition duration-300">
+                  <%= current_user.email %>
+        </button>
+        <ul class="dropdown-toggle text-gray-500" id="drop">
+          <li> <%= button_to "Sair", destroy_user_session_path, method: :delete, form_class: "dropdown-menu-top bg-white border-l-4  hover:border-blue-500" %> </li>
+        </ul>
+        </div>
 <% end %>
-<% if professional_signed_in?%>
+<% if professional_signed_in? %>
         <% if current_professional.profile.present? %>
-        <li><%= link_to 'Meus Projetos', professional_projects_path(current_professional.profile.name) %></li>
+                <%= link_to 'Meus Projetos', professional_projects_path(current_professional.profile.name), class:"nav-text nav-link none" %>
         <% end %>
-        <li><small>Logado como <%= current_professional.email %></small></li>
-        <li> <%= button_to 'Sair', destroy_professional_session_path, method: :delete %> </li>
-<% else %>
-        <li>
-                <a href=<%= new_user_registration_path%>><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href=<%= new_user_session_path%>><span class="glyphicon glyphicon-log-in"></span> Entrar Sou Usuario</a></li>
-                <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <span class="glyphicon glyphicon-log-in"></span>
-                    Entrar
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href=<%= new_user_session_path%>>Sou usuário</a></li>
-                    <li><a href=<%= new_professional_session_path %>>Sou FreelancerTech</a></li>
-                  </ul>
-                </li>
-                <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <span class="glyphicon glyphicon-log-in"></span>
-                    Inscrever-se
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href=<%= new_user_registration_path%>>Sou Usuário</a></li>
-                    <li><a href=<%= new_professional_registration_path %>>Sou FreelancerTech</a></li>
-                  </ul>
-        </li>
+        <div class="dropdown">
+        <button id="b-drop"href="" 
+                   class="py-2 px-2 font-medium text-gray-500 rounded hover:bg-blue-600 hover:ring-4 hover:ring-indigo-300 hover:text-white transition duration-300">
+                <% if current_professional.profile.present? %>
+                  <%= current_professional.profile.name %>
+                <% else %>
+                <%= current_professional.email %>
+                <% end %>
+        </button>
+        <ul class="dropdown-toggle text-gray-500" id="drop">
+          <li> <%= button_to "Sair", destroy_professional_session_path,method: :delete, form_class: "dropdown-menu-top bg-white border-l-4  hover:border-blue-500" %> </li>
+        </ul>
+        </div>
+<% end %>
+
+<% unless user_signed_in? or professional_signed_in? %>
+<div class="dropdown">
+        <button id="b-drop"href="" 
+                   class="py-2 px-2 font-medium text-gray-500 rounded hover:bg-blue-600 hover:ring-4 hover:ring-indigo-300 hover:text-white transition duration-300">
+                  Entrar
+        </button>
+        <ul class="dropdown-toggle text-gray-500" id="drop">
+          <li> <%= link_to "Usuário", new_user_session_path, class: "dropdown-menu-top bg-white border-l-4  hover:border-blue-500" %> </li>
+          <li> <%= link_to "FreelancerTech", new_professional_session_path, class: "dropdown-menu-botton bg-white border-l-4  hover:border-blue-500" %> </li>
+        </ul>
+</div>
+<div class="dropdown">
+        <button id="b-drop-in"href="" 
+                   class="py-2 px-2 font-medium text-white bg-blue-700 rounded hover:bg-blue-600 transition duration-300">
+                  Inscreva-se
+        </button>
+        <ul class="dropdown-toggle text-gray-500" id="drop-in">
+          <li> <%= link_to "Novo Usuário", new_user_registration_path, class: "dropdown-menu-top bg-white border-l-4  hover:border-blue-500" %> </li>
+          <li> <%= link_to "Novo FreelancerTech", new_professional_registration_path, class: "dropdown-menu-botton bg-white border-l-4  hover:border-blue-500" %> </li>
+        </ul>
+</div>
+
 <% end %>

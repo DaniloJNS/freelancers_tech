@@ -1,35 +1,40 @@
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {style: "border:1px solid #ccc"}) do |f| %>
-    <div class="well">
-    <h1>Inscreva-se</h1>
-    <p>Por favor, preencha este formulário para criar uma conta.</p>
-    <hr>
+
+<div class="max-w-md w-full space-y-8 p-10 bg-white rounded-xl z-10 shadow-lg mx-auto my-20">
+  <div class="text-center">
+      <h2 class="mt-6 text-3xl font-bold text-gray-900">
+          Bem-vindo!
+      </h2>
+      <p class="mt-2 text-sm text-gray-600">Por favor registre sua conta</p>
+  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class:"mt-8 space-y-6" ) do |f| %>
           <%= render "professionals/shared/error_messages", resource: resource %>
 
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-        </div>
-        
+          <div class="relative">
+            <div class="absolute right-0 mt-4"><svg xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+          <%= f.label :email, class: "text-sm font-bold text-gray-700 tracking-wide" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: " w-full text-base py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" %>
+          </div>
 
-        <div class="field">
-          <%= f.label :password %>
+          <%= f.label :password, class: "text-sm font-bold text-gray-700 tracking-wide" %>
           <% if @minimum_password_length %>
           <em>(<%= @minimum_password_length %> characters minimum)</em>
           <% end %><br />
-          <%= f.password_field :password, autocomplete: "new-password" %>
-        </div>
+          <%= f.password_field :password, autocomplete: "new-password", class: " w-full text-base py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" %>
 
-        <div class="field">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-        </div>
-
-        <div class="clearfix">
-          <%= f.submit "Enviar", class: 'signupbtn' %>
-          <%= render "professionals/shared/links" %>
-        </div>
-     
-    </div>
+          <%= f.label :password_confirmation, class: "text-sm font-bold text-gray-700 tracking-wide" %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: " w-full text-base py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" %>
+          <div class="my-5">
+            <%= f.submit "Enviar", class:"w-full flex justify-center bg-indigo-500 text-gray-100 p-4  rounded-full tracking-wide
+                                  font-semibold  focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg cursor-pointer transition ease-in duration-300" %>
+            <p class="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
+                <span>Tem uma conta?</span>
+                  <%= link_to "Entrar agora", new_session_path(resource_name), class: "text-indigo-500 hover:text-indigo-500no-underline hover:underline cursor-pointer transition ease-in duration-300", id: 'lin' %><br />
+            </p>
+          </div>
   <% end %>
-

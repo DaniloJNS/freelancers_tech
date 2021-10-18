@@ -39,11 +39,11 @@ describe 'professional view projects' do
     
     expect(page).to have_content(blog.title) 
     expect(page).to have_content(blog.description)
-    expect(page).to have_content(blog.deadline_submission)
+    expect(page).to have_content(blog.days_remaining)
     
     expect(page).to have_content(portal_escola.title)
     expect(page).to have_content(portal_escola.description)
-    expect(page).to have_content(portal_escola.deadline_submission)
+    expect(page).to have_content(portal_escola.days_remaining)
 
   end
   it 'successfully and view a project' do

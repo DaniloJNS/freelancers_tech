@@ -2,7 +2,6 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :index]
   before_action :profile_complete_professsional!, only: [:show]
 
-  layout 'main'
   def show
     @project = Project.find(params[:id])
     @proposal = Proposal.new
@@ -45,6 +44,6 @@ class ProjectsController < ApplicationController
                                    :remote)}
   end
   def search_params
-    params.require(:q)
+    params[:q].present? ? params.require(:q) : "@#$!@"
   end
 end

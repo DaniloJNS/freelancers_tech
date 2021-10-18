@@ -1,14 +1,24 @@
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/">FreelancersTech</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <%= yield :nav_bar%>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-        <%= render '/shared/nav_link' %>
-    </ul>
+<nav class="bg-white px-5 border-b-2 boder-gray-900 shadow-md py-2">
+  <div class="flex justify-between container mx-auto">
+          <div class="flex space-x-7">
+              <div>
+                  <a href="#" class="flex items-center py-4 px-2">
+                    <span class="font-semibold text-black text-lg">FreelancersTECH</span>
+                  </a>
+              </div>
+
+              <ul class="hidden md:flex items-center space-x-2">
+                <li> <%= link_to "Home", root_path, class: "nav-text nav-link-active" %> </li>
+                <li> <%= link_to "Ver Projetos", public_projects_path, class: "nav-text nav-link" %> </li>
+                <%= yield :nav_bar %>
+              </ul>
+          </div>
+
+          <div class="hidden md:flex items-center space-x-5 mx-5">
+            <%= render "/shared/nav_link" %>
+          </div>
+
+  
   </div>
 </nav>
 

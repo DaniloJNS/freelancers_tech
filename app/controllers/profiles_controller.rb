@@ -1,6 +1,5 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_professional!, only: [:new, :create]
-  layout 'main'
   def new
     @profile = Profile.new
   end

@@ -1,9 +1,5 @@
-<%# <%= render "partials/nav_bar" %1> %>
-<% content_for :nav_bar do%>
-  <li class='active'><%= link_to 'Home', root_path%></li>
-  <li class=''><%= link_to 'Ver Projetos', public_projects_path%></li>
-  <% if user_signed_in? %>
-    <li class=''><%= link_to 'Novo Projeto', new_project_path %></li>
-  <% else %>
-  <% end %>
-<% end %>
+<div class="max-w-lg mx-auto mt-16 text-center max-w-sm rounded overflow-hidden shadow-lg p-10">
+  <h1 class="mb-4 text-3xl font-black">Here are all our users!</h1>
+  <p class="text-lg leading-snug">If this looks nice, it means Tailwind is set up properly.</p>
+</div>
+<p class='font-bold'>black</p>

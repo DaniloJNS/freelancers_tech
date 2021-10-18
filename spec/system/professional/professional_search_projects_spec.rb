@@ -20,16 +20,16 @@ describe 'professional search projects' do
  
     visit public_projects_path
 
-    fill_in "Busca", with: "Blog"
+    find('input#search').fill_in(with: "blog")
     click_on "Pesquisar"
 
     expect(current_path).to eq(search_projects_path) 
     expect(page).to have_content(blog.title)
     expect(page).to have_content(blog.description)
-    expect(page).to have_content(blog.deadline_submission)
+    expect(page).to have_content(blog.days_remaining)
     expect(page).to_not have_content(portal_escola.title)
     expect(page).to_not have_content(portal_escola.description) 
-    expect(page).to_not have_content(portal_escola.deadline_submission)
+    expect(page).to_not have_content(portal_escola.days_remaining)
   end
   it 'and found none' do
     carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
@@ -49,7 +49,7 @@ describe 'professional search projects' do
  
     visit public_projects_path
 
-    fill_in "Busca", with: "Lespm"
+    find('input#search').fill_in(with: "Lespm")
     click_on "Pesquisar"
     
     expect(current_path).to eq(search_projects_path)

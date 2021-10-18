@@ -12,21 +12,21 @@ describe 'visitor view projects' do
 
     login_as danilo, scope: :user
 
-    Project.create!(title: 'Ecommerce de carros', description: 'uma plataforma para venda, '\
+    ecommerce =Project.create!(title: 'Ecommerce de carros', description: 'uma plataforma para venda, '\
                     'troca e compra de carros', deadline_submission: 3.day.from_now, remote: true,
                     max_price_per_hour: 250, user: danilo)
-    Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
+    portal_escolar = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
                     'atividades escolares', deadline_submission: 5.day.from_now, remote: true,
                    max_price_per_hour: 150, user: marcia)
     visit root_path
     click_on "Ver Projetos"
 
-    expect(page).to have_content("Ecommerce de carros")
-    expect(page).to have_content("uma plataforma para venda, troca e compra de carros")
-    expect(page).to have_content(3.day.from_now.to_date) 
-    expect(page).to have_content("Portal Escolar")
-    expect(page).to have_content("Um portal para gerenciamento de atividades escolares")
-    expect(page).to have_content(5.day.from_now.to_date)
+    expect(page).to have_content(ecommerce.title)
+    expect(page).to have_content(ecommerce.description)
+    expect(page).to have_content(ecommerce.days_remaining) 
+    expect(page).to have_content(portal_escolar.title)
+    expect(page).to have_content(portal_escolar.description)
+    expect(page).to have_content(portal_escolar.days_remaining)
   end
 
   it 'and theres no projects available' do

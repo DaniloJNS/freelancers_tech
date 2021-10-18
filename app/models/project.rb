@@ -6,6 +6,13 @@ class Project < ApplicationRecord
             presence: true
   validates :max_price_per_hour, :numericality => { :greater_than => 0 }
   validate :date_past
+  def days_remaining
+    (deadline_submission - Date.current).to_i
+  end
+  def average_offer
+    0
+    self.proposal.map {|p| p.price_hour}.sum / self.proposal.size if self.proposal.size > 0
+  end
   private
   def date_past
       errors.add(:deadline_submission,
