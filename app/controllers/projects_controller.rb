@@ -6,6 +6,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @proposal = Proposal.new
   end
+
   def index
     @projects = current_user.project
   end
@@ -22,16 +23,26 @@ class ProjectsController < ApplicationController
       render 'new'
     end
   end
+  def update
+    if update_params  
+      @project = Project.find(update_params[:id])
+      @project.update!(status: update_params[:status])
+      redirect_to projects_path, notice: 'Inscrições encerradas com sucesso'
+    else
+      redirect_to projects_path, alert: 'Não foi possível realizar essa operação'
+    end
+  end
 
   def public
-    @projects = Project.all
+    @projects = Project.where("status = 0")
   end
 
   def search
     parameter = search_params
-    @projects = Project.where('title like ? OR description like ?', "%#{parameter}%", "%#{parameter}%")
+    @projects = Project.where('(title like ? OR description like ?) and status = ?', "%#{parameter}%",
+                              "%#{parameter}%", 0)
     if @projects.blank?
-      @projects = Project.all
+      @projects = Project.where("status = 0")
       flash[:alert] =  'Sua pesquisa não encontrou nenhum projeto correspondente'
     end
 
@@ -45,5 +56,9 @@ class ProjectsController < ApplicationController
   end
   def search_params
     params[:q].present? ? params.require(:q) : "@#$!@"
+  end
+  def update_params
+    params[:status].present? ? {status: params.require(:status), id: params.require(:id)} 
+    : false
   end
 end

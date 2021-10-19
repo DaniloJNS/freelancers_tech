@@ -1,0 +1,39 @@
+<% @projects.each do |p| %>
+  <div class="bg-white rounded-t mx-auto shadow-lg w-4/6 my-2">
+    <div class="h-16 bg-blue-500 rounded-t px-5 py-1 items-center text-white space-x-2 flex">
+      <div class="flex-grow">
+        <%= link_to p.title, project_path(p), class: "font-bold text-2xl inline-flex"%>
+        <% if p.open? %>
+          <em class="inline-flex"> <%= p.days_remaining %> dias restantes</em>
+        <% end %>
+      </div>
+      <div class="flex-none w-30 text-center">
+         <% if p.open? %>
+          <%= form_with url: project_path(p, status: "closed"), method: :patch do%>
+            <%= button_tag "Encerrar Inscrições", class: "font-bold bg-blue-500 transition-colors duration-700 text-white 
+            rounded-lg py-1 px-1 my-2 hover:bg-white hover:text-blue-500 focus:ring-4 focus:ring-blue-300"  %>
+          <% end %>
+        <% else %>
+            <%= link_to "Visualizar time", projects_path(p), class: "font-bold bg-blue-500 transition-colors duration-700 text-white 
+            rounded-lg py-1 px-1 my-2 hover:bg-white hover:text-blue-500 focus:ring-4 focus:ring-blue-300" %>
+        <% end %>
+        <% @p = p %>
+      </div>
+      <div class="flex-none w-24">
+        <%= render '/projects/views/status', object: @p %>
+      </div>
+    </div>
+    <div class="flex px-5 py-6">
+      <div class="w-3/4">
+        <dd class="px-5 font-semibold">Descrição</dd>
+        <dt class="px-10"> <%= p.description %> </dt>
+     </div>
+     <div>
+       <span class="font-semibold"><%=number_to_currency p.average_offer %></span>
+       <em>média</em>
+       <br>
+       <span> Ofertas <%= p.proposal.size %> </span>
+     </div>
+    </div>
+ </div>
+<% end %> 

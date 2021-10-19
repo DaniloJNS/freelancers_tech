@@ -2,17 +2,22 @@ class Project < ApplicationRecord
   belongs_to :user
   has_many :proposal
   has_many :professional, through: :proposal
+
   validates :title, :description, :deadline_submission, :max_price_per_hour, 
-            presence: true
+            presence: true, on: :create
   validates :max_price_per_hour, :numericality => { :greater_than => 0 }
-  validate :date_past
+  validate :date_past, on: :create
+
+  enum status: { open: 0, closed: 1, finished: 2 }
+
   def days_remaining
-    (deadline_submission - Date.current).to_i
+    0
+    (deadline_submission - Date.current).to_i if Date.current.before? deadline_submission
   end
   def average_offer
-    0
-    self.proposal.map {|p| p.price_hour}.sum / self.proposal.size if self.proposal.size > 0
+    self.proposal.average("price_hour")
   end
+
   private
   def date_past
       errors.add(:deadline_submission,

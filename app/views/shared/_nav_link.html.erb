@@ -7,7 +7,9 @@
                   <%= current_user.email %>
         </button>
         <ul class="dropdown-toggle text-gray-500" id="drop">
-          <li> <%= button_to "Sair", destroy_user_session_path, method: :delete, form_class: "dropdown-menu-top bg-white border-l-4  hover:border-blue-500" %> </li>
+          <%= form_with url: destroy_user_session_path, method: :delete do%>
+             <li> <%= button_tag "Sair", class: "dropdown-menu-top bg-white border-l-4  hover:border-blue-500" %>
+          <% end %>
         </ul>
         </div>
 <% end %>
@@ -25,7 +27,9 @@
                 <% end %>
         </button>
         <ul class="dropdown-toggle text-gray-500" id="drop">
-          <li> <%= button_to "Sair", destroy_professional_session_path,method: :delete, form_class: "dropdown-menu-top bg-white border-l-4  hover:border-blue-500" %> </li>
+          <%= form_with url: destroy_professional_session_path, method: :delete do%>
+            <li> <%= button_tag "Sair", class: "dropdown-menu-top bg-white border-l-4  hover:border-blue-500" %>
+          <% end %>
         </ul>
         </div>
 <% end %>

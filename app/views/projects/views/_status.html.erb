@@ -1,0 +1,17 @@
+<% if @p.open? %>
+  <div class="w-24 h-8 bg-green-300 text-green-600 rounded px-1 py-1 text-center font-semibold">
+    <%= @p.status %>
+  </div>
+<% end %>
+
+<% if @p.closed? %>
+  <div class="w-24 h-8 object-top bg-red-300 text-red-600 rounded px-1 py-1 text-center font-semibold ">
+    <%= @p.status %>
+  </div>
+<% end %>
+
+<% if @p.finished? %>
+  <div class="w-24 h-8 bg-gray-500 text-gray-900 rounded px-1 py-1 text-center font-semibold">
+    <%= @p.status %>
+  </div>
+<% end %>

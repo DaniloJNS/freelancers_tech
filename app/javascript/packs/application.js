@@ -10,10 +10,8 @@ import Turbolinks from "turbolinks";
 import "stylesheets/application";
 import Jquery from "jquery";
 require("packs/index");
+
 Rails.start();
 Turbolinks.start();
-ActiveStorage.start();
+// ActiveStorage.start();
 Jquery.start();
-// @section scripts {
-//     @Scripts.Render("packs/index.js")
-// }
