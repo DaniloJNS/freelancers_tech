@@ -13,9 +13,7 @@
 
   <dt class="font-semibold mt-2">Solicitante</dt>
   <dd class="mx-2">
-    <% if @proposal.professional.profile.valid? %>
       nome: <%= @proposal.professional.profile.name %>  <br>
-    <% end %>
       email: <%= @proposal.professional.email %> 
   </dd>
   <% unless @proposal.pending?%>
