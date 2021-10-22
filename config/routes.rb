@@ -5,18 +5,14 @@ Rails.application.routes.draw do
   root to: 'home#index'
   
   resources :projects, only: [:new, :show, :create, :index, :update] do
-    
     get 'public', on: :collection
     get 'search', on: :collection
-
     resources :proposals, only: %i[create show index], shallow: true do
-
       member do
         get 'approval'
         post :accepted
         post :refused
       end
-
     end
   end
   

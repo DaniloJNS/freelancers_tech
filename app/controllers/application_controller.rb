@@ -19,4 +19,4 @@ class ApplicationController < ActionController::Base
       redirect_to(root_path, notice: 'Faça o login')
     end
   end
-end
+  end

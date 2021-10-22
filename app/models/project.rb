@@ -17,11 +17,19 @@ class Project < ApplicationRecord
   def average_offer
     proposals.average("price_hour")
   end
+  def belongs_to? resource
+    if resource.instance_of? Professional
+      professionals.exists? resource.id
+    elsif resource.instance_of? User
+      user.eql? resource
+    else
+      false
+    end
+  end
 
   private
   def date_past
-      errors.add(:deadline_submission,
-                 'não pode está no passado') if not deadline_submission.nil? and 
-                deadline_submission.before? Date.current
+    errors.add(:deadline_submission,'não pode está no passado') if not deadline_submission
+          .nil? and deadline_submission.before? Date.current
   end
 end

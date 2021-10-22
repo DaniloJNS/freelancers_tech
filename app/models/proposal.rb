@@ -1,6 +1,6 @@
 class Proposal < ApplicationRecord
   belongs_to :professional
-  belongs_to :project
+  belongs_to :project, -> { includes :user }
 
   validates :justification, :price_hour, :weekly_hour, :completion_deadline,
             presence: true
@@ -10,8 +10,12 @@ class Proposal < ApplicationRecord
 
   enum status: { pending: 0, accepted: 1, refused: 2 } 
 
-  def belongs_to? user
-    user.proposals.exists? id
+  def belongs_to? resource
+    if resource.instance_of? User
+    project.user.eql? resource
+    else
+      false
+    end
   end
 
   private

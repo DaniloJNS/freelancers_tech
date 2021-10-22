@@ -20,23 +20,20 @@
      <dd><%= @project.user.email %></dd>
    </dl>
  </aside> 
- <% if current_professional.present? %> 
-    <% if current_professional.proposals.find_by(project_id: @project.id).blank?%>
-      <%= render '/shared/form_proposal' %>
-    <% else %>
-      <nav>
-         <%= link_to "Visualizar Proposta", proposal_path(current_professional.proposals
-                                                                       .find_by(project_id: @project.id)) %>
-      </nav>
-    <% end %>
+ <% if @project.belongs_to? current_professional %>
+   <nav>
+     <%= link_to "Visualizar Proposta", proposal_path(current_professional.proposals
+        .find_by(project_id: @project.id)) %>
+  </nav>
+ <% else %>
+   <%= render '/shared/form_proposal' %>
  <% end %>
- <% if current_user.present? and 
-       current_user.projects.exists? @project[:id] %>
-    <nav>
-       <%= link_to 'Ver Propostas', project_proposals_path(@project) %>
-    </nav>
+ <% if @project.belongs_to? current_user %>
+   <nav>
+     <%= link_to 'Ver Propostas', project_proposals_path(@project) %>
+   </nav>
  <% end %>
-    <nav>
-      <%= link_to "Voltar", root_path %>
-    </nav>
+ <nav>
+   <%= link_to "Voltar", root_path %>
+ </nav>
 </div>

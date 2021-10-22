@@ -1,25 +1,25 @@
-<aside>
-  <dt>Justificativa</dt>
-  <dd> <%= @proposal.justification %> </dd>
+<aside class="container w-1/2 mx-auto bg-white rounded-lg p-8 shadow-lg my-auto">
+  <dt class="font-semibold mt-2">Justificativa</dt>
+  <dd class="mx-2"> <%= @proposal.justification %> </dd>
 
-  <dt>Preço por hora</dt>
-  <dd> <%= number_to_currency @proposal.price_hour %> </dd>
+  <dt class="font-semibold mt-2">Preço por hora</dt>
+  <dd class="mx-2"> <%= number_to_currency @proposal.price_hour %> </dd>
 
-  <dt>Horas por semana</dt>
-  <dd> <%= @proposal.weekly_hour %> </dd>
+  <dt class="font-semibold mt-2">Horas por semana</dt>
+  <dd class="mx-2"> <%= @proposal.weekly_hour %> </dd>
 
-  <dt>Prazo de conclusão</dt>
-  <dd> <%= @proposal.completion_deadline %> dias</dd>
+  <dt class="font-semibold mt-2">Prazo de conclusão</dt>
+  <dd class="mx-2"> <%= @proposal.completion_deadline %> dias</dd>
 
-  <dt>Solicitante</dt>
-  <dd>
+  <dt class="font-semibold mt-2">Solicitante</dt>
+  <dd class="mx-2">
     <% if @proposal.professional.profile.valid? %>
       nome: <%= @proposal.professional.profile.name %>  <br>
     <% end %>
-    email: <%= @proposal.professional.email %> 
+      email: <%= @proposal.professional.email %> 
   </dd>
   <% unless @proposal.pending?%>
-      <dd>Status</dd>
-      <dt> <%= Proposal.human_enum_name(:status, @proposal.status) %></dt>
+    <dd class="font-semibold mt-2">Status</dd>
+    <dt class="mx-2"> <%= Proposal.human_enum_name(:status, @proposal.status) %></dt>
   <% end %>
 </aside>
