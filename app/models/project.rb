@@ -11,10 +11,12 @@ class Project < ApplicationRecord
   enum status: { open: 0, closed: 1, finished: 2 }
 
   def days_remaining
+    return (deadline_submission - Date.current).to_i if Date.current.before? deadline_submission
     0
-    (deadline_submission - Date.current).to_i if Date.current.before? deadline_submission
   end
   def average_offer
+    return 0 if proposals.average("price_hour").nil?
+    
     proposals.average("price_hour")
   end
   def belongs_to? resource

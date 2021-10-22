@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'user view proposals' do
-  it 'using link' do
+  it 'using link and not view functionalities for professionals' do
    carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
    marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
 
@@ -24,6 +24,12 @@ describe 'user view proposals' do
     
     expect(current_path).to eq(project_path(blog)) 
     expect(page).to have_link('Ver Propostas', href: project_proposals_path(blog))
+    expect(page).to_not have_content('Justificativa')
+    expect(page).to_not have_button('Enviar')
+    expect(page).to_not have_content('Valor/hora')
+    expect(page).to_not have_content('Prazo de conclusão')
+    expect(page).to_not have_content('Horas por seman')
+    expect(page).to_not have_link('Visualizar Prposta')
   end
   it 'successfully' do
     carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')

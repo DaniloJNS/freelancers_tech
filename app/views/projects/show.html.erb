@@ -22,10 +22,10 @@
  </aside> 
  <% if @project.belongs_to? current_professional %>
    <nav>
-     <%= link_to "Visualizar Proposta", proposal_path(current_professional.proposals
-        .find_by(project_id: @project.id)) %>
+     <%= link_to "Visualizar Proposta", proposal_path(current_professional
+                                        .proposal_id_of_a @project) %>
   </nav>
- <% else %>
+ <% elsif current_professional.present? %>
    <%= render '/shared/form_proposal' %>
  <% end %>
  <% if @project.belongs_to? current_user %>
