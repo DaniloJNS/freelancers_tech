@@ -25,7 +25,7 @@ describe 'professional fill profile' do
      click_on 'Enviar'
     end
 
-    expect(current_path).to_not eq(root_path) 
+    expect(current_path).to eq(new_professional_profile_path(danilo)) 
   end
   it 'successfully' do
     danilo = Professional.create!(email: "danilo@tech.com.br", password: "1234567")

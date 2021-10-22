@@ -1,0 +1,46 @@
+<aside>
+  <dt>Justificativa</dt>
+  <dd> <%= @proposal.justification %> </dd>
+
+  <dt>Preço por hora</dt>
+  <dd> <%= number_to_currency @proposal.price_hour %> </dd>
+
+  <dt>Horas por semana</dt>
+  <dd> <%= @proposal.weekly_hour %> </dd>
+
+  <dt>Prazo de conclusão</dt>
+  <dd> <%= @proposal.completion_deadline %> dias</dd>
+
+  <dt>Solicitante</dt>
+  <dd>
+    nome: <%= @proposal.professional.profile.name %>  <br>
+    email: <%= @proposal.professional.email %> 
+  </dd>
+  <% unless @proposal.pending?%>
+      <dd>Status</dd>
+      <dt> <%= Proposal.human_enum_name(:status, @proposal.status) %></dt>
+  <% end %>
+  <div class="alert">
+    <% if @proposal.errors.any? %>
+      <% @proposal.errors.full_messages_for(:feedback).each do |error| %>
+        <span> <%= error %> </span>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="items-hidden" >
+    <% if @proposal.pending? and @proposal.belongs_to? current_user%>
+      <%= form_with url: accepted_proposal_path(@proposal), method: :post do %>
+        <%= button_tag "Aceitar" %>
+    <% end %>
+    <%= button_tag 'Recusar', id: "refused"%>  
+  </div>
+  <div class="hidden items-hidden">
+    <%= form_with url: refused_proposal_path(@proposal), method: :post, id: "form-refused" do%>
+      <%= label_tag :feedback, "Feedback" %>
+      <%= text_field_tag :feedback %>
+      <%= submit_tag 'Enviar' %>
+    <% end %>
+    <%= button_tag 'Cancelar', id: "cancel" %>
+  </div>
+  <% end %>
+</aside>

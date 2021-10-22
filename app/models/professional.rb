@@ -4,7 +4,7 @@ class Professional < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :profile, dependent: :destroy
-  has_many :proposal
-  has_many :project, through: :proposal
+  has_many :proposals
+  has_many :projects, through: :proposals
 
 end

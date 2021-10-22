@@ -13,4 +13,10 @@ $(document).on("turbolinks:load", function () {
   $("#b-alert").click(function () {
     $("#alert").fadeOut();
   });
+  $("#refused").click(function () {
+    $(".items-hidden").fadeToggle();
+  });
+  $("#cancel").click(function () {
+    $(".items-hidden").fadeToggle();
+  });
 });

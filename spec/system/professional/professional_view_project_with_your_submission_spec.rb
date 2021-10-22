@@ -53,14 +53,14 @@ describe 'professional view projects with your submission' do
                    max_price_per_hour: 150, user: marcia)
  
    danilo = Professional.create!(email: "danilo@tech.com.br", password: "1234567")
-             Profile.create!(name: 'danilo', description: 'dev java', birth_date: 
-                             '13/8/1990', professional: danilo) 
+            Profile.create!(name: 'danilo', description: 'dev java', birth_date:
+                            '13/8/1990', professional: danilo) 
   
    login_as danilo, scope: :professional
    visit professional_projects_path(danilo)
 
    expect(current_path).to eq(professional_projects_path(danilo)) 
-   expect(page).to have_content('Ops, você ainda não tem propostas na plataforma')
+   expect(page).to have_content('Ops, você ainda não apresentou propostas na plataforma')
    expect(page).to_not have_content(blog.title)
    expect(page).to_not have_content(portal_escola.title)
  end

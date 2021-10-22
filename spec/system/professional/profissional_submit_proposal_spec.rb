@@ -85,7 +85,7 @@ describe 'profissional submit proposal' do
     
    visit project_path(blog)
    
-   expect(page).to have_link("Visualizar proposta", href: proposal_path(proposal)) 
+   expect(page).to have_link("Visualizar Proposta", href: proposal_path(proposal)) 
    expect(page).to_not have_link('Enviar', href: project_proposals_path(blog))
  end
 end

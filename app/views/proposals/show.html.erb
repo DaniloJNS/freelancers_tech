@@ -13,25 +13,13 @@
 
   <dt>Solicitante</dt>
   <dd>
-    nome: <%= @proposal.professional.profile.name %>  </br>
+    <% if @proposal.professional.profile.valid? %>
+      nome: <%= @proposal.professional.profile.name %>  <br>
+    <% end %>
     email: <%= @proposal.professional.email %> 
   </dd>
   <% unless @proposal.pending?%>
       <dd>Status</dd>
       <dt> <%= Proposal.human_enum_name(:status, @proposal.status) %></dt>
-  <% end %>
-  <% if @proposal.pending? and current_user.present? and
-      current_user.project.exists? @proposal.project.id%>
-    <%= button_to "Aceitar", { action: 'update', id: @proposal.id, status: 'accepted' }, 
-      { method: :patch, data: { confirm: 'tem certeza?' } } %>
-    <%= button_to "Recusar", { action: 'update', id: @proposal.id, status: 'refused' }, 
-      { method: :patch, data: { confirm: 'tem certeza?' } } %>
-  <% end %>
-    <% if @params.present? and @params[:action].eql? 'update' %>
-      <%= form_with url: proposal_path, method: :path do |pl|%>
-        <%= label_tag :feedback, "Feedback" %>
-        <%= text_field_tag :feedback %>
-      <%= submit_tag 'Enviar' %>
-    <% end %>
   <% end %>
 </aside>

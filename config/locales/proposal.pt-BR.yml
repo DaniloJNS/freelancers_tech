@@ -12,6 +12,6 @@ pt-BR:
         professional: "Profissional"
         project: "Projeto"
         statuses:
-          accepted: "Aceito"
           refused: "Recusado"
+          accepted: "Aceito"
           pending: "Pendente"

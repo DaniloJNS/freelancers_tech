@@ -1,7 +1,7 @@
 class Project < ApplicationRecord
   belongs_to :user
-  has_many :proposal
-  has_many :professional, through: :proposal
+  has_many :proposals
+  has_many :professionals, through: :proposals
 
   validates :title, :description, :deadline_submission, :max_price_per_hour, 
             presence: true, on: :create
@@ -15,7 +15,7 @@ class Project < ApplicationRecord
     (deadline_submission - Date.current).to_i if Date.current.before? deadline_submission
   end
   def average_offer
-    self.proposal.average("price_hour")
+    proposals.average("price_hour")
   end
 
   private
