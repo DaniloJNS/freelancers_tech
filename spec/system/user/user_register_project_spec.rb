@@ -20,7 +20,7 @@ describe 'user register project' do
     fill_in "Descrição", with: 'Uma aplicativo android para venda de produtos para pets'
     fill_in "Custo máximo por hora", with: 200
     fill_in 'Receber propostas até:', with: 1.week.from_now
-    check "remoto"
+    check "Remoto"
     click_on 'Enviar'
 
     

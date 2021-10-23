@@ -1,6 +1,6 @@
 class Proposal < ApplicationRecord
   belongs_to :professional
-  belongs_to :project, -> { includes :user }
+  belongs_to :project
 
   validates :justification, :price_hour, :weekly_hour, :completion_deadline,
             presence: true

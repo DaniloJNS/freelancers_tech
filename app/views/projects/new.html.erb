@@ -11,13 +11,13 @@
 
 <%=form_with model: @project do |p| %>
 
-  <%= p.label :title, "Título", class: "block mb-2 text-sm font-bold text-gray-700" %>
+  <%= p.label :title, class: "block mb-2 text-sm font-bold text-gray-700" %>
   <%= p.text_field :title, class: "w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" %>
 
-  <%= p.label :description, "Descrição", class: "block mb-2 text-sm font-bold text-gray-700" %>
+  <%= p.label :description, class: "block mb-2 text-sm font-bold text-gray-700" %>
   <%= p.text_field :description, class: "w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" %>
 
-  <%= p.label :remote, "remoto", class: "block mb-2 text-sm font-bold text-gray-700" %>
+  <%= p.label :remote, class: "block mb-2 text-sm font-bold text-gray-700" %>
   <%= p.check_box :remote, class: "px-3 py-2 text-sm leading-tight border" %>
 
   <%= p.label :max_price_per_hour, "Custo máximo por hora", class: "block mb-2 text-sm font-bold text-gray-700" %>

@@ -4,94 +4,55 @@ describe Proposal do
   context 'belongs_to' do
     let(:proposal) { subject }
     it 'professional must exists' do
-      proposal.valid?
-      expect(proposal.errors.full_messages_for(:professional)).to include(
-        'Profissional é obrigatório(a)'
-      )
+      should belong_to(:professional)
     end
-
-     it 'professional must exists' do
-      proposal.valid?
-      expect(proposal.errors.full_messages_for(:project)).to include(
-        'Projeto é obrigatório(a)'
-      )
+    it 'project must exists' do
+      should belong_to(:project)
     end
   end
   context 'validates' do
     context 'cant be blank' do
       let(:proposal) { subject }
       it 'justification' do
-        proposal.valid?
-        expect(proposal.errors.full_messages_for(:justification)).to include(
-          'Justificativa não pode ficar em branco'
-        ) 
+        should validate_presence_of(:justification)
       end
       it 'price_hour' do
-        proposal.valid?
-        expect(proposal.errors.full_messages_for(:price_hour)).to include(
-          'Preço por hora não pode ficar em branco'
-        ) 
+        should validate_presence_of(:price_hour)
       end
       it 'weekly_hour' do
-        proposal.valid?
-        expect(proposal.errors.full_messages_for(:weekly_hour)).to include(
-          'Horas por semana não pode ficar em branco'
-        ) 
+        should validate_presence_of(:weekly_hour)
       end
       it 'completion_deadline' do
-        proposal.valid?
-        expect(proposal.errors.full_messages_for(:completion_deadline)).to include(
-          'Prazo de conclusão não pode ficar em branco'
-        ) 
+        should validate_presence_of(:completion_deadline)
       end
-     
     end
     context 'is numericality' do
       let(:proposal) { subject }
       it 'price_hour' do
-        proposal.price_hour = 'sa'
-        proposal.valid?
-        expect(proposal.errors.full_messages_for(:price_hour)).to include(
-          'Preço por hora não é um número'
-        ) 
+        should validate_numericality_of(:price_hour)
       end
       it 'weekly_hour' do
-        proposal.weekly_hour = 'sa'
-        proposal.valid?
-        expect(proposal.errors.full_messages_for(:weekly_hour)).to include(
-          'Horas por semana não é um número'
-        ) 
+        should validate_numericality_of(:weekly_hour)
       end
       it 'completion_deadline' do
-        proposal.completion_deadline = 'sa'
-        proposal.valid?
-        expect(proposal.errors.full_messages_for(:completion_deadline)).to include(
-          'Prazo de conclusão não é um número'
-        ) 
+        should validate_numericality_of(:completion_deadline)
       end
     end
     context 'greater than 0' do
       let(:proposal) { subject }
       it 'price_hour' do
-        proposal.price_hour = -1
-        proposal.valid?
-        expect(proposal.errors.full_messages_for(:price_hour)).to include(
-          'Preço por hora deve ser maior que 0'
-        ) 
+        should validate_numericality_of(:price_hour).is_greater_than 0
       end
       it 'weekly_hour' do
-        proposal.weekly_hour = -1
-        proposal.valid?
-        expect(proposal.errors.full_messages_for(:weekly_hour)).to include(
-          'Horas por semana deve ser maior que 0'
-        ) 
+        should validate_numericality_of(:weekly_hour).is_greater_than 0
       end
       it 'completion_deadline' do
-        proposal.completion_deadline = -1
-        proposal.valid?
-        expect(proposal.errors.full_messages_for(:completion_deadline)).to include(
-          'Prazo de conclusão deve ser maior que 0'
-        ) 
+        should validate_numericality_of(:completion_deadline).is_greater_than 0
+      end
+    end
+    context 'enum' do
+      it 'status' do
+        should define_enum_for(:status).with_values([:pending, :accepted, :refused])
       end
     end
     context 'refused' do

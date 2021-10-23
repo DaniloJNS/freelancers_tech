@@ -6,16 +6,16 @@
   </ul>
   <% end %>
 <%= form_with model: @proposal, url: project_proposals_path(@project) do |pl|%>
-  <%= pl.label :justification, "Justificativa" %>
+  <%= pl.label :justification %>
   <%= pl.text_field :justification %>
 
   <%= pl.label :price_hour, "Valor/Hora" %>
   <%= pl.number_field :price_hour %>
 
-  <%= pl.label :weekly_hour, "Horas por semana" %>
+  <%= pl.label :weekly_hour %>
   <%= pl.number_field :weekly_hour, step: 1, min: 1 %>
 
-  <%= pl.label :completion_deadline, "Prazo de conclusão" %>
+  <%= pl.label :completion_deadline %>
   <%= pl.number_field :completion_deadline, step: 1, min: 1 %>
 
   <%= pl.submit "Enviar"%>
