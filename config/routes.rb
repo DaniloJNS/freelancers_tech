@@ -4,9 +4,12 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
   
-  resources :projects, only: [:new, :show, :create, :index, :update] do
-    get 'public', on: :collection
-    get 'search', on: :collection
+  resources :projects, only: [:new, :show, :create, :index] do
+    collection do
+      get 'public'
+      get 'search'
+    end
+    post :closed, on: :member
     resources :proposals, only: %i[create show index], shallow: true do
       member do
         get 'approval'

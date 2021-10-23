@@ -9,7 +9,7 @@
       </div>
       <div class="flex-none w-30 text-center">
          <% if p.open? %>
-          <%= form_with url: project_path(p, status: "closed"), method: :patch do%>
+          <%= form_with url: closed_project_path(p, status: "closed"), method: :post do%>
             <%= button_tag "Encerrar Inscrições", class: "font-bold bg-blue-500 transition-colors duration-700 text-white 
             rounded-lg py-1 px-1 my-2 hover:bg-white hover:text-blue-500 focus:ring-4 focus:ring-blue-300"  %>
           <% end %>
@@ -17,9 +17,9 @@
             <%= link_to "Visualizar time", projects_path(p), class: "font-bold bg-blue-500 transition-colors duration-700 text-white 
             rounded-lg py-1 px-1 my-2 hover:bg-white hover:text-blue-500 focus:ring-4 focus:ring-blue-300" %>
         <% end %>
-        <% @p = p %>
       </div>
       <div class="flex-none w-24">
+        <% @p = p %>
         <%= render '/projects/views/status', object: @p %>
       </div>
     </div>

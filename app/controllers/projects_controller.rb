@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :index]
+  before_action :authenticate_user!, only: [:new, :create, :index, :closed]
   before_action :profile_complete_professsional!, only: [:show]
 
   def show
@@ -23,10 +23,10 @@ class ProjectsController < ApplicationController
       render 'new'
     end
   end
-  def update
-    if update_params  
-      @project = Project.find(update_params[:id])
-      @project.update!(status: update_params[:status])
+  def closed
+    if closed_params  
+      @project = Project.find(closed_params[:id])
+      @project.update!(status: closed_params[:status])
       redirect_to projects_path, notice: 'Inscrições encerradas com sucesso'
     else
       redirect_to projects_path, alert: 'Não foi possível realizar essa operação'
@@ -57,7 +57,7 @@ class ProjectsController < ApplicationController
   def search_params
     params[:q].present? ? params.require(:q) : "@#$!@"
   end
-  def update_params
+  def closed_params
     params[:status].present? ? {status: params.require(:status), id: params.require(:id)} 
     : false
   end

@@ -73,6 +73,7 @@ describe 'professional view projects' do
     expect(page).to have_content(blog.deadline_submission)
     expect(page).to have_content('Não')
     expect(page).to have_content('R$ 190,00')
+    expect(page).to_not have_link('Ver Propostas')
   end
 
   it 'no theres projects available' do
