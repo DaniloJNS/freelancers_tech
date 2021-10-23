@@ -20,4 +20,10 @@
     <dd class="font-semibold mt-2">Status</dd>
     <dt class="mx-2"> <%= Proposal.human_enum_name(:status, @proposal.status) %></dt>
   <% end %>
+  <% if @proposal.has_feedback_for? current_professional %>
+    <div class="name">
+      <h3>Feedback</h3>
+     <%= @proposal.feedback %> 
+    </div>
+  <% end %>
 </aside>

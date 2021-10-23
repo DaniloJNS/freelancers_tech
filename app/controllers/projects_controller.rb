@@ -1,6 +1,5 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :index, :closed]
-  before_action :profile_complete_professsional!, only: [:show]
 
   def show
     @project = Project.find(params[:id])

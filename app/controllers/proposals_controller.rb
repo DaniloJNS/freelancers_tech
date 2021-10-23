@@ -52,9 +52,6 @@ class ProposalsController < ApplicationController
     end
   end
   private
-  def update_proposal_params
-    params.require(:id, :status)
-  end
   def proposal_params
     {project_id: params[:project_id], **params.require(:proposal)
       .permit(:justification, :price_hour, :weekly_hour, :completion_deadline)}

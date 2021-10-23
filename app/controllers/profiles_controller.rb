@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_professional!, only: [:new, :create]
+  skip_before_action :profile_complete_professsional!, only: [:new, :create]
   def new
     @profile = Profile.new
   end

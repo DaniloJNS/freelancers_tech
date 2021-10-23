@@ -87,5 +87,89 @@ describe 'profissional submit proposal' do
    
    expect(page).to have_link("Visualizar Proposta", href: proposal_path(proposal)) 
    expect(page).to_not have_link('Enviar', href: project_proposals_path(blog))
+   expect(page).to_not have_link('Ver Propostas')
+ end
+
+ it 'and view later' do
+  carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
+  marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
+
+  blog = Project.create!(title: 'Blog', description: 'Um simples blog',
+                         deadline_submission: 1.day.from_now, remote: false, 
+                         max_price_per_hour: 190, user: carlos)
+
+  portal_escola = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
+                  'atividades escolares', deadline_submission: 3.day.from_now, remote: true,
+                  max_price_per_hour: 150, user: marcia)
+  danilo = Professional.create!(email: "danilo@tech.com.br", password: "1234567")
+  Profile.create!(name: 'danilo', description: 'dev java', birth_date: '13/8/1990',
+                  professional: danilo) 
+  proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
+                              completion_deadline: 50, professional: danilo, project: blog)
+
+  login_as danilo, scope: :professional
+  visit project_path(blog)
+  click_on "Visualizar Proposta"
+  
+  expect(page).to have_content(proposal.justification)
+  expect(page).to have_content("R$ 100,00")
+  expect(page).to have_content(proposal.weekly_hour)
+  expect(page).to_not have_content(proposal.status)
+  expect(page).to_not have_content('Feedback')
+ end
+ it 'and view later with status accepted' do
+  carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
+  marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
+
+  blog = Project.create!(title: 'Blog', description: 'Um simples blog',
+                         deadline_submission: 1.day.from_now, remote: false, 
+                         max_price_per_hour: 190, user: carlos)
+
+  portal_escola = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
+                  'atividades escolares', deadline_submission: 3.day.from_now, remote: true,
+                  max_price_per_hour: 150, user: marcia)
+  danilo = Professional.create!(email: "danilo@tech.com.br", password: "1234567")
+  Profile.create!(name: 'danilo', description: 'dev java', birth_date: '13/8/1990',
+                  professional: danilo) 
+  proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
+                              completion_deadline: 50, professional: danilo, project: blog)
+  proposal.accepted!
+  login_as danilo, scope: :professional
+  visit project_path(blog)
+  click_on "Visualizar Proposta"
+  
+  expect(page).to have_content(proposal.justification)
+  expect(page).to have_content("R$ 100,00")
+  expect(page).to have_content(proposal.weekly_hour)
+  expect(page).to have_content("Aceito")
+  expect(page).to_not have_content('Feedback')
+ end
+ it 'and view later with status refused and feedback' do
+  carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
+  marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
+
+  blog = Project.create!(title: 'Blog', description: 'Um simples blog',
+                         deadline_submission: 1.day.from_now, remote: false, 
+                         max_price_per_hour: 190, user: carlos)
+
+  portal_escola = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
+                  'atividades escolares', deadline_submission: 3.day.from_now, remote: true,
+                  max_price_per_hour: 150, user: marcia)
+  danilo = Professional.create!(email: "danilo@tech.com.br", password: "1234567")
+  Profile.create!(name: 'danilo', description: 'dev java', birth_date: '13/8/1990',
+                  professional: danilo) 
+  proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
+                              completion_deadline: 50, professional: danilo, project: blog)
+  proposal.update!(status: "refused", feedback: "Optei por outro candidato")
+
+  login_as danilo, scope: :professional
+  visit project_path(blog)
+  click_on "Visualizar Proposta"
+
+  expect(page).to have_content(proposal.justification)
+  expect(page).to have_content("R$ 100,00")
+  expect(page).to have_content(proposal.weekly_hour)
+  expect(page).to have_content("Recusado")
+  expect(page).to have_content(proposal.feedback)
  end
 end

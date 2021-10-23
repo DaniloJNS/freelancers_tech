@@ -39,7 +39,8 @@ describe 'visitor log in' do
     
 
     expect(current_path).to eq(new_professional_profile_path(danilo)) 
-    expect(page).to have_content('Login efetuado com sucesso!') 
+    expect(page).to have_content('Por favor complete seu perfil antes de acessar a plata'\
+		   'forma') 
     expect(page).to have_content("#{danilo.email}") 
   end
   it 'successfully as professional with profile complete and return root path' do

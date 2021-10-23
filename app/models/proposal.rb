@@ -11,11 +11,12 @@ class Proposal < ApplicationRecord
   enum status: { pending: 0, accepted: 1, refused: 2 } 
 
   def belongs_to? resource
-    if resource.instance_of? User
-    project.user.eql? resource
-    else
-      false
-    end
+    resource.instance_of? User and
+      project.user.eql? resource
+  end
+  def has_feedback_for? resource
+    refused? and resource.instance_of? Professional and
+      professional.eql? resource
   end
 
   private

@@ -18,10 +18,8 @@ describe 'professional without profile' do
 
     login_as danilo, scope: :professional
     get projects_path(blog)
-    # get root_path
 
-    expect(response).to have_http_status(:unauthorized)
-    expect(response.body).to include('Para continuar, efetue login ou registre-se') 
+    expect(response).to redirect_to(new_professional_profile_path(danilo))
   end
   it 'cannot view your project index' do
 
@@ -31,6 +29,6 @@ describe 'professional without profile' do
 
     get professional_projects_path(danilo)
 
-    expect(response).to have_http_status(:moved_permanently) 
+    expect(response).to redirect_to(new_professional_profile_path(danilo))
   end
 end
