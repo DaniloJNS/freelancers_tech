@@ -1,0 +1,29 @@
+<% if @proposal.can_cancel? current_professional %>
+    <div class="name">
+
+      <% if @proposal.pending? %>
+        <%= form_with url: cancel_proposal_path(@proposal), method: :post do%>
+          <%= button_tag 'Cancelar Proposta' %>
+      <% end %>
+
+      <% elsif @proposal.accepted? %>
+       <% if @proposal.errors.any? %>
+         <% @proposal.errors.full_messages_for(:feedback).each do |error| %>
+           <span><%= error %></span>
+         <% end %>
+       <% end %>
+        <%= @proposal.days_remaning_for_cancel %>
+        <%= button_tag 'Cancelar Proposta', class: "cancel items-hidden" %>
+
+        <div class="hidden items-hidden">
+          <%= form_with url: cancel_proposal_path(@proposal), method: :post do%>
+            <%= label_tag :feedback, 'Feedback' %>
+            <%= text_field_tag :feedback %>
+            <%= button_tag 'Enviar' %>
+          <% end %>
+          <%= button_tag 'Cancelar', class: "hidden cancel items-hidden" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+

@@ -19,4 +19,7 @@ $(document).on("turbolinks:load", function () {
   $("#cancel").click(function () {
     $(".items-hidden").fadeToggle();
   });
+  $(".cancel").click(function () {
+    $(".items-hidden").fadeToggle();
+  });
 });

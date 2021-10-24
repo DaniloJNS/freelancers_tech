@@ -1,6 +1,6 @@
 require 'rails_helper'
-
 describe Proposal do
+  include ActiveSupport::Testing::TimeHelpers
   context 'belongs_to' do
     let(:proposal) { subject }
     it 'professional must exists' do
@@ -52,7 +52,7 @@ describe Proposal do
     end
     context 'enum' do
       it 'status' do
-        should define_enum_for(:status).with_values([:pending, :accepted, :refused])
+        should define_enum_for(:status).with_values([:pending, :accepted, :refused, :cancel])
       end
     end
     context 'refused' do
@@ -114,6 +114,100 @@ describe Proposal do
                                     completion_deadline: 50, professional: maicon, project: ecommerce)
 
         expect(proposal.has_feedback_for? maicon).to eq(false) 
+      end
+    end
+    context 'accepted' do
+      it 'can cancel proposal' do
+        danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+        maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
+                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                                 birth_date: '11/4/1990', professional: maicon)
+        ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
+                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                    max_price_per_hour: 250, user: danilo)
+        proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
+                                    completion_deadline: 50, professional: maicon, project: ecommerce)
+        proposal.update!(status: 'accepted')      
+        
+        travel_to 2.day.from_now do
+          expect(proposal.can_cancel? maicon).to eq(true) 
+        end
+      end
+      it 'can cancel in last day of deadline_submission' do
+        danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+        maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
+                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                                 birth_date: '11/4/1990', professional: maicon)
+        ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
+                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                    max_price_per_hour: 250, user: danilo)
+        proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
+                                    completion_deadline: 50, professional: maicon, project: ecommerce)
+        proposal.update!(status: 'accepted')      
+        
+        travel_to 3.day.from_now do
+          expect(proposal.can_cancel? maicon).to eq(true) 
+        end
+      end
+      it 'days remaming' do
+        danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+        maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
+                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                                 birth_date: '11/4/1990', professional: maicon)
+        ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
+                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                    max_price_per_hour: 250, user: danilo)
+        proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
+                                    completion_deadline: 50, professional: maicon, project: ecommerce)
+        proposal.update!(status: 'accepted')      
+        
+        expect(proposal.days_remaning_for_cancel).to eq(3) 
+      end
+      it 'days remaming on last day' do
+        danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+        maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
+                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                                 birth_date: '11/4/1990', professional: maicon)
+        ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
+                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                    max_price_per_hour: 250, user: danilo)
+        proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
+                                    completion_deadline: 50, professional: maicon, project: ecommerce)
+        proposal.update!(status: 'accepted')      
+        
+        travel_to 3.day.from_now do
+          expect(proposal.days_remaning_for_cancel).to eq(0) 
+        end
+      end
+      it 'cannot cancel proposal' do
+        danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+        maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
+                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                                 birth_date: '11/4/1990', professional: maicon)
+        ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
+                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                    max_price_per_hour: 250, user: danilo)
+        proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
+                                    completion_deadline: 50, professional: maicon, project: ecommerce)
+        proposal.update!(status: 'accepted')      
+        
+        travel_to 4.day.from_now do
+          expect(proposal.can_cancel? maicon).to eq(false) 
+        end
+      end
+      context 'pending' do
+        it 'can cancel' do
+          danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+          maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
+                   Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                                   birth_date: '11/4/1990', professional: maicon)
+          ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
+                                      'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                      max_price_per_hour: 250, user: danilo)
+          proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
+                                      completion_deadline: 50, professional: maicon, project: ecommerce)
+          expect(proposal.can_cancel? maicon).to eq(true)
+        end
       end
     end
   end

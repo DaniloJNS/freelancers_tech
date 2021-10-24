@@ -4,29 +4,52 @@ class Proposal < ApplicationRecord
 
   validates :justification, :price_hour, :weekly_hour, :completion_deadline,
             presence: true
-  validate :presence_feedback_on_refused, :duplicate_feeedback, on: :update
+  validate :presence_feedback_on_refused, :duplicate_feeedback, :presence_feedback_on_cancel,
+    on: :update
   validates :price_hour, :weekly_hour, :completion_deadline, :numericality => { :only => true,
   :greater_than => 0} 
 
-  enum status: { pending: 0, accepted: 1, refused: 2 } 
+  enum status: { pending: 0, accepted: 1, refused: 2, cancel: 3 } 
+  
+  before_save :deadline_for_cancel_in_accepted
 
   def belongs_to? resource
-    resource.instance_of? User and
+   if resource.instance_of? User 
       project.user.eql? resource
+   elsif resource.instance_of? Professional
+     professional.eql? resource
+   else
+     false
+   end
   end
   def has_feedback_for? resource
-    refused? and resource.instance_of? Professional and
-      professional.eql? resource
+    refused? and belongs_to? resource
   end
-
+  def can_cancel? resource
+    if belongs_to? resource and accepted?
+      Date.current <= deadline_cancel 
+    else
+      pending?
+    end
+  end
+  def days_remaning_for_cancel
+    return (deadline_cancel - Date.current).to_i if Date.current.before? deadline_cancel
+    0
+  end
   private
   def duplicate_feeedback
     errors.add(:feedback, "já existe") if feedback_changed? and not 
       feedback_in_database.nil?
   end
-
   def presence_feedback_on_refused
     errors.add(:feedback, 'não deve ficar em branco') if refused? and 
       feedback.blank?
+  end
+  def presence_feedback_on_cancel
+    errors.add(:feedback, 'não pode ficar em branco') if cancel? and 
+      status_in_database.eql? 'accepted' and feedback.blank?
+  end
+  def deadline_for_cancel_in_accepted
+    self.deadline_cancel = 3.day.from_now if status_changed? and accepted?
   end
 end

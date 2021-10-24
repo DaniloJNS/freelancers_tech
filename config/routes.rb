@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         get 'approval'
         post :accepted
         post :refused
+        post :cancel
       end
     end
   end
