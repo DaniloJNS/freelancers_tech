@@ -1,14 +1,18 @@
 <div class="container">
   
-  <aside>
+  <aside class="w-1/3 mx-auto bg-white shadow-lg rounded-lg m-3 bg-red-500">
     <% if @projects.empty? %>
-      <p>Ops, vocẽ ainda não cadastrou projetos na plataforma</p>
-      <p>Cadastre seu primeiro projeto agora</p>
-      <%= link_to "Novo Projeto", new_project_path, :class => "btn btn-info" %>
+      <div class="p-10 text-white text-2xl">
+        <p>Ops, você ainda não cadastrou projetos na plataforma</p>
+        <p class="mt-10">Cadastre seu primeiro projeto agora</p>
+      </div>
+      <%= link_to "Cadastrar Projeto", new_project_path, class: 'bg-gray-200 text-2xl text-center 
+      block p-2 hover:bg-blue-500 hover:text-white border-t-2 border-black' %>
     <% end %>
     <%# usar class text-alert do bootstrap aqui%>
   </aside>
   <%= render '/projects/views/user_project', object: @projects %>
-  <%= link_to 'Voltar', root_path, class: "bg-blue-500 border-2 border-blue-500 text-white rounded-lg text-center px-3 py-1 w-24
-             transition-colors duration-700 hover:bg-white hover:border-2 hover:border-blue-500 hover:text-gray-700" %>
+  <div class="w-5/6 mx-auto p-2">
+    <%= render ButtonComponent.new(text: "Voltar", p: 2) %>
+  </div>
 </div>

@@ -50,6 +50,17 @@
     @apply rounded-b px-2 py-2 block
 }
 
+@keyframes notification-countdown {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}
+.anime {
+    animation: notification-countdown 3s;
+}
 
 
 

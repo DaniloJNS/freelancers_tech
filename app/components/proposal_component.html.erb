@@ -1,0 +1,125 @@
+<div class="absolute hidden inset-10 items-center justify-center w-5/6 mx-auto bg-gray-100 bg-opacity-50 mt-10 h-screen py-10"
+     data-controller="proposal" id="proposal-show">
+        <div class="transition duration-700 max-w-4xl w-full bg-white rounded-lg mx-auto shadow-lg">
+          <div class="" data-proposal-target="info">
+            <%# header %>
+            <div class="p-4 border-b flex">
+              <div class="flex-grow">
+                <h2 class="text-2xl flex">
+                    Proposta
+                </h2>
+                <p class="text-sm text-gray-500">
+                    Detalhes e informações. 
+                </p>
+              </div>
+              <div class="flex-0">
+                <button data-action="proposal#close" class="ml-6 text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                  Fechar X
+              </button>
+              </div>
+           </div>
+           <%# body - start %>
+        <div>
+          <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+            <p class="text-gray-600 flex">
+              Justificativa
+            </p>
+            <p>
+              <%= @proposal.justification %>
+            </p>
+          </div>
+          <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+            <p class="text-gray-600">
+              Preço por hora
+            </p>
+            <p>
+              <%= number_to_currency @proposal.price_hour %>/h
+            </p>
+          </div>
+          <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+            <p class="text-gray-600">
+              Horas por semana
+            </p>
+            <p>
+              <%= @proposal.weekly_hour %> hrs
+            </p>
+          </div>
+          <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+            <p class="text-gray-600">
+              Prazo de conclusão
+            </p>
+            <p>
+              <%= @proposal.completion_deadline %> dias
+            </p>
+          </div>
+          <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+            <p class="text-gray-600">
+              Solicitante
+            </p>
+            <p>
+              <%= @proposal.professional.email %> 
+            </p>
+          </div>
+          <% unless @proposal.pending?%>
+            <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4">
+              <p class="text-gray-600">
+                Status
+              </p>
+              <p>
+                <%= Proposal.human_enum_name(:status, @proposal.status) %>
+              </p>
+            </div>
+          <% end %>
+
+        </div>
+     </div>
+
+    <% if @proposal.pending? and @proposal.belongs_to? @user %>
+
+    <div class="flex items-center justify-center" data-proposal-target="refused">
+
+      <div  data-action="click->proposal#close">
+          <%= render ButtonComponent.new(text: "Aceitar", path: accepted_proposal_path(@proposal), method: :post, color: "green", local: false) %>
+      </div>
+
+      <div class="name" data-action="click->proposal#refused">
+        <%= render ButtonComponent.new(text: "Recusar", path: "#", color: "red", method: :post) %>
+      </div>
+
+    </div>
+
+     <div class="hidden p-4 w-full overflow-hidden flex items-end" data-proposal-target="form">
+
+       <%= form_with url: refused_proposal_path(@proposal), method: :post, local: false, id: "form-refused", class: "flex-grow pl-20 items-center", 
+         data: { action: "ajax:success->proposal#replace" } do %>
+
+        <%= label_tag :feedback, "Feedback", class: "inline-block w-full text-blueGray-600 text- font-bold mb-2" %>
+
+        <%= text_field_tag :feedback, nil,class: "flex-grow border-2 border-gray-300 px-3 py-1 ml-8 placeholder-blueGray-300 
+        text-blueGray-600 h-20 bg-white rounded text-sm focus:outline-none focus:ring 
+       w-5/6 ease-linear transition-all duration-150" %>
+
+        <%= button_tag 'Enviar', class: "flex-0 bg-blue-500 border-2 py-1 px-2 rounded-lg text-white ml-2 transition-colors duration-700
+            hover:bg-white hover:text-blue-500 hover:border-2 hover:border-blue-500 focus:ring-4 focus:ring-blue-300",
+            data: { action: "proposal#close" } %>
+
+     <% end %>
+
+      <div class="flex-2 mb-5" >
+
+        <button data-action="proposal#close" class="ml-7 mb-10 text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+          Fechar X
+        </button>
+
+        <div data-action="click->proposal#cancel">
+          <%= button_tag "Cancelar", class: "mb-1 flex-0 bg-gray-500 border-2 py-1 px-2 rounded-lg text-white ml-2 transition-colors duration-700
+            hover:bg-white hover:text-gray-500 hover:border-2 hover:border-gray-500 focus:ring-4 focus:ring-gray-300" %>
+          <%# <%= render ButtonComponent.new(text: "Cancelar", path: "@", color: "gray") %1> %>
+        </div>
+
+     </div>
+
+    </div>
+
+  <% end %>
+</div> 

@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: projects
+#
+#  id                  :integer          not null, primary key
+#  title               :string
+#  description         :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  deadline_submission :date
+#  user_id             :integer          not null
+#  remote              :boolean          default(FALSE)
+#  max_price_per_hour  :decimal(, )
+#  status              :integer          default("open")
+#
 require 'rails_helper'
 
 describe Project do

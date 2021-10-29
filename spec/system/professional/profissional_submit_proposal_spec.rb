@@ -201,7 +201,7 @@ describe 'profissional submit proposal' do
   expect(page).to have_content('Proposta cancelada com sucesso')
   expect(page).to have_content('Cancelado')
   expect(page).to_not have_content('Feedback')
-  expect(page).to have_button('Cancelar Proposta')
+  expect(page).to_not have_button('Cancelar Proposta')
  end
  it 'and can cancel with status acceted and feedback present' do
   carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
@@ -232,7 +232,7 @@ describe 'profissional submit proposal' do
   expect(page).to_not have_content('Feedback')
   expect(page).to_not have_button('Cancelar Proposta')
  end
-  it 'and can cancel with status acceted and feedback ausent' do
+  it 'and cannot cancel with status acceted and feedback ausent' do
    carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
    marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
 

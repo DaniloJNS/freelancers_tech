@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: proposals
+#
+#  id                  :integer          not null, primary key
+#  justification       :text
+#  price_hour          :decimal(, )
+#  weekly_hour         :integer
+#  completion_deadline :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  professional_id     :integer          not null
+#  project_id          :integer          not null
+#  status              :integer          default("pending")
+#  feedback            :string
+#  deadline_cancel     :date
+#
 class Proposal < ApplicationRecord
   belongs_to :professional
   belongs_to :project
@@ -10,7 +27,8 @@ class Proposal < ApplicationRecord
   :greater_than => 0} 
 
   enum status: { pending: 0, accepted: 1, refused: 2, cancel: 3 } 
-  
+  scope :count_status, -> (parameter) { where(status: parameter).count }
+  scope :available, -> { where("status <> 3") }
   before_save :deadline_for_cancel_in_accepted
 
   def belongs_to? resource

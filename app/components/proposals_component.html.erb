@@ -1,0 +1,13 @@
+<div class="container mx-auto w-3/4 bg-gray-50 min-h-screen p-8 antialiased rounded-lg border-t-8 border-r-2 
+  border-l-2 border-black" id="proposal-main">
+  <h3 class="font-blod font-serif font-family-Cambria text-5xl text-center border-b-2 boder-black">Propostas</h3>
+  <div class="border-2 boder-gray-300 flex text-center m-2 w-1/2 text-gray-700">
+    <span class="bg-yellow-200 flex-1"> Pendentes <br> <%= @proposals.count_status(:pending) %></span>
+    <span class="bg-green-200 flex-1"> Aceitas <br> <%= @proposals.count_status(:accepted) %></span>
+    <span class="bg-red-200 flex-1"> Recusadas <br><%= @proposals.count_status(:refused) %></span>
+    <span class="bg-gray-200 flex-1"> Canceladas <br><%= @proposals.count_status(:cancel) %></span>
+  </div>
+  <div id="proposal-unit">
+    <%= render ProposalUnitComponent.with_collection(@proposals) %>
+  </div>
+</div>

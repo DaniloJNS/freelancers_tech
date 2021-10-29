@@ -1,0 +1,4 @@
+document.getElementById('main-div')
+  .insertAdjacentHTML("afterBegin", "<%=j render ProposalComponent.new(proposal: @proposal, user: current_user) %>");
+document.getElementById('notifications')
+  .insertAdjacentHTML("afterBegin", "<%=j render NotificationComponent.new(type: 'notice', data: "Solcitação Processada com Sucesso!!")%>");

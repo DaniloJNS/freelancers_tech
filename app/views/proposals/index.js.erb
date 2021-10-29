@@ -1,0 +1,5 @@
+document.getElementById('proposal-main').remove()
+document.getElementById('main-div')
+  .insertAdjacentHTML("afterBegin", "<%= j render ProposalsComponent.new(proposals: @proposals) %>"
+    )
+

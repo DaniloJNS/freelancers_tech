@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: profiles
+#
+#  id              :integer          not null, primary key
+#  name            :string
+#  social_name     :string
+#  description     :string
+#  birth_date      :date
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  professional_id :integer          not null
+#  age             :integer
+#
 class Profile < ApplicationRecord
   belongs_to :professional
   validates :name, :description, :birth_date, presence: true

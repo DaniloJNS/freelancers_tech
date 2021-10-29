@@ -11,6 +11,9 @@ gem 'puma', '~> 5.0'
 gem 'sass-rails', '>= 6'
 gem 'sqlite3', '~> 1.4'
 gem 'turbolinks', '~> 5'
+gem "view_component", require: "view_component/engine"
+gem 'importmap-rails'
+gem 'stimulus-rails'
 gem 'webpacker', '~> 5.0'
 
 group :development, :test do
@@ -19,6 +22,7 @@ group :development, :test do
   gem 'capybara'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'simplecov', require: false
+  gem 'annotate'
 end
 
 group :development do

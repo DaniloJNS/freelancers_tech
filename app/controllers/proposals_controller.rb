@@ -5,8 +5,7 @@ class ProposalsController < ApplicationController
   before_action :authenticate_professional_user!, only: [:show]
 
   def index
-    @proposals = Project.find(params[:project_id]).proposals.where(
-      "status <> ?", "3")
+    @proposals = Project.find(params[:project_id]).proposals.available
   end
 
   def create
@@ -25,19 +24,23 @@ class ProposalsController < ApplicationController
 
   def approval
     @proposal = Proposal.find(params_id)
-    unless @proposal.pending?
-      redirect_to proposal_path(@proposal, status: :moved_permanently)
-    end
   end
   
   def accepted
     @proposal = Proposal.find(params_id)
-    if @proposal.update(status: 'accepted')
-      redirect_to proposal_path(@proposal), notice: "Proposta aceita com sucesso"
-    else
-      redirect_to proposal_path(@proposal)
-      exption_proposal
-    end
+      if @proposal.update(status: 'accepted')
+	respond_to do |format|
+	  @proposals = @proposal.project.proposals.available
+	  format.js { render :index, notice: "Proposta aceita com sucesso"}
+	  format.html { redirect_to proposal_path(@proposal), notice: "Proposta aceita com sucesso" }
+	end
+      else
+	exption_proposal
+	respond_to do |format|
+	  format.js { redirect_to project_proposals_path(@proposal.project)}
+	  format.html { redirect_to proposal_path(@proposal) }
+	end
+      end
   end
   def cancel
     @proposal = Proposal.find(params_id)
@@ -56,11 +59,17 @@ class ProposalsController < ApplicationController
     @proposal.feedback = feedback_params
     @proposal.status = "refused"
     if @proposal.save
-      redirect_to(proposal_path(@proposal), notice: "Proposta recusada com sucesso")
+      respond_to do |format|
+	@proposals = @proposal.project.proposals.available
+	format.js {render :index, notice: "Proposta recusada com sucesso"}
+	format.html {redirect_to(proposal_path(@proposal), notice: "Proposta recusada com sucesso")}
+      end
     else
       @proposal.status = "pending"
-      exption_proposal
-      render :approval
+      respond_to do |format|
+	format.js 
+	format.html { render :approval }
+      end
     end
   end
   private

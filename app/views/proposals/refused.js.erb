@@ -1,0 +1,13 @@
+<% if @proposal.errors.any? %>
+        document.getElementById('notifications')
+    .insertAdjacentHTML("afterBegin", 
+        "<%=j render NotificationComponent.new(type: 'alert', data: {
+            title:"Problema encontrado durante o processo de validação",
+            body: @proposal.errors.full_messages.first
+        })%>");
+<% else %>
+    document.getElementById('proposal-main').remove()
+    document.getElementById('main-div')
+      .insertAdjacentHTML("afterBegin", "<%= j render ProposalsComponent.new(proposals: @proposals) %>"
+        )
+<% end %>

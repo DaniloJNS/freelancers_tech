@@ -66,12 +66,11 @@ describe 'user view proposals' do
     click_on "Ver Propostas"
 
     expect(current_path).to eq(project_proposals_path(blog)) 
-    expect(page).to have_content(danilo.profile.name)
+    expect(page).to have_content(danilo.profile.name.upcase)
     expect(page).to have_content(danilo.email)
-    expect(page).to have_link('Visualizar Proposta', href: approval_proposal_path(proposal_portal))
+    expect(page).to have_button('Visualizar Proposta')
     expect(page).to have_content(diego.profile.name)
     expect(page).to have_content(diego.email)
-    expect(page).to have_link('Visualizar Proposta', href: approval_proposal_path(proposal_portal_2))
     expect(page).to_not have_content(caio.profile.name)
     expect(page).to_not have_content(caio.email)
   end
@@ -111,10 +110,9 @@ describe 'user view proposals' do
     expect(current_path).to eq(project_proposals_path(blog)) 
     expect(page).to have_content(danilo.profile.name)
     expect(page).to have_content(danilo.email)
-    expect(page).to have_link('Visualizar Proposta', href: approval_proposal_path(proposal_portal))
+    expect(page).to have_button('Visualizar Proposta')
     expect(page).to have_content(diego.profile.name)
     expect(page).to have_content(diego.email)
-    expect(page).to have_link('Visualizar Proposta', href: approval_proposal_path(proposal_portal_2))
     expect(page).to_not have_content(caio.profile.name)
     expect(page).to_not have_content(caio.email)
   end
@@ -232,11 +230,11 @@ describe 'user view proposals' do
      proposal_portal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                         completion_deadline: 50, professional: danilo, project: blog)
      login_as carlos, scope: :user
-     visit approval_proposal_path(proposal_portal)
+     visit project_proposals_path(blog)
+     click_on "Visualizar Proposta"
      click_on "Recusar"
      click_on "Enviar"
      
-     expect(page).to have_content('Não foi possível realizar essa operação')
      expect(page).to have_content('Feedback não deve ficar em branco')
      expect(page).to_not have_content('Recusado')
      expect(page).to have_button('Aceitar')

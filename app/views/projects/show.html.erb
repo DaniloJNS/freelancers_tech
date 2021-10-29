@@ -1,39 +1,82 @@
-<div class="container">
- <aside>
-   <dl class='row'>
-     <dt>Título </dt>
-     <dd><%= @project.title %></dd>
+  
+<div class="items-center justify-center w-5/6 mx-auto">
+        <div class="max-w-4xl  bg-white w-full rounded-lg mx-auto shadow-lg m-10">
+        <div class="p-4 border-b flex">
+          <div class="flex-grow">
+            <h2 class="text-2xl flex">
+                Perfil do projeto
+            </h2>
+            <p class="text-sm text-gray-500">
+                Detalhes e informações. 
+            </p>
+          </div>
+          <% if @project.belongs_to? current_user %>
+            <nav class="flex-0 my-auto">
+              <%= render ButtonComponent.new(text: "Ver Propostas", path: project_proposals_path(@project)) %>
+            </nav>
+          <% end %>
+        </div>
+        <div>
+            <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+                <p class="text-gray-600 flex">
+                    Título
+                </p>
+                <p>
+                  <%= @project.title %>
+                </p>
+            </div>
+            <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+                <p class="text-gray-600">
+                  Descrição
+                </p>
+                <p>
+                  <%= @project.description %>
+                </p>
+            </div>
+            <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+                <p class="text-gray-600">
+                    Preço máximo por hora
+                </p>
+                <p>
+                    <%= number_to_currency(@project.max_price_per_hour) %>
+                </p>
+            </div>
+            <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+                <p class="text-gray-600">
+                    Remoto
+                </p>
+                <p>
+                  <%= @project.remote ? "Sim" : "Não" %>
+                </p>
+            </div>
+            <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+                <p class="text-gray-600">
+                    Prazo para submissões
+                </p>
+                <p>
+                  <%= @project.deadline_submission %>
+                </p>
+            </div>
+            <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4">
+                <p class="text-gray-600">
+                    Anuciador
+                </p>
+                <p>
+                  <%= @project.user.email %>
+                </p>
+            </div>
+        </div>
+    </div> 
+    <% if @project.belongs_to? current_professional %>
+      <nav>
+        <%= link_to "Visualizar Proposta", proposal_path(current_professional
+                                           .proposal_id_of_a @project) %>
+     </nav>
+    <% elsif current_professional.present? %>
+      <%= render '/shared/form_proposal' %>
+    <% end %>
+    <nav>
+      <%= render ButtonComponent.new(text: "Voltar", p: 2) %>
+    </nav>
+   </div>
 
-     <dt>Descrição</dt>
-     <dd><%=  @project.description %></dd>
-
-     <dt>Prazo para submissões</dt>
-     <dd><%= @project.deadline_submission %></dd>
-
-     <dt>Preço máximo por hora</dt>
-     <dd><%= number_to_currency(@project.max_price_per_hour) %></dd>
-
-     <dt>Remoto</dt>
-     <dd><%=  @project.remote ? 'Sim': 'Não' %></dd>
-
-     <dt>Anuciador</dt>
-     <dd><%= @project.user.email %></dd>
-   </dl>
- </aside> 
- <% if @project.belongs_to? current_professional %>
-   <nav>
-     <%= link_to "Visualizar Proposta", proposal_path(current_professional
-                                        .proposal_id_of_a @project) %>
-  </nav>
- <% elsif current_professional.present? %>
-   <%= render '/shared/form_proposal' %>
- <% end %>
- <% if @project.belongs_to? current_user %>
-   <nav>
-     <%= link_to 'Ver Propostas', project_proposals_path(@project) %>
-   </nav>
- <% end %>
- <nav>
-   <%= link_to "Voltar", root_path %>
- </nav>
-</div>

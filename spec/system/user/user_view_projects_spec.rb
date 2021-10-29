@@ -46,7 +46,7 @@ describe 'user view project' do
    click_on "Meus Projetos"
    
    expect(current_path).to eq(projects_path) 
-   expect(page).to have_content('Ops, vocẽ ainda não cadastrou projetos na plataforma')
+   expect(page).to have_content('Ops, você ainda não cadastrou projetos na plataforma')
    expect(page).to have_content('Cadastre seu primeiro projeto agora')
    expect(page).to have_link('Novo Projeto')
    expect(page).to_not have_content(portal_escolar.title)

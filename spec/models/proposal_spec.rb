@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: proposals
+#
+#  id                  :integer          not null, primary key
+#  justification       :text
+#  price_hour          :decimal(, )
+#  weekly_hour         :integer
+#  completion_deadline :integer
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  professional_id     :integer          not null
+#  project_id          :integer          not null
+#  status              :integer          default("pending")
+#  feedback            :string
+#  deadline_cancel     :date
+#
 require 'rails_helper'
 describe Proposal do
   include ActiveSupport::Testing::TimeHelpers

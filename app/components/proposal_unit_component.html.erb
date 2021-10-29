@@ -1,0 +1,24 @@
+<div class="mx-auto border-<%= @color %>-700 border-2 rounded-lg text-gray-700 mb-0.5 h-30 my-2 shadow-lg" >
+  <div class="flex p-3 border-l-8 border-<%= @color %>-500 rounded-lg">
+    <div class="space-y-1 border-r-2 pr-3 border-<%= @color %>-700">
+      <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> Oferta #</span> <%= number_to_currency @proposal.price_hour %>/h </div>
+        <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500 pr"> Prazo #</span> <%= @proposal.completion_deadline %> dias</div>
+        <div class="text-sm leading-5 font-semibold"> <%= @proposal.created_at %> </div>
+     </div>
+     <div class="flex-1">
+       <div class="ml-3 space-y-1 border-r-2 pr-3 border-<%= @color %>-700">
+         <div class="text-base leading-6 font-normal"> <%= @proposal.professional.profile.name.upcase %> </div>
+         <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Email</span> <%= @proposal.professional.email %></div>
+         <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Horas semanais</span> <%= @proposal.weekly_hour %> </div>
+       </div>
+     </div>
+     <div class="border-r-2 pr-3 items-center flex border-<%= @color %>-700">
+       <div class="items-center">
+         <%= render ButtonComponent.new(text: "Visualizar Proposta", path: approval_proposal_path(@proposal), method: :post, color: @color, local: false) %>
+       </div>
+    </div>
+    <div class="flex items-center ml-2">
+      <%= render StatusComponent.new(proposal: @proposal) %>
+    </div>
+  </div>
+</div>

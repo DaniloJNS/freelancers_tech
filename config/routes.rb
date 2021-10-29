@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   root to: 'home#index'
+  post "ajax", to: "home#ajax"
   
   resources :projects, only: [:new, :show, :create, :index] do
     collection do
@@ -12,8 +13,10 @@ Rails.application.routes.draw do
     post :closed, on: :member
     resources :proposals, only: %i[create show index], shallow: true do
       member do
-        get 'approval'
+        get :approval
+        post :approval
         post :accepted
+        get :refused
         post :refused
         post :cancel
       end

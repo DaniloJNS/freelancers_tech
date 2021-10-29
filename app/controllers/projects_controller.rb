@@ -33,15 +33,13 @@ class ProjectsController < ApplicationController
   end
 
   def public
-    @projects = Project.where("status = 0")
+    @projects = Project.available
   end
 
   def search
-    parameter = search_params
-    @projects = Project.where('(title like ? OR description like ?) and status = ?', "%#{parameter}%",
-                              "%#{parameter}%", 0)
+    @projects = Project.search(search_params)
     if @projects.blank?
-      @projects = Project.where("status = 0")
+      @projects = Project.available
       flash[:alert] =  'Sua pesquisa não encontrou nenhum projeto correspondente'
     end
 
