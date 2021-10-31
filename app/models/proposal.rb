@@ -21,11 +21,15 @@ class Proposal < ApplicationRecord
 
   validates :justification, :price_hour, :weekly_hour, :completion_deadline,
             presence: true
-  validate :presence_feedback_on_refused, :duplicate_feeedback, :presence_feedback_on_cancel,
-    on: :update
   validates :price_hour, :weekly_hour, :completion_deadline, :numericality => { :only => true,
   :greater_than => 0} 
 
+  validate :presence_feedback_on_refused, :duplicate_feeedback, :presence_feedback_on_cancel,
+    on: :update
+  validate  :block_new_proposals_if_not_open, on: :create
+  # validates_each :project do |proposal, attr, value|
+  #   proposal.errors.add attr, "Projeto não aceita mais propostas" unless proposal.project.open?
+  # end
   enum status: { pending: 0, accepted: 1, refused: 2, cancel: 3 } 
   scope :count_status, -> (parameter) { where(status: parameter).count }
   scope :available, -> { where("status<> 3 or feedback is not ?", nil) }
@@ -60,6 +64,10 @@ class Proposal < ApplicationRecord
     0
   end
   private
+  def block_new_proposals_if_not_open
+    errors.add(:project_id, "não pode receber novas propostas") if Project.find_by(id: project_id).present? and
+      not Project.find_by(id: project_id).open? 
+  end
   def duplicate_feeedback
     errors.add(:feedback, "já existe") if feedback_changed? and not 
       feedback_in_database.nil?

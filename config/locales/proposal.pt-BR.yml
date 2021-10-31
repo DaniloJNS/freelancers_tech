@@ -11,6 +11,7 @@ pt-BR:
         completion_deadline: "Prazo de conclusão"
         professional: "Profissional"
         project: "Projeto"
+        project_id: "Projeto"
         statuses:
           refused: "Recusado"
           accepted: "Aceito"

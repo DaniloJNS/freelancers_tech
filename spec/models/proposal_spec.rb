@@ -55,6 +55,40 @@ describe Proposal do
         should validate_numericality_of(:completion_deadline)
       end
     end
+    context 'with project' do
+      it 'status open can create proposal' do
+        danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+
+        maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
+                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                               birth_date: '11/4/1990', professional: maicon)
+
+        ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
+                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                     max_price_per_hour: 250, user: danilo)
+
+        proposal = Proposal.create(justification: "tenho habilidades para esse projeto", price_hour: 100, weekly_hour: 30,
+                         completion_deadline: 40, professional: maicon, project: ecommerce)
+
+        expect(proposal.errors.any?).to eq(false) 
+      end
+      it 'status if not open can not create proposal' do
+        danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+
+        maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
+                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                               birth_date: '11/4/1990', professional: maicon)
+
+        ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
+                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                     max_price_per_hour: 250, user: danilo, status: "closed")
+
+        proposal = Proposal.create(justification: "tenho habilidades para esse projeto", price_hour: 100, weekly_hour: 30,
+                         completion_deadline: 40, professional: maicon, project: ecommerce)
+
+        expect(proposal.errors.full_messages_for(:project_id)).to include("Projeto não pode receber novas propostas") 
+      end
+    end
     context 'greater than 0' do
       let(:proposal) { subject }
       it 'price_hour' do
@@ -134,6 +168,8 @@ describe Proposal do
         expect(proposal.has_feedback_for? maicon).to eq(false) 
         expect(proposal.has_feedback_for? danilo).to eq(false)
       end
+    end
+    context 'cancel' do
       it 'has feedback for user' do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
