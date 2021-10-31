@@ -28,7 +28,7 @@ class Proposal < ApplicationRecord
 
   enum status: { pending: 0, accepted: 1, refused: 2, cancel: 3 } 
   scope :count_status, -> (parameter) { where(status: parameter).count }
-  scope :available, -> { where("status <> 3") }
+  scope :available, -> { where("status<> 3 or feedback is not ?", nil) }
   before_save :deadline_for_cancel_in_accepted
 
   def belongs_to? resource
@@ -41,7 +41,12 @@ class Proposal < ApplicationRecord
    end
   end
   def has_feedback_for? resource
-    refused? and belongs_to? resource
+    false
+    if resource.instance_of? Professional
+      refused? and belongs_to? resource
+    elsif resource.instance_of? User
+      cancel? and feedback.present? and belongs_to? resource
+    end
   end
   def can_cancel? resource
     if belongs_to? resource and accepted?

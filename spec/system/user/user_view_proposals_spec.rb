@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'user view proposals' do
+describe 'user view proposals', js: true do
   it 'using link and not view functionalities for professionals' do
    carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
    marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
@@ -239,5 +239,27 @@ describe 'user view proposals' do
      expect(page).to_not have_content('Recusado')
      expect(page).to have_button('Aceitar')
      expect(page).to have_button('Recusar')
+    end
+
+    it 'with status cancel' do
+      danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+      maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
+
+      Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                      birth_date: '11/4/1990', professional: maicon)
+      ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
+                                  'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                  max_price_per_hour: 250, user: danilo)
+
+      proposal_portal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
+                                         completion_deadline: 50, professional: maicon, project: ecommerce,
+                                         status: "cancel", feedback: "Vou participar de outro projeto")
+
+      login_as danilo, scope: :user
+      visit project_proposals_path(ecommerce)
+      click_on "Visualizar Proposta"
+      
+      expect(page).to have_content('Feedback')
+      expect(page).to have_content(proposal_portal.feedback)
     end
 end

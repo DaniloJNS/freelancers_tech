@@ -51,6 +51,9 @@ proposal_portal = Proposal.create!(justification: 'Sou bom em java', price_hour:
 Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30, 
                  completion_deadline: 30, professional: diego, project: ecommerce)
 Proposal.create!(justification: "tenho habilidades para esse projeto", price_hour: 100, weekly_hour: 30,
-                 completion_deadline: 25, professional: caio, project: ecommerce)
+                 completion_deadline: 25, professional: caio, project: ecommerce, status: "cancel")
+Proposal.create!(justification: "tenho habilidades para esse projeto", price_hour: 100, weekly_hour: 30,
+                 completion_deadline: 40, professional: maicon, project: ecommerce,
+                 status: "cancel", feedback: "Vou participar de outro projeto")
 Proposal.create!(justification: "tenho habilidades para esse projeto", price_hour: 100, weekly_hour: 30,
                  completion_deadline: 40, professional: maicon, project: tabuleiro)
