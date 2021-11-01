@@ -21,6 +21,14 @@ describe Profile do
       should belong_to(:professional)
     end
   end
+  context 'has_many' do
+    it 'formations' do
+      should have_many(:formations)
+    end
+    it 'experiences' do
+      should have_many(:experiences)
+    end
+  end
   context 'validates' do
     let(:profile) { subject }
     context 'cant be blank' do

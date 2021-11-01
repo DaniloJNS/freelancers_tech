@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_24_122003) do
+ActiveRecord::Schema.define(version: 2021_10_31_233713) do
+
+  create_table "experiences", force: :cascade do |t|
+    t.string "company", null: false
+    t.string "office", null: false
+    t.string "description", null: false
+    t.date "start_date", null: false
+    t.date "end_date"
+    t.boolean "current_job", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "profile_id", null: false
+    t.index ["profile_id"], name: "index_experiences_on_profile_id"
+  end
+
+  create_table "formations", force: :cascade do |t|
+    t.string "university"
+    t.date "conclusion"
+    t.date "start"
+    t.boolean "status", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "profile_id", null: false
+    t.index ["profile_id"], name: "index_formations_on_profile_id"
+  end
 
   create_table "professionals", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -77,6 +101,8 @@ ActiveRecord::Schema.define(version: 2021_10_24_122003) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "experiences", "profiles"
+  add_foreign_key "formations", "profiles"
   add_foreign_key "profiles", "professionals"
   add_foreign_key "projects", "users"
   add_foreign_key "proposals", "professionals"

@@ -1,0 +1,17 @@
+<%= render ErrorMessagesComponent.new(model: @formation) %>
+<%= form_with model: [current_professional.profile, @formation] do |formation| %>
+  <%= formation.label :university, "Universidade" %>
+  <%= formation.text_field :university %>
+
+  <%= formation.label :status, "Concluído" %>
+  <%= formation.check_box :status %>
+
+  <%= formation.label :start, "Data de início" %>
+  <%= formation.date_field :start %>
+
+  <%= formation.label :conclusion, "Data de conclusão" %>
+  <%= formation.date_field :conclusion %>
+
+  <%= formation.submit "Enviar"%>
+<% end %>
+<%= render ButtonComponent.new(text: "Pular") %>

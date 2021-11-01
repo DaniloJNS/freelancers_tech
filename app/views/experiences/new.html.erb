@@ -1,0 +1,23 @@
+<%= render ErrorMessagesComponent.new(model: @experience) %>
+<%= form_with model: [current_professional.profile, @experience] do |exp|%>
+  <%= exp.label :company %>
+  <%= exp.text_field :company %>
+
+  <%= exp.label :office %>
+  <%= exp.text_field :office %>
+
+  <%= exp.label :description %>
+  <%= exp.text_field :description %>
+
+  <%= exp.label :start_date %>
+  <%= exp.date_field :start_date %>
+
+  <%= exp.label :end_date %>
+  <%= exp.date_field :end_date %>
+
+  <%= exp.label :current_job, "Trabalho Atual" %>
+  <%= exp.check_box :current_job %>
+
+  <%= exp.submit "Enviar" %>
+<% end %>
+

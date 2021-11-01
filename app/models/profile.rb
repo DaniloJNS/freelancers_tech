@@ -14,6 +14,8 @@
 #
 class Profile < ApplicationRecord
   belongs_to :professional
+  has_many :formations
+  has_many :experiences
   validates :name, :description, :birth_date, presence: true
   validate :legal_age
 

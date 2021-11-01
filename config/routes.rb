@@ -1,3 +1,6 @@
+# == Route Map
+#
+
 Rails.application.routes.draw do
   devise_for :professionals
   devise_for :users
@@ -24,7 +27,10 @@ Rails.application.routes.draw do
   end
   
   resources :professionals do
-    resources :profiles, only: %i[ new create]
+    resources :profiles, only: %i[ new create], shallow: true do
+      resources :formations, only: %i[new create], shallow: true
+	  resources :experiences, only: %i[new create], shallow: true
+    end
   end
 
   scope ':name', as: 'professional' do

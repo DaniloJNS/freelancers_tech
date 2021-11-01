@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
   def create
     @profile = Profile.new(profile_params)
     if @profile.save
-      redirect_to root_path, notice: 'Seu perfil está completo!'
+      redirect_to new_profile_formation_path(@profile), notice: 'Seu perfil está completo!'
     else
       render :new 
     end

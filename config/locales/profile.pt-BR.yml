@@ -3,6 +3,8 @@ pt-BR:
   activerecord:
     model:
       profile: "Perfil"
+      formation: "Formação"
+      experience: "Experiência"
     attributes:
       profile:
         name: "Nome"
@@ -11,3 +13,13 @@ pt-BR:
         social_name: "Nome social"
         professional: "Profissional"
         age: "Idade"
+      formation:
+        university: "Universidade"
+        conclusion: "Data de Conclusão"
+        start: "Data de Início"
+      experience:
+        company: "Empresa"
+        office: "Cargo"
+        start_date: "Data de Início"
+        end_date: "Data de termínio"
+        description: "Descrição"
