@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'user register project' do
   it 'using menu' do
-    danilo = User.create!(email: 'danilo@treinadev.com.br', password: '1234567')
+    danilo = create(:user)
 
     login_as danilo, scope: :user
     visit root_path
@@ -11,7 +11,7 @@ describe 'user register project' do
   end
 
   it 'successfully' do
-    danilo = User.create!(email: 'danilo@treinadev.com.br', password: '1234567')
+    danilo = create(:user)
 
     login_as danilo, scope: :user
     visit new_project_path
@@ -31,7 +31,7 @@ describe 'user register project' do
     expect(page).to have_content("Sim") 
   end
   it 'with fields empty' do
-    danilo = User.create!(email: 'danilo@treinadev.com.br', password: '1234567')
+    danilo = create(:user)
 
     login_as danilo, scope: :user
     visit new_project_path

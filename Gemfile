@@ -17,6 +17,7 @@ gem 'stimulus-rails'
 gem 'webpacker', '~> 5.0'
 
 group :development, :test do
+  gem 'factory_bot_rails'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
   gem 'capybara'

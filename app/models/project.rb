@@ -28,6 +28,8 @@ class Project < ApplicationRecord
   scope :available, -> { where(status: 0) }
   scope :search, -> (parameter) { where('(title like ? OR description like ?) and 
                                        status = ?', "%#{parameter}%", "%#{parameter}%", 0) }
+  
+  after_initialize :is_closed?
 
   def days_remaining
     return (deadline_submission - Date.current).to_i if Date.current.before? deadline_submission
@@ -35,7 +37,6 @@ class Project < ApplicationRecord
   end
   def average_offer
     return 0 if proposals.average("price_hour").nil?
-    
     proposals.average("price_hour")
   end
   def belongs_to? resource
@@ -47,6 +48,9 @@ class Project < ApplicationRecord
     end
   end
   private
+  def is_closed?
+    closed! if deadline_submission.present? and Date.current.after? deadline_submission
+  end
   def date_past
     errors.add(:deadline_submission,'não pode está no passado') if not deadline_submission
           .nil? and deadline_submission.before? Date.current
