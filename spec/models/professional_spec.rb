@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: professionals
@@ -31,28 +33,21 @@ describe Professional do
   context 'methods' do
     context 'proposal_id_a' do
       it 'have project' do
-        danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
-        maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                        birth_date: '11/4/1990', professional: maicon)
+        danilo = create(:professional)
+        create(:profile, professional: danilo)
 
-        project = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
-                                                                        'atividades escolares', deadline_submission: 5.days.from_now, remote: true,
-                                  max_price_per_hour: 150, user: danilo)
-        proposal = Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
-                                    completion_deadline: 30, professional: maicon, project: project)
-        expect(maicon.proposal_id_of_a(project)).to eq(proposal)
+        project = create(:project)
+        proposal = create(:proposal, project: project, professional: danilo)
+
+        expect(danilo.proposal_id_of_a(project)).to eq(proposal)
       end
       it 'have not project' do
-        danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
-        maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                        birth_date: '11/4/1990', professional: maicon)
+        danilo = create(:professional)
+        create(:profile, professional: danilo)
 
-        project = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
-                                                                        'atividades escolares', deadline_submission: 5.days.from_now, remote: true,
-                                  max_price_per_hour: 150, user: danilo)
-        expect(maicon.proposal_id_of_a(project)).to eq(nil)
+        project = create(:project)
+
+        expect(danilo.proposal_id_of_a(project)).to eq(nil)
       end
     end
   end

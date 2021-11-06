@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+require 'English'
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create index closed]
 
@@ -55,7 +58,7 @@ class ProjectsController < ApplicationController
   end
 
   def search_params
-    params[:q].present? ? params.require(:q) : "@#{$!}@"
+    params[:q].present? ? params.require(:q) : "@#{$ERROR_INFO}@"
   end
 
   def closed_params

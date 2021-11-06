@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: formations
@@ -39,16 +41,16 @@ describe Formation do
           formation.conclusion = 1.day.from_now
           formation.valid?
 
-          expect(formation.errors.full_messages_for(:conclusion)).to include('Data '\
-                                                                             'de Conclusão não pode está no futuro')
+          expect(formation.errors.full_messages_for(:conclusion)).to include(
+            'Data de Conclusão não pode está no futuro')
         end
         it 'can not be in the past if status in progress' do
           formation.status = false
           formation.conclusion = 1.day.ago
           formation.valid?
 
-          expect(formation.errors.full_messages_for(:conclusion)).to include('Data '\
-                                                                             'de Conclusão não pode está no passado')
+          expect(formation.errors.full_messages_for(:conclusion)).to include(
+            'Data de Conclusão não pode está no passado')
         end
       end
       context 'start' do
@@ -59,8 +61,8 @@ describe Formation do
           formation.conclusion = 1.day.from_now
           formation.valid?
 
-          expect(formation.errors.full_messages_for(:start)).to include('Data '\
-                                                                        'de Início não pode está numa data anterior à Data de Conclusão')
+          expect(formation.errors.full_messages_for(:start)).to include(
+            'Data de Início não pode está numa data anterior à Data de Conclusão')
         end
       end
     end

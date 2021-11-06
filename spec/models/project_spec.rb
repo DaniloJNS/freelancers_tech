@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: projects
@@ -88,87 +90,50 @@ describe Project do
       context 'belongs_to' do
         context 'professional' do
           it 'has proposal' do
-            maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-            Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                            birth_date: '11/4/1990', professional: maicon)
-            danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+            danilo = create(:professional)
+            create(:profile, professional: danilo)
 
-            project = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                                                                  'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
-                                      max_price_per_hour: 250, user: danilo)
-            proposal = Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
-                                        completion_deadline: 30, professional: maicon, project: project)
+            project = create(:project)
+            proposal = create(:proposal, project: project, professional: danilo)
 
-            expect(project.belongs_to?(maicon)).to eq(true)
+            expect(project.belongs_to?(danilo)).to eq(true)
           end
         end
         it 'has not proposal' do
-          maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-          Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                          birth_date: '11/4/1990', professional: maicon)
-          danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+          danilo = create(:professional)
+          create(:profile, professional: danilo)
 
-          project = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
-                                    max_price_per_hour: 250, user: danilo)
-          proposal = Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
-                                      completion_deadline: 30, professional: maicon, project: project)
-          caio = Professional.create!(email: 'caio_comp@mail.com', password: '1234567')
-          Profile.create!(name: 'caio', description: 'Dev front-end react',
-                          birth_date: '11/4/1990', professional: caio)
-          expect(project.belongs_to?(caio)).to eq(false)
+          project = create(:project)
+
+          expect(project.belongs_to?(danilo)).to eq(false)
         end
       end
       context 'user' do
         it 'real' do
-          danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+          danilo = create(:user)
 
-          project = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
-                                    max_price_per_hour: 250, user: danilo)
+          project = create(:project, user: danilo)
+
           expect(project.belongs_to?(danilo)).to eq(true)
         end
         it 'unreal' do
-          danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
-          jackson = User.create!(email: 'jack_dev@c6consultoria.com.br', password: '123456')
+          jackson = create(:user)
+          danilo = create(:user)
 
-          project = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
-                                    max_price_per_hour: 250, user: danilo)
+          project = create(:project, user: danilo)
 
           expect(project.belongs_to?(jackson)).to eq(false)
         end
       end
       context 'average_offer' do
         it 'with many proposals' do
-          maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-          Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                          birth_date: '11/4/1990', professional: maicon)
-          caio = Professional.create!(email: 'caio_comp@mail.com', password: '1234567')
-          Profile.create!(name: 'caio', description: 'Dev front-end react',
-                          birth_date: '11/4/1990', professional: caio)
-          diego = Professional.create!(email: 'diego_comp@mail.com', password: '1234567')
-          Profile.create!(name: 'diego', description: 'Dev front-end vue js',
-                          birth_date: '11/4/1990', professional: diego)
-          danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
+          project = create(:project)
+          proposal = create_list(:proposal, 10, project: project, price_hour: 100)
 
-          project = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
-                                    max_price_per_hour: 250, user: danilo)
-          proposal = Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
-                                      completion_deadline: 30, professional: maicon, project: project)
-          Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
-                           completion_deadline: 30, professional: diego, project: project)
-          Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
-                           completion_deadline: 25, professional: caio, project: project)
           expect(project.average_offer).to eq(100)
         end
         it 'without proposals' do
-          danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
-
-          project = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
-                                    max_price_per_hour: 250, user: danilo)
+          project = create(:project)
 
           expect(project.average_offer).to eq(0)
         end

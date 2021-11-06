@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: projects
@@ -61,11 +63,11 @@ class Project < ApplicationRecord
   private
 
   def is_closed?
-    closed! if deadline_submission.present? and Date.current.after? deadline_submission
+    closed! if deadline_submission.present? && Date.current.after?(deadline_submission)
   end
 
   def date_past
     errors.add(:deadline_submission, 'não pode está no passado') if !deadline_submission
-                                                                    .nil? and deadline_submission.before? Date.current
+                                                                    .nil? && deadline_submission.before?(Date.current)
   end
 end

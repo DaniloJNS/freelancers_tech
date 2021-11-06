@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: profiles
@@ -26,8 +28,8 @@ class Profile < ApplicationRecord
   private
 
   def legal_age
-    if age.present? and
-       18 > age
+    if age.present? &&
+       (age < 18)
       errors.add(:age,
                  'deve ser maior que 18 anos')
     end

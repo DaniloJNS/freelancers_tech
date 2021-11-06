@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: formations
@@ -19,9 +21,9 @@ class Formation < ApplicationRecord
   private
 
   def conclusion_valid
-    errors.add :conclusion, 'não pode está no futuro' if !conclusion.nil? and Date.current.before? conclusion and
+    errors.add :conclusion, 'não pode está no futuro' if !conclusion.nil? && Date.current.before?(conclusion) &&
                                                          status
-    if !conclusion.nil? and !Date.current.before? conclusion and
+    if !conclusion.nil? && !Date.current.before?(conclusion) &&
        !status
       errors.add :conclusion,
                  'não pode está no passado'
@@ -29,7 +31,7 @@ class Formation < ApplicationRecord
   end
 
   def start_valid
-    errors.add :start, 'não pode está numa data anterior à Data de Conclusão' if !conclusion.nil? and
-                                                                                 !start.nil? and conclusion.before? start
+    errors.add :start, 'não pode está numa data anterior à Data de Conclusão' if !conclusion.nil? &&
+                                                                                 !start.nil? && conclusion.before?(start)
   end
 end

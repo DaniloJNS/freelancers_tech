@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProfilesController < ApplicationController
   before_action :authenticate_professional!, only: %i[new create]
   skip_before_action :profile_complete_professsional!, only: %i[new create]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProposalsController < ApplicationController
   before_action :authenticate_user!, only: %i[index approval
                                               accepted refused]

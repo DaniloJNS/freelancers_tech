@@ -1,24 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'user view proposals', js: true do
   it 'using link and not view functionalities for professionals' do
-    carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
-    marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
+    carlos = create(:user)
 
-    blog = Project.create!(title: 'Blog', description: 'Um simples blog',
-                           deadline_submission: 1.day.from_now, remote: false,
-                           max_price_per_hour: 190, user: carlos)
-
-    portal_escola = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
-                                                                          'atividades escolares', deadline_submission: 3.days.from_now, remote: true,
-                                    max_price_per_hour: 150, user: marcia)
-
-    danilo = Professional.create!(email: 'danilo@tech.com.br', password: '1234567')
-    Profile.create!(name: 'danilo', description: 'dev java', birth_date: '13/8/1990',
-                    professional: danilo)
-
-    proposal_portal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
-                                       completion_deadline: 50, professional: danilo, project: blog)
+    blog = create(:project, user: carlos)
+    proposal_portal = create(:proposal, project: blog)
 
     login_as carlos, scope: :user
     visit project_path(blog)
@@ -33,33 +22,19 @@ describe 'user view proposals', js: true do
     expect(page).to_not have_link('Visualizar Proposta')
   end
   it 'successfully' do
-    carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
-    marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
+    carlos = create(:user)
+    blog = create(:project, user: carlos)
 
-    blog = Project.create!(title: 'Blog', description: 'Um simples blog',
-                           deadline_submission: 1.day.from_now, remote: false,
-                           max_price_per_hour: 190, user: carlos)
+    danilo = create(:professional)
+    create(:profile, professional: danilo)
+    diego = create(:professional)
+    create(:profile, professional: diego)
+    caio = create(:professional)
+    create(:profile, professional: caio)
 
-    portal_escola = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
-                                                                          'atividades escolares', deadline_submission: 3.days.from_now, remote: true,
-                                    max_price_per_hour: 150, user: marcia)
-
-    danilo = Professional.create!(email: 'danilo@tech.com.br', password: '1234567')
-    caio =   Professional.create!(email: 'caio_comp@mail.com', password: '1234567')
-    diego =  Professional.create!(email: 'diego_comp@mail.com', password: '1234567')
-    Profile.create!(name: 'danilo', description: 'dev java',
-                    birth_date: '13/8/1990', professional: danilo)
-    Profile.create!(name: 'caio', description: 'Dev front-end react',
-                    birth_date: '11/4/1990', professional: caio)
-    Profile.create!(name: 'diego', description: 'Dev front-end vue js',
-                    birth_date: '11/4/1990', professional: diego)
-
-    proposal_portal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
-                                       completion_deadline: 50, professional: danilo, project: blog)
-    Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
-                     completion_deadline: 25, professional: caio, project: portal_escola)
-    proposal_portal_2 = Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
-                                         completion_deadline: 30, professional: diego, project: blog)
+    create(:proposal, project: blog, professional: danilo)
+    create(:proposal, project: blog, professional: diego)
+    create(:proposal, professional: caio)
 
     login_as carlos, scope: :user
     visit project_path(blog)
@@ -69,110 +44,77 @@ describe 'user view proposals', js: true do
     expect(page).to have_content(danilo.profile.name.upcase)
     expect(page).to have_content(danilo.email)
     expect(page).to have_button('Visualizar Proposta')
-    expect(page).to have_content(diego.profile.name)
+    expect(page).to have_content(diego.profile.name.upcase)
     expect(page).to have_content(diego.email)
-    expect(page).to_not have_content(caio.profile.name)
+    expect(page).to_not have_content(caio.profile.name.upcase)
     expect(page).to_not have_content(caio.email)
   end
   it 'successfully wihout view proposals canceled' do
-    carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
-    marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
+    carlos = create(:user)
+    blog = create(:project, user: carlos)
 
-    blog = Project.create!(title: 'Blog', description: 'Um simples blog',
-                           deadline_submission: 1.day.from_now, remote: false,
-                           max_price_per_hour: 190, user: carlos)
+    danilo = create(:professional)
+    create(:profile, professional: danilo)
+    diego = create(:professional)
+    create(:profile, professional: diego)
+    caio = create(:professional)
+    create(:profile, professional: caio)
 
-    portal_escola = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
-                                                                          'atividades escolares', deadline_submission: 3.days.from_now, remote: true,
-                                    max_price_per_hour: 150, user: marcia)
-
-    danilo = Professional.create!(email: 'danilo@tech.com.br', password: '1234567')
-    caio =   Professional.create!(email: 'caio_comp@mail.com', password: '1234567')
-    diego =  Professional.create!(email: 'diego_comp@mail.com', password: '1234567')
-    Profile.create!(name: 'danilo', description: 'dev java',
-                    birth_date: '13/8/1990', professional: danilo)
-    Profile.create!(name: 'caio', description: 'Dev front-end react',
-                    birth_date: '11/4/1990', professional: caio)
-    Profile.create!(name: 'diego', description: 'Dev front-end vue js',
-                    birth_date: '11/4/1990', professional: diego)
-
-    proposal_portal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
-                                       completion_deadline: 50, professional: danilo, project: blog)
-    Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
-                     completion_deadline: 25, professional: caio, project: blog, status: 'cancel')
-    proposal_portal_2 = Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
-                                         completion_deadline: 30, professional: diego, project: blog)
+    create(:proposal, project: blog, professional: danilo)
+    create(:proposal, project: blog, professional: diego)
+    create(:proposal, professional: caio, status: 'cancel',
+          feedback: 'Vou participar de outro projeto')
 
     login_as carlos, scope: :user
     visit project_path(blog)
     click_on 'Ver Propostas'
 
     expect(current_path).to eq(project_proposals_path(blog))
-    expect(page).to have_content(danilo.profile.name)
+    expect(page).to have_content(danilo.profile.name.upcase)
     expect(page).to have_content(danilo.email)
     expect(page).to have_button('Visualizar Proposta')
-    expect(page).to have_content(diego.profile.name)
+    expect(page).to have_content(diego.profile.name.upcase)
     expect(page).to have_content(diego.email)
-    expect(page).to_not have_content(caio.profile.name)
+    expect(page).to_not have_content(caio.profile.name.upcase)
     expect(page).to_not have_content(caio.email)
   end
   it 'and see details' do
-    carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
-    marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
+    carlos = create(:user)
+    portal_escola = create(:project, user: carlos)
 
-    blog = Project.create!(title: 'Blog', description: 'Um simples blog',
-                           deadline_submission: 1.day.from_now, remote: false,
-                           max_price_per_hour: 190, user: carlos)
+    danilo = create(:professional)
+    create(:profile, professional: danilo)
+    proposal = create(:proposal, project: portal_escola, professional: danilo,
+                      price_hour: 100, weekly_hour: 20, completion_deadline: 50)
 
-    portal_escola = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
-                                                                          'atividades escolares', deadline_submission: 3.days.from_now, remote: true,
-                                    max_price_per_hour: 150, user: marcia)
-
-    danilo = Professional.create!(email: 'danilo@tech.com.br', password: '1234567')
-    Profile.create!(name: 'danilo', description: 'dev java', birth_date: '13/8/1990',
-                    professional: danilo)
-
-    proposal_portal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
-                                       completion_deadline: 50, professional: danilo, project: blog)
     login_as carlos, scope: :user
-    visit approval_proposal_path(proposal_portal)
+    visit approval_proposal_path(proposal)
 
-    expect(page).to have_content(proposal_portal.justification)
+    expect(page).to have_content(proposal.justification)
     expect(page).to have_content('R$ 100,00')
     expect(page).to have_content(/20/)
     expect(page).to have_content('50 dias')
-    expect(page).to have_content(danilo.profile.name)
     expect(page).to have_content(danilo.email)
     expect(page).to have_button('Aceitar')
     expect(page).to have_button('Recusar')
   end
   it 'see details and accepted' do
-    carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
-    marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
+    carlos = create(:user)
+    portal_escola = create(:project, user: carlos)
 
-    blog = Project.create!(title: 'Blog', description: 'Um simples blog',
-                           deadline_submission: 1.day.from_now, remote: false,
-                           max_price_per_hour: 190, user: carlos)
+    danilo = create(:professional)
+    create(:profile, professional: danilo)
+    proposal = create(:proposal, project: portal_escola, professional: danilo,
+                      price_hour: 100, weekly_hour: 20, completion_deadline: 50)
 
-    portal_escola = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
-                                                                          'atividades escolares', deadline_submission: 3.days.from_now, remote: true,
-                                    max_price_per_hour: 150, user: marcia)
-
-    danilo = Professional.create!(email: 'danilo@tech.com.br', password: '1234567')
-    Profile.create!(name: 'danilo', description: 'dev java', birth_date: '13/8/1990',
-                    professional: danilo)
-
-    proposal_portal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
-                                       completion_deadline: 50, professional: danilo, project: blog)
     login_as carlos, scope: :user
-    visit approval_proposal_path(proposal_portal)
+    visit approval_proposal_path(proposal)
     click_on 'Aceitar'
 
-    expect(page).to have_content(proposal_portal.justification)
+    expect(page).to have_content(proposal.justification)
     expect(page).to have_content('R$ 100,00')
     expect(page).to have_content(/20/)
     expect(page).to have_content('50 dias')
-    expect(page).to have_content(danilo.profile.name)
     expect(page).to have_content(danilo.email)
     expect(page).to have_content('aceita')
     expect(page).to have_content('Proposta aceita com sucesso')
@@ -181,25 +123,15 @@ describe 'user view proposals', js: true do
     expect(page).to_not have_button('Recusar')
   end
   it 'see details and refused with feedback' do
-    carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
-    marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
+    carlos = create(:user)
+    portal_escola = create(:project, user: carlos)
 
-    blog = Project.create!(title: 'Blog', description: 'Um simples blog',
-                           deadline_submission: 1.day.from_now, remote: false,
-                           max_price_per_hour: 190, user: carlos)
-
-    portal_escola = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
-                                                                          'atividades escolares', deadline_submission: 3.days.from_now, remote: true,
-                                    max_price_per_hour: 150, user: marcia)
-
-    danilo = Professional.create!(email: 'danilo@tech.com.br', password: '1234567')
-    Profile.create!(name: 'danilo', description: 'dev java', birth_date: '13/8/1990',
-                    professional: danilo)
-
-    proposal_portal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
-                                       completion_deadline: 50, professional: danilo, project: blog)
+    danilo = create(:professional)
+    create(:profile, professional: danilo)
+    proposal = create(:proposal, project: portal_escola, professional: danilo,
+                      price_hour: 100, weekly_hour: 20, completion_deadline: 50)
     login_as carlos, scope: :user
-    visit approval_proposal_path(proposal_portal)
+    visit approval_proposal_path(proposal)
 
     click_on 'Recusar'
     fill_in 'Feedback', with: 'Neste momento, optei por outra proposta'
@@ -211,25 +143,16 @@ describe 'user view proposals', js: true do
     expect(page).to_not have_button('Recusar')
   end
   it 'see details and refused without feedback' do
-    carlos = User.create!(email: 'carlos@treinadev.com.br', password: '1234567')
-    marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
+    carlos = create(:user)
+    portal_escola = create(:project, user: carlos)
 
-    blog = Project.create!(title: 'Blog', description: 'Um simples blog',
-                           deadline_submission: 1.day.from_now, remote: false,
-                           max_price_per_hour: 190, user: carlos)
+    danilo = create(:professional)
+    create(:profile, professional: danilo)
+    proposal = create(:proposal, project: portal_escola, professional: danilo,
+                      price_hour: 100, weekly_hour: 20, completion_deadline: 50)
 
-    portal_escola = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
-                                                                          'atividades escolares', deadline_submission: 3.days.from_now, remote: true,
-                                    max_price_per_hour: 150, user: marcia)
-
-    danilo = Professional.create!(email: 'danilo@tech.com.br', password: '1234567')
-    Profile.create!(name: 'danilo', description: 'dev java', birth_date: '13/8/1990',
-                    professional: danilo)
-
-    proposal_portal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
-                                       completion_deadline: 50, professional: danilo, project: blog)
     login_as carlos, scope: :user
-    visit project_proposals_path(blog)
+    visit project_proposals_path(portal_escola)
     click_on 'Visualizar Proposta'
     click_on 'Recusar'
     click_on 'Enviar'
@@ -241,24 +164,20 @@ describe 'user view proposals', js: true do
   end
 
   it 'with status cancel' do
-    danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
-    maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
+    carlos = create(:user)
+    portal_escola = create(:project, user: carlos)
 
-    Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                    birth_date: '11/4/1990', professional: maicon)
-    ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                                                            'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
-                                max_price_per_hour: 250, user: danilo)
+    danilo = create(:professional)
+    create(:profile, professional: danilo)
+    proposal = create(:proposal, project: portal_escola, professional: danilo,
+                      price_hour: 100, weekly_hour: 20, completion_deadline: 
+                      50, status: 'cancel', feedback: 'Escolhi outro projeto')
 
-    proposal_portal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
-                                       completion_deadline: 50, professional: maicon, project: ecommerce,
-                                       status: 'cancel', feedback: 'Vou participar de outro projeto')
-
-    login_as danilo, scope: :user
-    visit project_proposals_path(ecommerce)
+    login_as carlos, scope: :user
+    visit project_proposals_path(portal_escola)
     click_on 'Visualizar Proposta'
 
     expect(page).to have_content('Feedback')
-    expect(page).to have_content(proposal_portal.feedback)
+    expect(page).to have_content(proposal.feedback)
   end
 end

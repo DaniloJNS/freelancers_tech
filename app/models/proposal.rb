@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: proposals
@@ -53,7 +55,7 @@ class Proposal < ApplicationRecord
   end
 
   def can_cancel?(resource)
-    if belongs_to? resource and accepted?
+    if belongs_to?(resource) && accepted?
       Date.current <= deadline_cancel
     else
       pending?
@@ -69,25 +71,25 @@ class Proposal < ApplicationRecord
   private
 
   def block_new_proposals_if_not_open
-    errors.add(:project_id, 'não pode receber novas propostas') if Project.find_by(id: project_id).present? and
+    errors.add(:project_id, 'não pode receber novas propostas') if Project.find_by(id: project_id).present? &&
                                                                    !Project.find_by(id: project_id).open?
   end
 
   def duplicate_feeedback
-    errors.add(:feedback, 'já existe') if feedback_changed? and !feedback_in_database.nil?
+    errors.add(:feedback, 'já existe') if feedback_changed? && !feedback_in_database.nil?
   end
 
   def presence_feedback_on_refused
-    errors.add(:feedback, 'não deve ficar em branco') if refused? and
+    errors.add(:feedback, 'não deve ficar em branco') if refused? &&
                                                          feedback.blank?
   end
 
   def presence_feedback_on_cancel
-    errors.add(:feedback, 'não pode ficar em branco') if cancel? and
-                                                         status_in_database.eql? 'accepted' and feedback.blank?
+    errors.add(:feedback, 'não pode ficar em branco') if cancel? &&
+                                                         status_in_database.eql?('accepted') && feedback.blank?
   end
 
   def deadline_for_cancel_in_accepted
-    self.deadline_cancel = 3.days.from_now if status_changed? and accepted?
+    self.deadline_cancel = 3.days.from_now if status_changed? && accepted?
   end
 end
