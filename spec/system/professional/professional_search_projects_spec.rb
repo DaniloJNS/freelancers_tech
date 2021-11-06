@@ -2,9 +2,8 @@ require 'rails_helper'
 
 describe 'professional search projects' do
   it 'successfully' do
-
     blog = create(:project)
-    portal_escola = create(:project, status: "closed")
+    portal_escola = create(:project, status: 'closed')
     tabuleiro = create(:project)
     sistema_react = create(:project)
 
@@ -32,7 +31,7 @@ describe 'professional search projects' do
   end
   it 'and found none' do
     blog = create(:project)
-    portal_escola = create(:project, status: "closed")
+    portal_escola = create(:project, status: 'closed')
     tabuleiro = create(:project)
     sistema_react = create(:project)
 
@@ -51,7 +50,7 @@ describe 'professional search projects' do
   end
   it 'dont return project with status closed' do
     blog = create(:project)
-    portal_escola = create(:project, status: "closed")
+    portal_escola = create(:project, status: 'closed')
     tabuleiro = create(:project)
     sistema_react = create(:project)
 
@@ -70,7 +69,7 @@ describe 'professional search projects' do
   end
   it 'dont return project with status finished' do
     blog = create(:project)
-    portal_escola = create(:project, status: "finished")
+    portal_escola = create(:project, status: 'finished')
     tabuleiro = create(:project)
     sistema_react = create(:project)
 

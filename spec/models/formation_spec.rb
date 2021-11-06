@@ -55,7 +55,7 @@ describe Formation do
         let(:formation) { subject }
         it 'can not be before conclusion' do
           formation.status = true
-          formation.start  = 3.day.from_now
+          formation.start  = 3.days.from_now
           formation.conclusion = 1.day.from_now
           formation.valid?
 

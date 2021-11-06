@@ -10,7 +10,7 @@ describe 'professional without profile' do
                            max_price_per_hour: 190, user: carlos)
 
     portal_escola = Project.create!(title: 'Portal Escolar', description: 'Um portal para gerenciamento de '\
-                                                                          'atividades escolares', deadline_submission: 3.day.from_now, remote: true,
+                                                                          'atividades escolares', deadline_submission: 3.days.from_now, remote: true,
                                     max_price_per_hour: 150, user: marcia)
 
     danilo = Professional.create!(email: 'danilo@tech.com.br', password: '123456')

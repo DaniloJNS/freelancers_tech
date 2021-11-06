@@ -35,8 +35,10 @@ class Project < ApplicationRecord
 
   def days_remaining
     return (deadline_submission - Date.current).to_i if Date.current.before? deadline_submission
+
     0
   end
+
   def format_max_price_per_hour
     ActiveSupport::NumberHelper.number_to_currency max_price_per_hour
   end

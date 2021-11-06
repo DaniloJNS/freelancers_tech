@@ -213,7 +213,7 @@ describe Proposal do
                                     completion_deadline: 50, professional: maicon, project: ecommerce)
         proposal.update!(status: 'accepted')
 
-        travel_to 2.day.from_now do
+        travel_to 2.days.from_now do
           expect(proposal.can_cancel?(maicon)).to eq(true)
         end
       end
@@ -229,7 +229,7 @@ describe Proposal do
                                     completion_deadline: 50, professional: maicon, project: ecommerce)
         proposal.update!(status: 'accepted')
 
-        travel_to 3.day.from_now do
+        travel_to 3.days.from_now do
           expect(proposal.can_cancel?(maicon)).to eq(true)
         end
       end
@@ -259,7 +259,7 @@ describe Proposal do
                                     completion_deadline: 50, professional: maicon, project: ecommerce)
         proposal.update!(status: 'accepted')
 
-        travel_to 3.day.from_now do
+        travel_to 3.days.from_now do
           expect(proposal.days_remaning_for_cancel).to eq(0)
         end
       end
@@ -275,7 +275,7 @@ describe Proposal do
                                     completion_deadline: 50, professional: maicon, project: ecommerce)
         proposal.update!(status: 'accepted')
 
-        travel_to 4.day.from_now do
+        travel_to 4.days.from_now do
           expect(proposal.can_cancel?(maicon)).to eq(false)
         end
       end

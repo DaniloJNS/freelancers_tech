@@ -70,8 +70,8 @@ describe 'profissional submit proposal' do
     danilo = create(:professional)
     create(:profile, professional: danilo)
 
-    proposal = create(:proposal, professional: danilo, project: blog, 
-                      price_hour: 100)
+    proposal = create(:proposal, professional: danilo, project: blog,
+                                 price_hour: 100)
 
     login_as danilo, scope: :professional
     visit project_path(blog)
@@ -87,13 +87,13 @@ describe 'profissional submit proposal' do
   it 'and view later with status accepted' do
     blog = create(:project, remote: false)
     portal_escolar = create(:project)
-    
+
     danilo = create(:professional)
     create(:profile, professional: danilo)
-    proposal = create(:proposal, professional: danilo, project: blog, 
-                      price_hour: 100)
+    proposal = create(:proposal, professional: danilo, project: blog,
+                                 price_hour: 100)
     proposal.accepted!
-    travel_to 4.day.from_now do
+    travel_to 4.days.from_now do
       login_as danilo, scope: :professional
       visit project_path(blog)
       click_on 'Visualizar Proposta'
@@ -109,12 +109,12 @@ describe 'profissional submit proposal' do
   it 'and view later with status refused and feedback' do
     blog = create(:project, remote: false)
     portal_escolar = create(:project)
-    
+
     danilo = create(:professional)
     create(:profile, professional: danilo)
-    proposal = create(:proposal, professional: danilo, project: blog, 
-                      price_hour: 100)
-    
+    proposal = create(:proposal, professional: danilo, project: blog,
+                                 price_hour: 100)
+
     proposal.update!(status: 'refused', feedback: 'Optei por outro candidato')
 
     login_as danilo, scope: :professional

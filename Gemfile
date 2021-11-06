@@ -21,8 +21,8 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara'
   gem 'factory_bot_rails'
-  gem 'rspec-rails'
   gem 'ffaker'
+  gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'shoulda-matchers', '~> 5.0'

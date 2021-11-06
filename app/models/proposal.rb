@@ -27,7 +27,7 @@ class Proposal < ApplicationRecord
            on: :update
   validate :block_new_proposals_if_not_open, on: :create
 
-  enum status: { pending: 0, accepted: 1, refused: 2, cancel: 3 } 
+  enum status: { pending: 0, accepted: 1, refused: 2, cancel: 3 }
   scope :count_status, ->(parameter) { where(status: parameter).count }
   scope :available, -> { where('status<> 3 or feedback is not ?', nil) }
 
@@ -88,6 +88,6 @@ class Proposal < ApplicationRecord
   end
 
   def deadline_for_cancel_in_accepted
-    self.deadline_cancel = 3.day.from_now if status_changed? and accepted?
+    self.deadline_cancel = 3.days.from_now if status_changed? and accepted?
   end
 end
