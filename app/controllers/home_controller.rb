@@ -3,8 +3,9 @@ class HomeController < ApplicationController
     @projects = Project.all
     @resource = Professional.new
   end
+
   def ajax
-    @notification = NotificationComponent.new(type: 'notice', data: "veio pelo ajax")
+    @notification = NotificationComponent.new(type: 'notice', data: 'veio pelo ajax')
     respond_to do |format|
       format.js
     end

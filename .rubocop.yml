@@ -1,0 +1,12 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 3.0.2
+  Exclude:
+    - "db/**/*"
+    - "bin/**/*"
+  NewCops: enable
+
+Metrics/BlockLength:
+  IgnoredMethods: ["describe", "context", "feature", "scenario", "let"]

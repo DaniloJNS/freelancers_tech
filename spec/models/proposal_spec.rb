@@ -60,33 +60,33 @@ describe Proposal do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
 
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                               birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
 
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
-                                     max_price_per_hour: 250, user: danilo)
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                    max_price_per_hour: 250, user: danilo)
 
-        proposal = Proposal.create(justification: "tenho habilidades para esse projeto", price_hour: 100, weekly_hour: 30,
-                         completion_deadline: 40, professional: maicon, project: ecommerce)
+        proposal = Proposal.create(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
+                                   completion_deadline: 40, professional: maicon, project: ecommerce)
 
-        expect(proposal.errors.any?).to eq(false) 
+        expect(proposal.errors.any?).to eq(false)
       end
       it 'status if not open can not create proposal' do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
 
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                               birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
 
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
-                                     max_price_per_hour: 250, user: danilo, status: "closed")
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                    max_price_per_hour: 250, user: danilo, status: 'closed')
 
-        proposal = Proposal.create(justification: "tenho habilidades para esse projeto", price_hour: 100, weekly_hour: 30,
-                         completion_deadline: 40, professional: maicon, project: ecommerce)
+        proposal = Proposal.create(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
+                                   completion_deadline: 40, professional: maicon, project: ecommerce)
 
-        expect(proposal.errors.full_messages_for(:project_id)).to include("Projeto não pode receber novas propostas") 
+        expect(proposal.errors.full_messages_for(:project_id)).to include('Projeto não pode receber novas propostas')
       end
     end
     context 'greater than 0' do
@@ -103,195 +103,194 @@ describe Proposal do
     end
     context 'enum' do
       it 'status' do
-        should define_enum_for(:status).with_values([:pending, :accepted, :refused, :cancel])
+        should define_enum_for(:status).with_values(%i[pending accepted refused cancel])
       end
     end
     context 'refused' do
       it 'need have feedback' do
-       
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                                 birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
                                     max_price_per_hour: 250, user: danilo)
         proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
-                                           completion_deadline: 50, professional: maicon, project: ecommerce,
-                                           status: 'refused')
+                                    completion_deadline: 50, professional: maicon, project: ecommerce,
+                                    status: 'refused')
         proposal.valid?
         expect(proposal.errors.full_messages).to include(
           'Feedback não deve ficar em branco'
-        ) 
+        )
       end
       it 'cant duplicate feeedback' do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                                 birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
                                     max_price_per_hour: 250, user: danilo)
         proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                     completion_deadline: 50, professional: maicon, project: ecommerce,
                                     status: 'refused', feedback: 'Optei por outro candidato')
-        proposal.feedback = "mudei o feedback"
+        proposal.feedback = 'mudei o feedback'
         proposal.valid?
-        expect(proposal.errors.full_messages).to include('Feedback já existe') 
+        expect(proposal.errors.full_messages).to include('Feedback já existe')
       end
       it 'has feedback for professional' do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                                 birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
                                     max_price_per_hour: 250, user: danilo)
         proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                     completion_deadline: 50, professional: maicon, project: ecommerce,
                                     status: 'refused', feedback: 'Optei por outro candidato')
-        
-        expect(proposal.has_feedback_for? maicon).to eq(true) 
-        expect(proposal.has_feedback_for? danilo).to eq(false) 
+
+        expect(proposal.has_feedback_for?(maicon)).to eq(true)
+        expect(proposal.has_feedback_for?(danilo)).to eq(false)
       end
       it 'has not feedback for professional' do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                                 birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
                                     max_price_per_hour: 250, user: danilo)
         proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                     completion_deadline: 50, professional: maicon, project: ecommerce)
 
-        expect(proposal.has_feedback_for? maicon).to eq(false) 
-        expect(proposal.has_feedback_for? danilo).to eq(false)
+        expect(proposal.has_feedback_for?(maicon)).to eq(false)
+        expect(proposal.has_feedback_for?(danilo)).to eq(false)
       end
     end
     context 'cancel' do
       it 'has feedback for user' do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                                 birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
                                     max_price_per_hour: 250, user: danilo)
         proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                     completion_deadline: 50, professional: maicon, project: ecommerce,
                                     status: 'cancel', feedback: 'Vou participar de outro projeto')
-        
-        expect(proposal.has_feedback_for? danilo).to eq(true)
-        expect(proposal.has_feedback_for? maicon).to eq(false)
+
+        expect(proposal.has_feedback_for?(danilo)).to eq(true)
+        expect(proposal.has_feedback_for?(maicon)).to eq(false)
       end
       it 'has not feedback for user' do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                                 birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
                                     max_price_per_hour: 250, user: danilo)
         proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                     completion_deadline: 50, professional: maicon, project: ecommerce,
                                     status: 'cancel')
 
-        expect(proposal.has_feedback_for? danilo).to eq(false) 
-        expect(proposal.has_feedback_for? maicon).to eq(false) 
+        expect(proposal.has_feedback_for?(danilo)).to eq(false)
+        expect(proposal.has_feedback_for?(maicon)).to eq(false)
       end
     end
     context 'accepted' do
       it 'can cancel proposal' do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                                 birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
                                     max_price_per_hour: 250, user: danilo)
         proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                     completion_deadline: 50, professional: maicon, project: ecommerce)
-        proposal.update!(status: 'accepted')      
-        
+        proposal.update!(status: 'accepted')
+
         travel_to 2.day.from_now do
-          expect(proposal.can_cancel? maicon).to eq(true) 
+          expect(proposal.can_cancel?(maicon)).to eq(true)
         end
       end
       it 'can cancel in last day of deadline_submission' do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                                 birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
                                     max_price_per_hour: 250, user: danilo)
         proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                     completion_deadline: 50, professional: maicon, project: ecommerce)
-        proposal.update!(status: 'accepted')      
-        
+        proposal.update!(status: 'accepted')
+
         travel_to 3.day.from_now do
-          expect(proposal.can_cancel? maicon).to eq(true) 
+          expect(proposal.can_cancel?(maicon)).to eq(true)
         end
       end
       it 'days remaming' do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                                 birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
                                     max_price_per_hour: 250, user: danilo)
         proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                     completion_deadline: 50, professional: maicon, project: ecommerce)
-        proposal.update!(status: 'accepted')      
-        
-        expect(proposal.days_remaning_for_cancel).to eq(3) 
+        proposal.update!(status: 'accepted')
+
+        expect(proposal.days_remaning_for_cancel).to eq(3)
       end
       it 'days remaming on last day' do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                                 birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
                                     max_price_per_hour: 250, user: danilo)
         proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                     completion_deadline: 50, professional: maicon, project: ecommerce)
-        proposal.update!(status: 'accepted')      
-        
+        proposal.update!(status: 'accepted')
+
         travel_to 3.day.from_now do
-          expect(proposal.days_remaning_for_cancel).to eq(0) 
+          expect(proposal.days_remaning_for_cancel).to eq(0)
         end
       end
       it 'cannot cancel proposal' do
         danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
         maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                                 birth_date: '11/4/1990', professional: maicon)
+        Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                        birth_date: '11/4/1990', professional: maicon)
         ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                    'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                                                                'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
                                     max_price_per_hour: 250, user: danilo)
         proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                     completion_deadline: 50, professional: maicon, project: ecommerce)
-        proposal.update!(status: 'accepted')      
-        
+        proposal.update!(status: 'accepted')
+
         travel_to 4.day.from_now do
-          expect(proposal.can_cancel? maicon).to eq(false) 
+          expect(proposal.can_cancel?(maicon)).to eq(false)
         end
       end
       context 'pending' do
         it 'can cancel' do
           danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
           maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
-                   Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                                   birth_date: '11/4/1990', professional: maicon)
+          Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
+                          birth_date: '11/4/1990', professional: maicon)
           ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
-                                      'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
+                                                                                  'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
                                       max_price_per_hour: 250, user: danilo)
           proposal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                       completion_deadline: 50, professional: maicon, project: ecommerce)
-          expect(proposal.can_cancel? maicon).to eq(true)
+          expect(proposal.can_cancel?(maicon)).to eq(true)
         end
       end
     end

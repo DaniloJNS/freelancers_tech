@@ -17,14 +17,19 @@ class Formation < ApplicationRecord
   validate :conclusion_valid, :start_valid
 
   private
+
   def conclusion_valid
-    errors.add :conclusion, "não pode está no futuro"  if not conclusion.nil? and Date.current.before? conclusion and
-      status
-    errors.add :conclusion, "não pode está no passado" if not conclusion.nil? and not Date.current.before? conclusion and
-      not status
+    errors.add :conclusion, 'não pode está no futuro' if !conclusion.nil? and Date.current.before? conclusion and
+                                                         status
+    if !conclusion.nil? and !Date.current.before? conclusion and
+       !status
+      errors.add :conclusion,
+                 'não pode está no passado'
+    end
   end
+
   def start_valid
-    errors.add :start, "não pode está numa data anterior à Data de Conclusão" if not conclusion.nil? and
-      not start.nil? and conclusion.before? start     
+    errors.add :start, 'não pode está numa data anterior à Data de Conclusão' if !conclusion.nil? and
+                                                                                 !start.nil? and conclusion.before? start
   end
 end

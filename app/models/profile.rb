@@ -20,15 +20,16 @@ class Profile < ApplicationRecord
   validate :legal_age
 
   before_validation do
-    if birth_date.present?
-      self.age ||= Date.current.year.to_i - birth_date.year.to_i
-    end
+    self.age ||= Date.current.year.to_i - birth_date.year.to_i if birth_date.present?
   end
 
   private
+
   def legal_age
+    if age.present? and
+       18 > age
       errors.add(:age,
-                 'deve ser maior que 18 anos') if age.present? and 
-                18 > age
+                 'deve ser maior que 18 anos')
+    end
   end
 end

@@ -48,12 +48,13 @@ describe Profile do
         profile.birth_date =  Date.current
         profile.valid?
         expect(profile.errors.full_messages_for(:age)).to include(
-          'Idade deve ser maior que 18 anos') 
+          'Idade deve ser maior que 18 anos'
+        )
       end
       it 'is greater than 18 years' do
-        profile.birth_date =  18.years.ago
+        profile.birth_date = 18.years.ago
         profile.valid?
-        expect(profile.errors.full_messages_for(:age)).to eq([]) 
+        expect(profile.errors.full_messages_for(:age)).to eq([])
       end
     end
   end

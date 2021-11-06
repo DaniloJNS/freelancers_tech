@@ -15,11 +15,11 @@ describe 'professional authentication' do
     it 'create proposal without login' do
       post project_proposals_path(project_id: 1)
 
-      expect(response).to redirect_to(new_professional_session_path) 
+      expect(response).to redirect_to(new_professional_session_path)
     end
     it 'view a proposal without login' do
       get proposal_path(id: 1)
-      
+
       expect(response).to redirect_to(root_path)
     end
   end

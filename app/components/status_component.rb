@@ -7,22 +7,23 @@ class StatusComponent < ViewComponent::Base
   end
 
   private
+
   def setColor
     case @proposal.status
-    when "accepted" 
-      "green"
-    when "open" 
-      "green"
-    when "refused"
-      "red"
-    when "closed"
-      "red"
-    when "pending"
-      "yellow"
-    when "finished"
-      "yellow"
+    when 'accepted'
+      'green'
+    when 'open'
+      'green'
+    when 'refused'
+      'red'
+    when 'closed'
+      'red'
+    when 'pending'
+      'yellow'
+    when 'finished'
+      'yellow'
     else
-      "gray"
+      'gray'
     end
   end
 end

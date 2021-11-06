@@ -5,5 +5,4 @@ class ProposalComponent < ViewComponent::Base
     @proposal = proposal
     @user = user
   end
-
 end

@@ -4,5 +4,4 @@ class ProposalsComponent < ViewComponent::Base
   def initialize(proposals:)
     @proposals = proposals
   end
-
 end

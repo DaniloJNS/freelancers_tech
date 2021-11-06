@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   root to: 'home#index'
-  post "ajax", to: "home#ajax"
-  
-  resources :projects, only: [:new, :show, :create, :index] do
+  post 'ajax', to: 'home#ajax'
+
+  resources :projects, only: %i[new show create index] do
     collection do
       get 'public'
       get 'search'
@@ -25,11 +25,11 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   resources :professionals do
-    resources :profiles, only: %i[ new create], shallow: true do
+    resources :profiles, only: %i[new create], shallow: true do
       resources :formations, only: %i[new create], shallow: true
-	  resources :experiences, only: %i[new create], shallow: true
+      resources :experiences, only: %i[new create], shallow: true
     end
   end
 
@@ -37,5 +37,4 @@ Rails.application.routes.draw do
     get 'my_projects', to: 'professionals/projects#index', as: :projects
     get ':title', to: 'professionals/projects#show', as: :project
   end
-
 end

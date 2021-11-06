@@ -2,8 +2,7 @@ require 'rails_helper'
 
 describe 'user authentication' do
   context 'cannot' do
-
-    #projects
+    # projects
     it 'create project without login' do
       post projects_path
 
@@ -29,7 +28,7 @@ describe 'user authentication' do
     # proposals
     it 'view index of proposals without login' do
       get project_proposals_path(project_id: 1)
-      
+
       expect(response).to redirect_to(new_user_session_path)
     end
     it 'approval a proposals without login' do
@@ -49,9 +48,9 @@ describe 'user authentication' do
     end
     it 'view a proposal without login' do
       get proposal_path(id: 1)
-      
+
       expect(response).to redirect_to(root_path)
     end
   end
-  # TODO Routes for propostas
+  # TODO: Routes for propostas
 end

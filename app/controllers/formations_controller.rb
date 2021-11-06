@@ -5,6 +5,7 @@ class FormationsController < ApplicationController
     @formation = Formation.new
     @profile = Profile.find(profile_params)
   end
+
   def create
     @formation = Formation.new(formation_params)
     if @formation.save
@@ -15,10 +16,12 @@ class FormationsController < ApplicationController
   end
 
   private
+
   def formation_params
-    {profile_id: profile_params, **params.require(:formation)
-      .permit(:university, :start, :conclusion, :status)}
+    { profile_id: profile_params, **params.require(:formation)
+                                          .permit(:university, :start, :conclusion, :status) }
   end
+
   def profile_params
     params.permit(:profile_id)[:profile_id]
   end

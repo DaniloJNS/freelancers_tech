@@ -17,6 +17,7 @@ class NotificationComponent < ViewComponent::Base
   end
 
   private
+
   def boder_color
     case @type
     when 'notice'
@@ -42,6 +43,7 @@ class NotificationComponent < ViewComponent::Base
       'bg-gray-100'
     end
   end
+
   def text_color
     case @type
     when 'notice'
@@ -54,6 +56,7 @@ class NotificationComponent < ViewComponent::Base
       'text-gray-700'
     end
   end
+
   def prepare_data(data)
     case data
     when Hash
