@@ -42,7 +42,8 @@ describe Formation do
           formation.valid?
 
           expect(formation.errors.full_messages_for(:conclusion)).to include(
-            'Data de Conclusão não pode está no futuro')
+            'Data de Conclusão não pode está no futuro'
+          )
         end
         it 'can not be in the past if status in progress' do
           formation.status = false
@@ -50,7 +51,8 @@ describe Formation do
           formation.valid?
 
           expect(formation.errors.full_messages_for(:conclusion)).to include(
-            'Data de Conclusão não pode está no passado')
+            'Data de Conclusão não pode está no passado'
+          )
         end
       end
       context 'start' do
@@ -62,7 +64,8 @@ describe Formation do
           formation.valid?
 
           expect(formation.errors.full_messages_for(:start)).to include(
-            'Data de Início não pode está numa data anterior à Data de Conclusão')
+            'Data de Início não pode está numa data anterior à Data de Conclusão'
+          )
         end
       end
     end

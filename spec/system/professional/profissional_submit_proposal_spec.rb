@@ -6,10 +6,15 @@ describe 'profissional submit proposal' do
   include ActiveSupport::Testing::TimeHelpers
   it 'successfully' do
     blog = create(:project, remote: false)
-    portal_escolar = create(:project)
-
     danilo = create(:professional)
     create(:profile, professional: danilo)
+    mailer_spy = class_spy(ProposalMailer)
+    stub_const('ProposalMailer', mailer_spy)
+    mail = double
+    allow(ProposalMailer)
+      .to receive(:notify_new_proposal)
+      .and_return(mail) 
+    allow(mail).to receive(:deliver_now)
 
     login_as danilo, scope: :professional
 
@@ -21,6 +26,8 @@ describe 'profissional submit proposal' do
     fill_in 'Prazo de conclusão', with: 50
     click_on 'Enviar'
 
+    expect(ProposalMailer).to have_received(:notify_new_proposal)
+    expect(mail).to have_received(:deliver_now)
     expect(current_path).to_not eq(project_path(blog))
     expect(page).to have_content('Proposta enviada com sucesso!')
     expect(page).to have_content('Sou um gênio')

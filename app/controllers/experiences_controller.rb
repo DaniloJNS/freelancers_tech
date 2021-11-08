@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ExperiencesController < ApplicationController
   before_action :authenticate_professional!
   def new

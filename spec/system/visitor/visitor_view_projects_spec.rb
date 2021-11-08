@@ -10,8 +10,6 @@ describe 'visitor view projects' do
   end
   it 'succefully' do
     danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
-    marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
-    pedro = User.create!(email: 'pedro_calixto@mail.com', password: '123456')
 
     login_as danilo, scope: :user
 
@@ -31,10 +29,8 @@ describe 'visitor view projects' do
     expect(page).to have_content(portal_escolar.days_remaining)
     expect(page).to_not have_content(tabuleiro.title)
     expect(page).to_not have_content(tabuleiro.description)
-    expect(page).to_not have_content(tabuleiro.days_remaining)
     expect(page).to_not have_content(sistema_react.title)
     expect(page).to_not have_content(sistema_react.description)
-    expect(page).to_not have_content(sistema_react.days_remaining)
   end
 
   it 'and theres no projects available' do

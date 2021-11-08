@@ -63,7 +63,7 @@ describe 'user view proposals', js: true do
     create(:proposal, project: blog, professional: danilo)
     create(:proposal, project: blog, professional: diego)
     create(:proposal, professional: caio, status: 'cancel',
-          feedback: 'Vou participar de outro projeto')
+                      feedback: 'Vou participar de outro projeto')
 
     login_as carlos, scope: :user
     visit project_path(blog)
@@ -85,7 +85,7 @@ describe 'user view proposals', js: true do
     danilo = create(:professional)
     create(:profile, professional: danilo)
     proposal = create(:proposal, project: portal_escola, professional: danilo,
-                      price_hour: 100, weekly_hour: 20, completion_deadline: 50)
+                                 price_hour: 100, weekly_hour: 20, completion_deadline: 50)
 
     login_as carlos, scope: :user
     visit approval_proposal_path(proposal)
@@ -105,7 +105,7 @@ describe 'user view proposals', js: true do
     danilo = create(:professional)
     create(:profile, professional: danilo)
     proposal = create(:proposal, project: portal_escola, professional: danilo,
-                      price_hour: 100, weekly_hour: 20, completion_deadline: 50)
+                                 price_hour: 100, weekly_hour: 20, completion_deadline: 50)
 
     login_as carlos, scope: :user
     visit approval_proposal_path(proposal)
@@ -129,7 +129,7 @@ describe 'user view proposals', js: true do
     danilo = create(:professional)
     create(:profile, professional: danilo)
     proposal = create(:proposal, project: portal_escola, professional: danilo,
-                      price_hour: 100, weekly_hour: 20, completion_deadline: 50)
+                                 price_hour: 100, weekly_hour: 20, completion_deadline: 50)
     login_as carlos, scope: :user
     visit approval_proposal_path(proposal)
 
@@ -149,7 +149,7 @@ describe 'user view proposals', js: true do
     danilo = create(:professional)
     create(:profile, professional: danilo)
     proposal = create(:proposal, project: portal_escola, professional: danilo,
-                      price_hour: 100, weekly_hour: 20, completion_deadline: 50)
+                                 price_hour: 100, weekly_hour: 20, completion_deadline: 50)
 
     login_as carlos, scope: :user
     visit project_proposals_path(portal_escola)
@@ -170,7 +170,7 @@ describe 'user view proposals', js: true do
     danilo = create(:professional)
     create(:profile, professional: danilo)
     proposal = create(:proposal, project: portal_escola, professional: danilo,
-                      price_hour: 100, weekly_hour: 20, completion_deadline: 
+                                 price_hour: 100, weekly_hour: 20, completion_deadline:
                       50, status: 'cancel', feedback: 'Escolhi outro projeto')
 
     login_as carlos, scope: :user

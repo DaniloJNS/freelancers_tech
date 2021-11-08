@@ -101,8 +101,8 @@ describe Proposal do
         )
       end
       it 'cant duplicate feeedback' do
-        proposal = create(:proposal, status: 'refused', 
-                          feedback: 'Optei por outro candidato')
+        proposal = create(:proposal, status: 'refused',
+                                     feedback: 'Optei por outro candidato')
         proposal.feedback = 'mudei o feedback'
         proposal.valid?
 
@@ -113,7 +113,7 @@ describe Proposal do
         maicon = create(:professional)
         ecommerce = create(:project, user: danilo)
         proposal = create(:proposal, project: ecommerce, professional: maicon,
-                          status: 'refused', feedback: 'optei por outro candidato')
+                                     status: 'refused', feedback: 'optei por outro candidato')
 
         expect(proposal.has_feedback_for?(maicon)).to eq(true)
         expect(proposal.has_feedback_for?(danilo)).to eq(false)
@@ -136,7 +136,7 @@ describe Proposal do
         create(:profile, professional: maicon)
         ecommerce = create(:project, user: danilo)
         proposal = create(:proposal, professional: maicon, project: ecommerce,
-                         status: 'cancel', feedback: 
+                                     status: 'cancel', feedback:
                          'Vou partipar de outro projeto')
 
         expect(proposal.has_feedback_for?(danilo)).to eq(true)
@@ -206,8 +206,8 @@ describe Proposal do
         it 'can cancel' do
           maicon = create(:professional)
           create(:profile, professional: maicon)
-          proposal = create(:proposal, professional: maicon, 
-                           status: 'pending')
+          proposal = create(:proposal, professional: maicon,
+                                       status: 'pending')
 
           expect(proposal.can_cancel?(maicon)).to eq(true)
         end

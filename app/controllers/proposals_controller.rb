@@ -13,6 +13,7 @@ class ProposalsController < ApplicationController
   def create
     @proposal = current_professional.proposals.build(proposal_params)
     if @proposal.save
+      ProposalMailer.with(proposal: @proposal).notify_new_proposal.deliver_now
       redirect_to(proposal_path(@proposal), notice: 'Proposta enviada com sucesso!')
     else
       @project = Project.find(params[:project_id])
