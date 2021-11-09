@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'English'
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create index closed]
 

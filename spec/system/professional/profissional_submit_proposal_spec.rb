@@ -16,6 +16,10 @@ describe 'profissional submit proposal' do
       .and_return(mail) 
     allow(mail).to receive(:deliver_now)
 
+    # stub_const('ProposalMailer',class_spy(
+    #       ProposalMailer, 
+    #       notify_new_proposal: double(deliver_now: nil)
+    #     ))
     login_as danilo, scope: :professional
 
     visit project_path(blog)

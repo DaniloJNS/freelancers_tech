@@ -4,3 +4,4 @@ class ProposalMailer < ApplicationMailer
     mail(to: @proposal.project.user.email, subject: 'Nova proposta para seu projeto')
   end
 end
+

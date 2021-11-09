@@ -24,4 +24,7 @@ class Professional < ApplicationRecord
   def proposal_id_of_a(project)
     proposals.find_by(project_id: project.id)
   end
+  def profile?
+    profile.present?
+  end
 end

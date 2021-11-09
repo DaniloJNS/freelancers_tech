@@ -50,5 +50,18 @@ describe Professional do
         expect(danilo.proposal_id_of_a(project)).to eq(nil)
       end
     end
+    context 'profile' do
+      it 'must be present' do
+       danilo = create(:professional)
+       create(:profile, professional: danilo) 
+
+       expect(danilo.profile?).to be true
+      end
+      it 'not be present' do
+        danilo = create(:professional)
+
+        expect(danilo.profile?).to be false
+      end
+    end
   end
 end

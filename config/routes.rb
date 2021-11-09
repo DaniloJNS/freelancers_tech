@@ -29,12 +29,17 @@ Rails.application.routes.draw do
   end
 
   resources :professionals do
-    resources :profiles, only: %i[new create], shallow: true do
+    resources :profiles, only: %i[new create show], shallow: true do
       resources :formations, only: %i[new create], shallow: true
       resources :experiences, only: %i[new create], shallow: true
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :projects, only: %i[index show]
+    end
+  end
   scope ':name', as: 'professional' do
     get 'my_projects', to: 'professionals/projects#index', as: :projects
     get ':title', to: 'professionals/projects#show', as: :project

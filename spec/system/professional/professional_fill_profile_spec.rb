@@ -107,7 +107,7 @@ describe 'professional fill profile' do
     fill_in 'Cargo', with: 'Gerente de TI'
     fill_in 'Descrição', with: 'Trabalhei liderando uma equipe de 100 pessoas'
     fill_in 'Data de Início', with: '10/08/2008'
-    fill_in 'Data de termínio', with: '15/12/2017'
+    fill_in 'Data de Termínio', with: '15/12/2017'
     click_on 'Enviar'
 
     expect(page).to have_content('Experiência registrada com sucesso')

@@ -14,7 +14,7 @@
         </div>
 <% end %>
 <% if professional_signed_in? %>
-        <% if current_professional.profile.present? %>
+        <% if current_professional.profile? %>
                 <%= link_to 'Meus Projetos', professional_projects_path(current_professional.profile.name), class:"nav-text nav-link none" %>
         <% end %>
         <div class="dropdown">
@@ -29,6 +29,9 @@
         <ul class="dropdown-toggle text-gray-500" id="drop">
           <%= form_with url: destroy_professional_session_path, method: :delete do%>
             <li> <%= button_tag "Sair", class: "dropdown-menu-top bg-white border-l-4  hover:border-blue-500" %>
+          <% end %>
+          <% if current_professional.profile? %>
+           <%= link_to "Ver Perfil", profile_path(current_professional.profile.id) %>
           <% end %>
         </ul>
         </div>

@@ -15,6 +15,9 @@ class ProfilesController < ApplicationController
       render :new
     end
   end
+  def show
+    @profile = Profile.find params.require(:id)
+  end
 
   private
 

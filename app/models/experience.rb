@@ -18,4 +18,12 @@ class Experience < ApplicationRecord
   belongs_to :profile
 
   validates :company, :office, :description, :start_date, presence: true
+  validates :end_date, presence: true, if: :current_job
+  validate :end_date_before_start_date, if: :current_job
+
+  private
+  def end_date_before_start_date
+    errors.add(:end_date, "não deve ser antes da Data de Início") if end_date
+      .before? start_date
+  end
 end
