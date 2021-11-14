@@ -24,7 +24,8 @@ describe 'vistor sign up' do
 
     click_on 'Enviar'
 
-    expect(page).to have_content('Inscrição efetuada com sucesso. Se não foi autorizado, a confirmação será enviada por e-mail.')
+    expect(page).to have_content('Inscrição efetuada com sucesso. Se não foi autorizado,'\
+                                 ' a confirmação será enviada por e-mail.')
   end
   it 'successfully as user' do
     visit new_user_registration_path
@@ -35,6 +36,7 @@ describe 'vistor sign up' do
 
     click_on 'Enviar'
 
-    expect(page).to have_content('Inscrição efetuada com sucesso. Se não foi autorizado, a confirmação será enviada por e-mail.')
+    expect(page).to have_content('Inscrição efetuada com sucesso. Se não foi autorizado,'\
+                                 ' a confirmação será enviada por e-mail.')
   end
 end

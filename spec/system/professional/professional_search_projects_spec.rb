@@ -32,10 +32,10 @@ describe 'professional search projects' do
     expect(page).to_not have_content(sistema_react.description)
   end
   it 'and found none' do
-    blog = create(:project)
-    portal_escola = create(:project, status: 'closed')
-    tabuleiro = create(:project)
-    sistema_react = create(:project)
+    create(:project)
+    create(:project, status: 'closed')
+    create(:project)
+    create(:project)
 
     danilo = create(:professional)
     create(:profile, professional: danilo)
@@ -51,10 +51,7 @@ describe 'professional search projects' do
     expect(page).to have_content('Sua pesquisa não encontrou nenhum projeto correspondente')
   end
   it 'dont return project with status closed' do
-    blog = create(:project)
-    portal_escola = create(:project, status: 'closed')
-    tabuleiro = create(:project)
-    sistema_react = create(:project)
+    portal_escola = create(:project, title: 'Portal Escolar', status: 'closed')
 
     danilo = create(:professional)
     create(:profile, professional: danilo)
@@ -70,10 +67,7 @@ describe 'professional search projects' do
     expect(page).to_not have_content(portal_escola.description)
   end
   it 'dont return project with status finished' do
-    blog = create(:project)
     portal_escola = create(:project, status: 'finished')
-    tabuleiro = create(:project)
-    sistema_react = create(:project)
 
     danilo = create(:professional)
     create(:profile, professional: danilo)

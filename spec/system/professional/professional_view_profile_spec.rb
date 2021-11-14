@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'professional view profile' do
@@ -6,7 +8,7 @@ describe 'professional view profile' do
     create(:profile, name: 'danilo', professional: danilo)
 
     login_as danilo, scope: :professional
-    
+
     visit root_path
 
     click_on 'danilo'
@@ -15,11 +17,11 @@ describe 'professional view profile' do
   end
   it 'sucessfuly' do
     danilo = create(:professional)
-    create(:profile,name: 'danilo', description: 'Entusiasta de cloud computer',
-           birth_date: '13/02/1992', professional: danilo)
-    
+    create(:profile, name: 'danilo', description: 'Entusiasta de cloud computer',
+                     birth_date: '13/02/1992', professional: danilo)
+
     login_as danilo, scope: :professional
-    
+
     visit root_path
 
     click_on 'danilo'

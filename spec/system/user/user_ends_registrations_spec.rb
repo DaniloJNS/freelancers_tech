@@ -7,7 +7,7 @@ describe 'user ends registrations' do
   it 'using button' do
     danilo = create(:user)
 
-    blog = create(:project, user: danilo)
+    create(:project, user: danilo)
 
     login_as danilo, scope: :user
     visit projects_path
@@ -17,7 +17,7 @@ describe 'user ends registrations' do
   it 'successfully' do
     danilo = create(:user)
 
-    blog = create(:project, user: danilo)
+    create(:project, user: danilo)
 
     login_as danilo, scope: :user
     visit projects_path
@@ -30,7 +30,7 @@ describe 'user ends registrations' do
   it 'out deadline' do
     danilo = create(:user)
 
-    blog = create(:project, user: danilo, deadline_submission: 1.week.from_now)
+    create(:project, user: danilo, deadline_submission: 1.week.from_now)
 
     travel_to 2.weeks.from_now do
       login_as danilo, scope: :user

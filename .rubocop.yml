@@ -6,7 +6,15 @@ AllCops:
   Exclude:
     - "db/**/*"
     - "bin/**/*"
+    - "spec/rails_helper.rb"
+    - "config/initializers/*"
+    - "config/application.rb"
+    - "config/environments/development.rb"
   NewCops: enable
 
 Metrics/BlockLength:
-  IgnoredMethods: ["describe", "context", "feature", "scenario", "let"]
+  IgnoredMethods:
+    ["describe", "context", "feature", "scenario", "let", "it", "draw"]
+
+Metrics/ParameterLists:
+  Max: 6

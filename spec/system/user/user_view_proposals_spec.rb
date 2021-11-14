@@ -7,7 +7,7 @@ describe 'user view proposals', js: true do
     carlos = create(:user)
 
     blog = create(:project, user: carlos)
-    proposal_portal = create(:proposal, project: blog)
+    create(:proposal, project: blog)
 
     login_as carlos, scope: :user
     visit project_path(blog)
@@ -26,11 +26,11 @@ describe 'user view proposals', js: true do
     blog = create(:project, user: carlos)
 
     danilo = create(:professional)
-    create(:profile, professional: danilo)
+    create(:profile, name: 'danilo', professional: danilo)
     diego = create(:professional)
-    create(:profile, professional: diego)
+    create(:profile, name: 'diego', professional: diego)
     caio = create(:professional)
-    create(:profile, professional: caio)
+    create(:profile, name: 'caio', professional: caio)
 
     create(:proposal, project: blog, professional: danilo)
     create(:proposal, project: blog, professional: diego)
@@ -148,8 +148,8 @@ describe 'user view proposals', js: true do
 
     danilo = create(:professional)
     create(:profile, professional: danilo)
-    proposal = create(:proposal, project: portal_escola, professional: danilo,
-                                 price_hour: 100, weekly_hour: 20, completion_deadline: 50)
+    create(:proposal, project: portal_escola, professional: danilo,
+                      price_hour: 100, weekly_hour: 20, completion_deadline: 50)
 
     login_as carlos, scope: :user
     visit project_proposals_path(portal_escola)

@@ -13,11 +13,11 @@ describe 'profissional submit proposal' do
     mail = double
     allow(ProposalMailer)
       .to receive(:notify_new_proposal)
-      .and_return(mail) 
+      .and_return(mail)
     allow(mail).to receive(:deliver_now)
 
     # stub_const('ProposalMailer',class_spy(
-    #       ProposalMailer, 
+    #       ProposalMailer,
     #       notify_new_proposal: double(deliver_now: nil)
     #     ))
     login_as danilo, scope: :professional
@@ -44,7 +44,7 @@ describe 'profissional submit proposal' do
   # TODO: Um usuario não pode fazer mais de uma proposta
   it 'with fields empty' do
     blog = create(:project, remote: false)
-    portal_escolar = create(:project)
+    create(:project)
 
     danilo = create(:professional)
     create(:profile, professional: danilo)
@@ -78,7 +78,7 @@ describe 'profissional submit proposal' do
 
   it 'and view later' do
     blog = create(:project, remote: false)
-    portal_escolar = create(:project)
+    create(:project)
 
     danilo = create(:professional)
     create(:profile, professional: danilo)
@@ -99,7 +99,7 @@ describe 'profissional submit proposal' do
   end
   it 'and view later with status accepted' do
     blog = create(:project, remote: false)
-    portal_escolar = create(:project)
+    create(:project)
 
     danilo = create(:professional)
     create(:profile, professional: danilo)
@@ -121,7 +121,7 @@ describe 'profissional submit proposal' do
   end
   it 'and view later with status refused and feedback' do
     blog = create(:project, remote: false)
-    portal_escolar = create(:project)
+    create(:project)
 
     danilo = create(:professional)
     create(:profile, professional: danilo)

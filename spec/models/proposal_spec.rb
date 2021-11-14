@@ -115,8 +115,8 @@ describe Proposal do
         proposal = create(:proposal, project: ecommerce, professional: maicon,
                                      status: 'refused', feedback: 'optei por outro candidato')
 
-        expect(proposal.has_feedback_for?(maicon)).to eq(true)
-        expect(proposal.has_feedback_for?(danilo)).to eq(false)
+        expect(proposal.feedback_for?(maicon)).to eq(true)
+        expect(proposal.feedback_for?(danilo)).to eq(false)
       end
       it 'has not feedback for professional' do
         danilo = create(:user)
@@ -125,8 +125,8 @@ describe Proposal do
         ecommerce = create(:project, user: danilo)
         proposal = create(:proposal, project: ecommerce, professional: maicon)
 
-        expect(proposal.has_feedback_for?(maicon)).to eq(false)
-        expect(proposal.has_feedback_for?(danilo)).to eq(false)
+        expect(proposal.feedback_for?(maicon)).to eq(false)
+        expect(proposal.feedback_for?(danilo)).to eq(false)
       end
     end
     context 'cancel' do
@@ -139,8 +139,8 @@ describe Proposal do
                                      status: 'cancel', feedback:
                          'Vou partipar de outro projeto')
 
-        expect(proposal.has_feedback_for?(danilo)).to eq(true)
-        expect(proposal.has_feedback_for?(maicon)).to eq(false)
+        expect(proposal.feedback_for?(danilo)).to eq(true)
+        expect(proposal.feedback_for?(maicon)).to eq(false)
       end
       it 'has not feedback for user' do
         danilo = create(:user)
@@ -149,8 +149,8 @@ describe Proposal do
         ecommerce = create(:project, user: danilo)
         proposal = create(:proposal, project: ecommerce, professional: maicon)
 
-        expect(proposal.has_feedback_for?(danilo)).to eq(false)
-        expect(proposal.has_feedback_for?(maicon)).to eq(false)
+        expect(proposal.feedback_for?(danilo)).to eq(false)
+        expect(proposal.feedback_for?(maicon)).to eq(false)
       end
     end
     context 'accepted' do

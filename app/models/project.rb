@@ -17,7 +17,7 @@
 #
 class Project < ApplicationRecord
   belongs_to :user
-  has_many :proposals
+  has_many :proposals, dependent: :destroy
   has_many :professionals, through: :proposals
 
   validates :title, :description, :deadline_submission, :max_price_per_hour,
@@ -33,7 +33,7 @@ class Project < ApplicationRecord
                                          status = ?', "%#{parameter}%", "%#{parameter}%", 0)
                  }
 
-  after_initialize :is_closed?
+  after_initialize :deadline_expired?
 
   def days_remaining
     return (deadline_submission - Date.current).to_i if Date.current.before? deadline_submission
@@ -52,17 +52,18 @@ class Project < ApplicationRecord
   end
 
   def belongs_to?(resource)
-    false
     if resource.instance_of? Professional
       professionals.exists? resource.id
     elsif resource.instance_of? User
       user.eql? resource
+    else
+      false
     end
   end
 
   private
 
-  def is_closed?
+  def deadline_expired?
     closed! if deadline_submission.present? && Date.current.after?(deadline_submission)
   end
 

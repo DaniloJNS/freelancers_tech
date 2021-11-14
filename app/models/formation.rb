@@ -16,22 +16,12 @@
 class Formation < ApplicationRecord
   belongs_to :profile
   validates :university, :conclusion, :start, presence: true
-  validate :conclusion_valid, :start_valid
+  validate :start_after_conclusion, if: :start && :conclusion
 
   private
 
-  def conclusion_valid
-    errors.add :conclusion, 'não pode está no futuro' if !conclusion.nil? && Date.current.before?(conclusion) &&
-                                                         status
-    if !conclusion.nil? && !Date.current.before?(conclusion) &&
-       !status
-      errors.add :conclusion,
-                 'não pode está no passado'
-    end
-  end
-
-  def start_valid
-    errors.add :start, 'não pode está numa data anterior à Data de Conclusão' if !conclusion.nil? &&
-                                                                                 !start.nil? && conclusion.before?(start)
+  def start_after_conclusion
+    (errors.add(:start, 'não pode está numa data anterior à Data de Conclusão')) if start
+      .after? conclusion
   end
 end

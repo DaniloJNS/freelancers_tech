@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Método para traduzir enum
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
   def self.human_enum_name(enum_name, enum_value)

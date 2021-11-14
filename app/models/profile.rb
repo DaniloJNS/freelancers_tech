@@ -16,8 +16,8 @@
 #
 class Profile < ApplicationRecord
   belongs_to :professional
-  has_many :formations
-  has_many :experiences
+  has_many :formations, dependent: :destroy
+  has_many :experiences, dependent: :destroy
   validates :name, :description, :birth_date, presence: true
   validate :legal_age
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProposalMailerPreview < ActionMailer::Preview
   def notify_new_proposal
     @professional = FactoryBot.create(:professional)

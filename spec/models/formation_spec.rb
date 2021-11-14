@@ -34,38 +34,23 @@ describe Formation do
       end
     end
     context 'dates' do
-      context 'conclusion' do
-        let(:formation) { subject }
-        it 'can not be in the the future if status conclusion' do
-          formation.status = true
-          formation.conclusion = 1.day.from_now
-          formation.valid?
-
-          expect(formation.errors.full_messages_for(:conclusion)).to include(
-            'Data de Conclusão não pode está no futuro'
-          )
-        end
-        it 'can not be in the past if status in progress' do
-          formation.status = false
-          formation.conclusion = 1.day.ago
-          formation.valid?
-
-          expect(formation.errors.full_messages_for(:conclusion)).to include(
-            'Data de Conclusão não pode está no passado'
-          )
-        end
-      end
       context 'start' do
         let(:formation) { subject }
         it 'can not be before conclusion' do
-          formation.status = true
-          formation.start  = 3.days.from_now
+          formation.start = 3.days.from_now
           formation.conclusion = 1.day.from_now
           formation.valid?
 
           expect(formation.errors.full_messages_for(:start)).to include(
             'Data de Início não pode está numa data anterior à Data de Conclusão'
           )
+        end
+        it 'can be before coclusion' do
+          formation.start = 1.day.from_now
+          formation.conclusion = 5.days.from_now
+          formation.valid?
+
+          expect(formation.errors.full_messages_for(:start)).to eq []
         end
       end
     end

@@ -15,5 +15,13 @@
 #
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+describe User do
+  context 'has many' do
+    it 'projects' do
+      should have_many(:projects)
+    end
+    it 'proposals' do
+      should have_many(:proposals).through(:projects)
+    end
+  end
 end

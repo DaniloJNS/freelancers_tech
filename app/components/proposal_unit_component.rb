@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
+# comments here
 class ProposalUnitComponent < ViewComponent::Base
   with_collection_parameter :proposal
 
   def initialize(proposal:)
+    super
     @proposal = proposal
-    @color = setColor
+    @color = set_color
   end
 
   private
 
-  def setColor
+  def set_color
     case @proposal.status
     when 'accepted'
       'green'

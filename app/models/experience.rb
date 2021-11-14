@@ -22,8 +22,9 @@ class Experience < ApplicationRecord
   validate :end_date_before_start_date, if: :current_job
 
   private
+
   def end_date_before_start_date
-    errors.add(:end_date, "não deve ser antes da Data de Início") if end_date
-      .before? start_date
+    errors.add(:end_date, 'não deve ser antes da Data de Início') if end_date
+                                                                     .before? start_date
   end
 end

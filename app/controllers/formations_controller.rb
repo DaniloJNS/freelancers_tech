@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# comments here
 class FormationsController < ApplicationController
   before_action :authenticate_professional!, only: [new]
 

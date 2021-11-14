@@ -4,10 +4,12 @@
 
 # @param type [String] Classic notification type `error`, `alert` and `info` + custom `success`
 # @param data [String, Hash] `String` for backward compatibility,
-#   `Hash` for the new functionality `{title: '', body: '', timeout: 5, countdown: false, action: { url: '', method: '', name: ''}}`.
+#   `Hash` for the new functionality `{title: '', body: '', timeout: 5, countdown: false,
+#   action: { url: '', method: '', name: ''}}`.
 #   The `title` attribute for `Hash` is mandatory.
 class NotificationComponent < ViewComponent::Base
   def initialize(type:, data:)
+    super
     @type = type
     @data = prepare_data(data)
     @bg_color = bg_color
@@ -22,9 +24,7 @@ class NotificationComponent < ViewComponent::Base
     case @type
     when 'notice'
       'border-green-700'
-    when 'error'
-      'border-red-700'
-    when 'alert'
+    when 'error' || 'alert'
       'border-red-700'
     else
       'border-gray-700'
@@ -35,9 +35,7 @@ class NotificationComponent < ViewComponent::Base
     case @type
     when 'notice'
       'bg-green-100'
-    when 'error'
-      'bg-red-100'
-    when 'alert'
+    when 'error' || 'alert'
       'bg-red-100'
     else
       'bg-gray-100'
@@ -48,9 +46,7 @@ class NotificationComponent < ViewComponent::Base
     case @type
     when 'notice'
       'text-green-700'
-    when 'error'
-      'text-red-700'
-    when 'alert'
+    when 'error' || 'alert'
       'text-red-700'
     else
       'text-gray-700'

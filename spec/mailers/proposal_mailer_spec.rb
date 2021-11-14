@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ProposalMailer, type: :mailer do
@@ -11,13 +13,13 @@ RSpec.describe ProposalMailer, type: :mailer do
 
       proposal = create(:proposal, project: project, professional: danilo)
 
-      mail = ProposalMailer.with(proposal: proposal).notify_new_proposal()
-      
+      mail = ProposalMailer.with(proposal: proposal).notify_new_proposal
+
       expect(mail.to).to eq [caio.email]
       expect(mail.from).to eq ['nao-responder@freelancerstech.com']
-      expect(mail.subject).to eq 'Nova proposta para seu projeto' 
+      expect(mail.subject).to eq 'Nova proposta para seu projeto'
       expect(mail.body).to include "Seu projeto #{project.title} recebeu uma nova "\
-        "proposta de #{danilo.profile.name}"
+                                   "proposta de #{danilo.profile.name}"
     end
   end
 end

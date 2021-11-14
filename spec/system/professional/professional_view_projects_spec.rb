@@ -38,7 +38,7 @@ describe 'professional view projects' do
   end
   it 'successfully and view a project' do
     blog = create(:project, remote: false)
-    portal_escola = create(:project)
+    create(:project)
 
     danilo = create(:professional)
     create(:profile, professional: danilo)

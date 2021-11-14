@@ -94,7 +94,7 @@ describe Project do
             create(:profile, professional: danilo)
 
             project = create(:project)
-            proposal = create(:proposal, project: project, professional: danilo)
+            create(:proposal, project: project, professional: danilo)
 
             expect(project.belongs_to?(danilo)).to eq(true)
           end
@@ -128,7 +128,7 @@ describe Project do
       context 'average_offer' do
         it 'with many proposals' do
           project = create(:project)
-          proposal = create_list(:proposal, 10, project: project, price_hour: 100)
+          create_list(:proposal, 10, project: project, price_hour: 100)
 
           expect(project.average_offer).to eq(100)
         end

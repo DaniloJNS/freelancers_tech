@@ -36,8 +36,8 @@ describe 'visitor view projects' do
   it 'and theres no projects available' do
     visit root_path
 
-    tabuleiro = create(:project, status: 'closed')
-    sistema_react = create(:project, status: 'finished')
+    create(:project, status: 'closed')
+    create(:project, status: 'finished')
 
     click_on 'Ver Projetos'
 

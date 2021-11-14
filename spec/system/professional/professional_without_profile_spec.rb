@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'professional without profile' do
   it 'view a project' do
-    blog = create(:project, remote: false)
+    create(:project, remote: false)
     portal_escolar = create(:project)
 
     danilo = create(:professional)

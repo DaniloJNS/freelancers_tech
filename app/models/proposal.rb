@@ -45,12 +45,13 @@ class Proposal < ApplicationRecord
     end
   end
 
-  def has_feedback_for?(resource)
-    false
+  def feedback_for?(resource)
     if resource.instance_of? Professional
       refused? and belongs_to? resource
     elsif resource.instance_of? User
       cancel? and feedback.present? and belongs_to? resource
+    else
+      false
     end
   end
 

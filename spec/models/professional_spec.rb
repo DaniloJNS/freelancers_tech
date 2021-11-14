@@ -52,10 +52,10 @@ describe Professional do
     end
     context 'profile' do
       it 'must be present' do
-       danilo = create(:professional)
-       create(:profile, professional: danilo) 
+        danilo = create(:professional)
+        create(:profile, professional: danilo)
 
-       expect(danilo.profile?).to be true
+        expect(danilo.profile?).to be true
       end
       it 'not be present' do
         danilo = create(:professional)

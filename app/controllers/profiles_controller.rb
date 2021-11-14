@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# comments here
 class ProfilesController < ApplicationController
   before_action :authenticate_professional!, only: %i[new create]
   skip_before_action :profile_complete_professsional!, only: %i[new create]
@@ -15,6 +16,7 @@ class ProfilesController < ApplicationController
       render :new
     end
   end
+
   def show
     @profile = Profile.find params.require(:id)
   end

@@ -64,7 +64,7 @@
         </div>
 </div> 
 
-  <% if @proposal.has_feedback_for? current_professional %>
+  <% if @proposal.feedback_for? current_professional %>
     <div class="name">
       <h3>Feedback</h3>
      <%= @proposal.feedback %> 

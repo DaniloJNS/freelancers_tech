@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# comments here
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create index closed]
 
@@ -52,8 +53,8 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    { user_id: current_user.id, **params.require(:project).permit(:title, :description, :deadline_submission, :max_price_per_hour,
-                                                                  :remote) }
+    { user_id: current_user.id, **params.require(:project).permit(:title, :description, :deadline_submission,
+                                                                  :max_price_per_hour, :remote) }
   end
 
   def search_params

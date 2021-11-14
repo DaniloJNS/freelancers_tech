@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# comments here
 class HomeController < ApplicationController
   def index
     @projects = Project.all

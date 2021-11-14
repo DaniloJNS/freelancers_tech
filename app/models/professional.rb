@@ -19,11 +19,13 @@ class Professional < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :profile, dependent: :destroy
-  has_many :proposals
+  has_many :proposals, dependent: :nullify
   has_many :projects, through: :proposals
+
   def proposal_id_of_a(project)
     proposals.find_by(project_id: project.id)
   end
+
   def profile?
     profile.present?
   end

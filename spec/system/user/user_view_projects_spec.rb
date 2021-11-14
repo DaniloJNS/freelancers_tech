@@ -53,9 +53,9 @@ describe 'user view project' do
   it 'and details' do
     danilo = create(:user, email: 'danilo@treinadev.com.br')
 
-    blog = create(:project, title: 'Blog da manu', description: 'Um simples blog',
-                            deadline_submission: '11/12/2023', remote: false,
-                            max_price_per_hour: 190, user: danilo)
+    create(:project, title: 'Blog da manu', description: 'Um simples blog',
+                     deadline_submission: '11/12/2023', remote: false,
+                     max_price_per_hour: 190, user: danilo)
 
     login_as danilo, scope: :user
 

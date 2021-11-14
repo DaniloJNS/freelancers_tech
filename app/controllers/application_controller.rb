@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# comments here
 class ApplicationController < ActionController::Base
   before_action :profile_complete_professsional!
 
@@ -15,7 +16,8 @@ class ApplicationController < ActionController::Base
   end
 
   def profile_complete_professsional!
-    if current_professional.present? && current_professional.profile.blank?
+    if current_professional.present? &&
+       current_professional.profile.blank?
       redirect_to(new_professional_profile_path(current_professional),
                   notice: 'Por favor complete seu perfil antes de acessar a plata'\
                           'forma', status: :moved_permanently)

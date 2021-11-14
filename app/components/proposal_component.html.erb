@@ -70,7 +70,7 @@
               </p>
             </div>
           <% end %>
-          <% if @proposal.has_feedback_for? @user %>
+          <% if @proposal.feedback_for? @user %>
             <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-t">
               <p class="text-gray-600">
                 Feedback

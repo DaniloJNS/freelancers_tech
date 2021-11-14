@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# comments here
 class ExperiencesController < ApplicationController
   before_action :authenticate_professional!
   def new

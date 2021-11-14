@@ -43,14 +43,12 @@ describe Experience do
         experience.start_date = Date.current
         experience.end_date = 1.day.ago
         experience.current_job = true
-        
         experience.valid?
 
         expect(experience.errors.full_messages_for(:end_date)).to include(
-          "Data de Termínio não deve ser antes da Data de Início"
-        ) 
+          'Data de Termínio não deve ser antes da Data de Início'
+        )
       end
-      
     end
   end
 end

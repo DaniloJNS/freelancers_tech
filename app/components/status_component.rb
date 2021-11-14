@@ -1,26 +1,22 @@
 # frozen_string_literal: true
 
+# comments here
 class StatusComponent < ViewComponent::Base
   def initialize(proposal:)
+    super
     @proposal = proposal
-    @color = setColor
+    @color = set_color
   end
 
   private
 
-  def setColor
+  def set_color
     case @proposal.status
-    when 'accepted'
+    when 'accepted' || 'open'
       'green'
-    when 'open'
-      'green'
-    when 'refused'
+    when 'refused' || 'closed'
       'red'
-    when 'closed'
-      'red'
-    when 'pending'
-      'yellow'
-    when 'finished'
+    when 'pending' || 'finished'
       'yellow'
     else
       'gray'
