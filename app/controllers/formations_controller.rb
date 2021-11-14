@@ -2,7 +2,7 @@
 
 # comments here
 class FormationsController < ApplicationController
-  before_action :authenticate_professional!, only: [new]
+  before_action :authenticate_professional!, only: %i[new create]
 
   def new
     @formation = Formation.new

@@ -6,6 +6,7 @@ class ProposalsController < ApplicationController
                                               accepted refused]
   before_action :authenticate_professional!, only: [:create]
   before_action :authenticate_professional_user!, only: [:show]
+  before_action :find_proposal, only: %i[accepted refused cancel approval show]
 
   def index
     @proposals = Project.find(params[:project_id]).proposals.available
@@ -22,26 +23,19 @@ class ProposalsController < ApplicationController
     end
   end
 
-  def show
-    @proposal = Proposal.find(params_id)
-  end
+  def show; end
 
-  def approval
-    @proposal = Proposal.find(params_id)
-  end
+  def approval; end
 
   def accepted
-    @proposal = Proposal.find(params_id)
     @proposal.update(status: 'accepted')
-    @proposals = @proposal.project.proposals.available
-    respond_sucess notice: 'Proposta aceita com sucesso'
+    respond_success proposal: @proposal, notice: 'Proposta aceita com sucesso'
   end
 
   def refused
-    @proposal = Proposal.find(params_id)
     if @proposal.update(status: 'refused', feedback: feedback_params)
-      @proposals = @proposal.project.proposals.available
-      return respond_sucess notice: 'Proposta recusada com sucesso'
+      respond_success proposal: @proposal, notice: 'Proposta recusada com sucesso'
+      return
     end
     @proposal.status = 'pending'
     respond_to do |format|
@@ -51,19 +45,27 @@ class ProposalsController < ApplicationController
   end
 
   def cancel
-    @proposal = Proposal.find(params_id)
     if @proposal.update(status: 'cancel', feedback: feedback_params)
       redirect_to(proposal_path(@proposal), notice: 'Proposta cancelada com sucesso')
-    else
-      @proposal.status = 'accepted'
-      exption_proposal
-      render :show
+      return
     end
+    @proposal.status = 'accepted'
+    exption_proposal
+    render :show
   end
 
   private
 
-  def respond_sucess(notice:)
+  def find_proposal
+    @proposal = Proposal.find(params_id)
+  end
+
+  def proposals_available(proposal)
+    @proposals = proposal.project.proposals.available
+  end
+
+  def respond_success(notice:, proposal:)
+    proposals_available proposal
     respond_to do |format|
       format.js { render :index, notice: notice }
       format.html { redirect_to proposal_path(@proposal), notice: notice }
