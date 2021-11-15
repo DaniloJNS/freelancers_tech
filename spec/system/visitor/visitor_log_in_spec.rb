@@ -30,7 +30,7 @@ describe 'visitor log in' do
     expect(page).to have_content(danilo.email.to_s)
   end
   it 'successfully as professional without profile' do
-    danilo = create(:professional)
+    danilo = create(:professional, profile: nil)
 
     visit root_path
     click_on 'FreelancerTech'
@@ -46,7 +46,6 @@ describe 'visitor log in' do
   end
   it 'successfully as professional with profile complete and return root path' do
     carla = create(:professional)
-    create(:profile, professional: carla)
 
     visit new_professional_session_path
 

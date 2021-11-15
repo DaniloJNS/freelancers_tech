@@ -1,0 +1,14 @@
+<div class="flex flex-row rounded-full w-full border border-black p-2 gap-4 items-center">
+  <div class="flex-shrink w-12 h-12 bg-black rounded-full">
+  </div>
+  <div class="flex-grow flex flex-col">
+      <span class="text-lg text-gray-800"><%= link_to @profile.name, profile_path(@profile) %></span>
+      <span class="text-base text-gray-600"> <%= @profile.description %> </span>
+  </div>
+  <div class="flex-shrink w-12 h-12 flex justify-center items-center">
+      <img class="animate-bounce" src="https://img.icons8.com/ios-filled/30/000000/star--v2.png"/>
+      <%# <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"> %>
+      <%#     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /> %>
+      <%# </svg> %>
+  </div>
+</div>

@@ -7,12 +7,10 @@ describe 'profissional submit proposal' do
   it 'successfully' do
     blog = create(:project, remote: false)
     danilo = create(:professional)
-    create(:profile, professional: danilo)
     mailer_spy = class_spy(ProposalMailer)
     stub_const('ProposalMailer', mailer_spy)
     mail = double
-    allow(ProposalMailer)
-      .to receive(:notify_new_proposal)
+    allow(ProposalMailer).to receive(:notify_new_proposal)
       .and_return(mail)
     allow(mail).to receive(:deliver_now)
 

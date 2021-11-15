@@ -15,7 +15,10 @@ Rails.application.routes.draw do
       get 'public'
       get 'search'
     end
-    post :closed, on: :member
+    member do
+      post :closed
+      get :team
+    end
     resources :proposals, only: %i[create show index], shallow: true do
       member do
         get :approval

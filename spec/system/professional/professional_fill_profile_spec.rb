@@ -29,7 +29,7 @@ describe 'professional fill profile' do
     expect(current_path).to eq(new_professional_profile_path(danilo))
   end
   it 'successfully' do
-    danilo = create(:professional)
+    danilo = create(:professional, profile: nil)
 
     login_as danilo, scope: :professional
 
@@ -44,7 +44,7 @@ describe 'professional fill profile' do
     expect(page).to have_content('Seu perfil está completo!')
   end
   it 'with fields empty' do
-    danilo = create(:professional)
+    danilo = create(:professional, profile: nil)
 
     login_as danilo, scope: :professional
 
@@ -71,7 +71,7 @@ describe 'professional fill profile' do
     click_on 'Enviar'
 
     expect(page).to have_content('Formação registrada com sucesso')
-    # expect(current_path).to eq(new_profile_experience_path(maicon.profile))
+    expect(current_path).to eq(new_profile_experience_path(maicon.profile))
   end
   it 'successfully with formation empty' do
     maicon = create(:professional)
@@ -96,11 +96,10 @@ describe 'professional fill profile' do
 
     click_on 'Pular'
 
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(new_profile_experience_path(maicon.profile))
   end
   it 'successfully with experience' do
     maicon = create(:professional)
-    create(:profile, professional: maicon)
 
     login_as maicon, scope: :professional
     visit new_profile_experience_path(maicon.profile)
@@ -113,10 +112,10 @@ describe 'professional fill profile' do
     click_on 'Enviar'
 
     expect(page).to have_content('Experiência registrada com sucesso')
+    expect(current_path).to eq(profile_path(maicon.profile))
   end
   it 'successfully with experience empty' do
     maicon = create(:professional)
-    create(:profile, professional: maicon)
 
     login_as maicon, scope: :professional
     visit new_profile_experience_path(maicon.profile)
@@ -126,5 +125,14 @@ describe 'professional fill profile' do
     expect(page).to have_content('Cargo não pode ficar em branco')
     expect(page).to have_content('Descrição não pode ficar em branco')
     expect(page).to have_content('Data de Início não pode ficar em branco')
+  end
+  it 'skip experience_params' do
+    danilo = create(:professional)
+
+    login_as danilo, scope: :professional
+    visit new_profile_experience_path(danilo.profile)
+    click_on 'Pular'
+
+    expect(current_path).to eq profile_path(danilo.profile)
   end
 end

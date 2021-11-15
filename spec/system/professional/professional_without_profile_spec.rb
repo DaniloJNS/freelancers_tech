@@ -7,7 +7,7 @@ describe 'professional without profile' do
     create(:project, remote: false)
     portal_escolar = create(:project)
 
-    danilo = create(:professional)
+    danilo = create(:professional, profile: nil)
 
     login_as danilo, scope: :professional
 

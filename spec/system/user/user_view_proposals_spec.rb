@@ -26,11 +26,8 @@ describe 'user view proposals', js: true do
     blog = create(:project, user: carlos)
 
     danilo = create(:professional)
-    create(:profile, name: 'danilo', professional: danilo)
     diego = create(:professional)
-    create(:profile, name: 'diego', professional: diego)
     caio = create(:professional)
-    create(:profile, name: 'caio', professional: caio)
 
     create(:proposal, project: blog, professional: danilo)
     create(:proposal, project: blog, professional: diego)
@@ -54,11 +51,8 @@ describe 'user view proposals', js: true do
     blog = create(:project, user: carlos)
 
     danilo = create(:professional)
-    create(:profile, professional: danilo)
     diego = create(:professional)
-    create(:profile, professional: diego)
     caio = create(:professional)
-    create(:profile, professional: caio)
 
     create(:proposal, project: blog, professional: danilo)
     create(:proposal, project: blog, professional: diego)
@@ -83,7 +77,6 @@ describe 'user view proposals', js: true do
     portal_escola = create(:project, user: carlos)
 
     danilo = create(:professional)
-    create(:profile, professional: danilo)
     proposal = create(:proposal, project: portal_escola, professional: danilo,
                                  price_hour: 100, weekly_hour: 20, completion_deadline: 50)
 
@@ -103,7 +96,6 @@ describe 'user view proposals', js: true do
     portal_escola = create(:project, user: carlos)
 
     danilo = create(:professional)
-    create(:profile, professional: danilo)
     proposal = create(:proposal, project: portal_escola, professional: danilo,
                                  price_hour: 100, weekly_hour: 20, completion_deadline: 50)
 
@@ -127,7 +119,6 @@ describe 'user view proposals', js: true do
     portal_escola = create(:project, user: carlos)
 
     danilo = create(:professional)
-    create(:profile, professional: danilo)
     proposal = create(:proposal, project: portal_escola, professional: danilo,
                                  price_hour: 100, weekly_hour: 20, completion_deadline: 50)
     login_as carlos, scope: :user
@@ -147,7 +138,6 @@ describe 'user view proposals', js: true do
     portal_escola = create(:project, user: carlos)
 
     danilo = create(:professional)
-    create(:profile, professional: danilo)
     create(:proposal, project: portal_escola, professional: danilo,
                       price_hour: 100, weekly_hour: 20, completion_deadline: 50)
 
@@ -168,7 +158,6 @@ describe 'user view proposals', js: true do
     portal_escola = create(:project, user: carlos)
 
     danilo = create(:professional)
-    create(:profile, professional: danilo)
     proposal = create(:proposal, project: portal_escola, professional: danilo,
                                  price_hour: 100, weekly_hour: 20, completion_deadline:
                       50, status: 'cancel', feedback: 'Escolhi outro projeto')

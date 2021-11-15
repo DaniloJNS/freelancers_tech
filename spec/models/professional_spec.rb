@@ -34,7 +34,6 @@ describe Professional do
     context 'proposal_id_a' do
       it 'have project' do
         danilo = create(:professional)
-        create(:profile, professional: danilo)
 
         project = create(:project)
         proposal = create(:proposal, project: project, professional: danilo)
@@ -43,7 +42,6 @@ describe Professional do
       end
       it 'have not project' do
         danilo = create(:professional)
-        create(:profile, professional: danilo)
 
         project = create(:project)
 
@@ -53,12 +51,11 @@ describe Professional do
     context 'profile' do
       it 'must be present' do
         danilo = create(:professional)
-        create(:profile, professional: danilo)
 
         expect(danilo.profile?).to be true
       end
       it 'not be present' do
-        danilo = create(:professional)
+        danilo = create(:professional, profile: nil)
 
         expect(danilo.profile?).to be false
       end

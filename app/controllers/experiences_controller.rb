@@ -11,7 +11,7 @@ class ExperiencesController < ApplicationController
   def create
     @experience = Experience.new(experience_params)
     if @experience.save
-      redirect_to(root_path, notice: 'Experiência registrada com sucesso')
+      redirect_to(profile_path(current_professional.profile), notice: 'Experiência registrada com sucesso')
     else
       render :new
     end

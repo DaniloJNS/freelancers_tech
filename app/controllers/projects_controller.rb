@@ -2,15 +2,21 @@
 
 # comments here
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create index closed]
+  before_action :authenticate_user!, only: %i[new create index closed accepted refused]
+  before_action :find_project, only: %i[team show]
 
-  def show
-    @project = Project.find(params[:id])
-    @proposal = Proposal.new
+  def public
+    @projects = Project.available
   end
 
   def index
     @projects = current_user.projects
+  end
+
+  def team; end
+
+  def show
+    @proposal = Proposal.new
   end
 
   def new
@@ -36,10 +42,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def public
-    @projects = Project.available
-  end
-
   def search
     @projects = Project.search(search_params)
     if @projects.blank?
@@ -51,6 +53,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def find_project
+    @project = Project.find(params[:id])
+  end
 
   def project_params
     { user_id: current_user.id, **params.require(:project).permit(:title, :description, :deadline_submission,

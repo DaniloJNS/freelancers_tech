@@ -12,7 +12,7 @@ class FormationsController < ApplicationController
   def create
     @formation = Formation.new(formation_params)
     if @formation.save
-      redirect_to root_path, notice: 'Formação registrada com sucesso'
+      redirect_to new_profile_experience_path(@formation.profile), notice: 'Formação registrada com sucesso'
     else
       render :new
     end

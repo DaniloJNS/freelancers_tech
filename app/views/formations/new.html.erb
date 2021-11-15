@@ -14,4 +14,4 @@
 
   <%= formation.submit "Enviar"%>
 <% end %>
-<%= render ButtonComponent.new(text: "Pular") %>
+<%= render ButtonComponent.new(text: "Pular", path: new_profile_experience_path(current_professional.profile)) %>
