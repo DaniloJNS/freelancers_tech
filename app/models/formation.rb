@@ -21,7 +21,7 @@ class Formation < ApplicationRecord
   private
 
   def start_after_conclusion
-    (errors.add(:start, 'não pode está numa data anterior à Data de Conclusão')) if start
-      .after? conclusion
+    errors.add(:start, 'não pode está numa data anterior à Data de Conclusão') if start
+                                                                                  .after? conclusion
   end
 end

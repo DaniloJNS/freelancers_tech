@@ -42,9 +42,9 @@ describe 'user view team' do
     travel_to 3.days.from_now do
       login_as user, scope: :user
       visit projects_path(project)
-      click_on "Visualizar time"
+      click_on 'Visualizar time'
 
-      expect(current_path).to eq(team_project_path(project)) 
+      expect(current_path).to eq(team_project_path(project))
       expect(page).to have_content(danilo.profile.name)
       expect(page).to have_content(caio.profile.name)
     end
@@ -60,7 +60,7 @@ describe 'user view team' do
     travel_to 3.days.from_now do
       login_as user, scope: :user
       visit team_project_path(project)
-      
+
       expect(page).to have_link(danilo.profile.name, href: profile_path(danilo.profile))
       expect(page).to have_link(caio.profile.name, href: profile_path(caio.profile))
     end

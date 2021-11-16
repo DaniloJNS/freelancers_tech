@@ -1,8 +1,9 @@
-<div class="flex flex-row rounded-full w-full border border-black p-2 gap-4 items-center">
+<div data-team-target="card" class="flex flex-row rounded-full w-full border border-black 
+     p-2 gap-4 items-center" id= <%= @profile.name %>>
   <div class="flex-shrink w-12 h-12 bg-black rounded-full">
   </div>
   <div class="flex-grow flex flex-col">
-      <span class="text-lg text-gray-800"><%= link_to @profile.name, profile_path(@profile) %></span>
+      <span data-team-target="name" class="text-lg text-gray-800"><%= link_to @profile.name, profile_path(@profile) %></span>
       <span class="text-base text-gray-600"> <%= @profile.description %> </span>
   </div>
   <div class="flex-shrink w-12 h-12 flex justify-center items-center">

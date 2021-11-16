@@ -1,4 +1,6 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe ProfileCardComponent, type: :component do
   # it "renders something useful" do

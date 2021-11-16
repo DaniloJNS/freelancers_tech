@@ -2,7 +2,7 @@
 
 # comments here
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create index closed accepted refused]
+  before_action :authenticate_user!, only: %i[new create index closed]
   before_action :find_project, only: %i[team show]
 
   def public
