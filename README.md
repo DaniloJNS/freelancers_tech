@@ -14,6 +14,10 @@
 <li><a href="https://rubyonrails.org/">Rails</a></li>
 <li><a href="https://tailwindcss.com/">TailwindCSS</a></li></ul>
 
+## 💎 Versão do Ruby
+
+- Ruby v3.0.2 | Rails >= 6.1.4.1
+
 #### Gems
 
 ##### Autenticação
@@ -42,10 +46,6 @@
 <ul>
     <li><a href="https://github.com/rubocop/rubocop">Rubocop</a></li>
 </ul>
-## 💎 Versão do Ruby
-
-- Ruby v3.0.2 | Rails >= 6.1.4.1
-
 
 ## Configuração
 
