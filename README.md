@@ -4,7 +4,9 @@
 
 <h4> <strong>FreelancerTech</strong> é uma plataforma construída para unir pessoas, aquelas que precisam de profissionais para tirar do papel seus projetos e aqueles que tem capacidade técnica para transforma ideias em realidade</h4>
 
+## 💎 Versão do Ruby
 
+- Ruby v3.0.2 | Rails >= 6.1.4.1
 
 ## Tecnologias
 
@@ -14,9 +16,7 @@
 <li><a href="https://rubyonrails.org/">Rails</a></li>
 <li><a href="https://tailwindcss.com/">TailwindCSS</a></li></ul>
 
-## 💎 Versão do Ruby
 
-- Ruby v3.0.2 | Rails >= 6.1.4.1
 
 #### Gems
 
