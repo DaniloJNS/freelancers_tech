@@ -12,8 +12,7 @@
 
 <ul>
 <li><a href="https://rubyonrails.org/">Rails</a></li>
-<li><a href="https://tailwindcss.com/">TailwindCSS</a></li>
-</ul>
+<li><a href="https://tailwindcss.com/">TailwindCSS</a></li></ul>
 
 #### Gems
 
@@ -31,7 +30,20 @@
  	<li><a href="https://github.com/thoughtbot/shoulda-matchers/">Shoulda-matchers</a></li>
     <li><a href="https://github.com/simplecov-ruby/simplecov">Simplecov</a></li>
 </ul>
+##### Javascript
 
+<ul>
+    <li><a href="https://github.com/WICG/import-maps">Import-maps</a></li>
+    <li><a href="https://stimulus.hotwired.dev/">Stimulus</a></li>
+</ul>
+
+##### Boas práticas
+
+<ul>
+    <li><a href="https://github.com/rubocop/rubocop">Rubocop</a></li></ul>
+## 💎 Versão do Ruby
+
+- Ruby v3.0.2 | Rails >= 6.1.4.1
 
 
 ## Configuração
@@ -82,6 +94,26 @@ Para rodar os testes
 ```sh
 rspec
 ```
+
+
+##  Logins Disponíveis
+
+### Entrar como Cliente
+
+|     E-mail     | Senha  |
+| :------------: | :----: |
+| user1@mail.com | 123123 |
+| user2@mail.com | 123123 |
+| user3@mail.com | 123123 |
+
+### Entrar como Streamer
+
+|        E-mail        | Senha  |
+| :------------------: | :----: |
+| freelancer1@mail.com | 123123 |
+| freelancer2@mail.com | 123123 |
+| freelancer3@mail.com | 123123 |
+
 
 <h3>Author: Danilo José Nascimento da Silva </h3>
 
