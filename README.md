@@ -77,6 +77,24 @@ e os pacotes javasricpt para o front com yarn
 ```sh
 yarn install
 ```
+Criação do Banco de Dados
+
+```sh
+rails db:migrate
+```
+
+Inicialização do Banco de Dados
+
+```sh
+rails db:seed
+```
+
+Como rodar a suíte de testes
+
+```sh
+rspec
+rubocop
+```
 
 Para rodar a aplicação num servidor localmente, use
 
@@ -89,13 +107,6 @@ e no seu navegador, abra
 ```html
 http://127.0.0.1:3000
 ```
-
-Para rodar os testes
-
-```sh
-rspec
-```
-
 
 ##  Logins Disponíveis
 
