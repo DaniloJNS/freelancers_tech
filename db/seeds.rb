@@ -7,21 +7,21 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Users
-danilo = User.create!(email: 'danilo@rmotors.com.br', password: '1234567')
-marcia = User.create!(email: 'prof_marcia@educacional.com.br', password: '1234567')
-carlos = User.create!(email: 'carlos@lojasup.com', password: '1234567')
+danilo = User.create!
+marcia = User.create!
+carlos = User.create!
 pedro = User.create!(email: 'pedro_calixto@mail.com', password: '123456')
 debora = User.create!(email: 'carla.maria2@mail.com', password: '123456')
 jackson = User.create!(email: 'jack_dev@c6consultoria.com.br', password: '123456')
 
 # Professionals
-maicon = Professional.create!(email: 'maicon_comp@mail.com', password: '1234567')
+maicon = Professional.create!
 Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
                 birth_date: '11/4/1990', professional: maicon)
-caio = Professional.create!(email: 'caio_comp@mail.com', password: '1234567')
+caio = Professional.create!
 Profile.create!(name: 'caio', description: 'Dev front-end react',
                 birth_date: '11/4/1990', professional: caio)
-diego = Professional.create!(email: 'diego_comp@mail.com', password: '1234567')
+diego = Professional.create!
 Profile.create!(name: 'diego', description: 'Dev front-end vue js',
                 birth_date: '11/4/1990', professional: diego)
 # Projects

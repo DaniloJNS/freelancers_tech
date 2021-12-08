@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :professional do
-    email { FFaker::Internet.email }
-    password { '123123123' }
+    sequence(:email) { |n| "freelancer#{n}@mail.com" }
+    password { '123123' }
     profile { association :profile, professional: instance }
   end
 end
