@@ -7,23 +7,20 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Users
-danilo = User.create!
-marcia = User.create!
-carlos = User.create!
+danilo = FactoryBot.create(:user)
+marcia =FactoryBot.create(:user)
+carlos = FactoryBot.create(:user)
 pedro = User.create!(email: 'pedro_calixto@mail.com', password: '123456')
 debora = User.create!(email: 'carla.maria2@mail.com', password: '123456')
 jackson = User.create!(email: 'jack_dev@c6consultoria.com.br', password: '123456')
 
 # Professionals
-maicon = Professional.create!
-Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                birth_date: '11/4/1990', professional: maicon)
-caio = Professional.create!
-Profile.create!(name: 'caio', description: 'Dev front-end react',
-                birth_date: '11/4/1990', professional: caio)
-diego = Professional.create!
-Profile.create!(name: 'diego', description: 'Dev front-end vue js',
-                birth_date: '11/4/1990', professional: diego)
+maicon = FactoryBot.create(:professional)
+FactoryBot.create(:profile, description: 'Dev back-end laravel and django', professional: maicon)
+caio = FactoryBot.create(:professional)
+FactoryBot.create(:profile, description: 'Dev front-end react', professional: caio)
+diego = FactoryBot.create(:professional)
+FactoryBot.create(:profile, description: 'Dev front-end vue js', professional: diego)
 # Projects
 ecommerce = Project.create!(title: 'E-commerce de carros', description: 'uma plataforma para venda, '\
                             'troca e compra de carros', deadline_submission: 1.week.from_now, remote: true,
