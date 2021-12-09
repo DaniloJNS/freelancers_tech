@@ -4,7 +4,9 @@
 
 <h4> <strong>FreelancerTech</strong> é uma plataforma construída para unir pessoas, aquelas que precisam de profissionais para tirar do papel seus projetos e aqueles que tem capacidade técnica para transforma ideias em realidade</h4>
 
+## 💎 Versão do Ruby
 
+- Ruby v3.0.2 | Rails >= 6.1.4.1
 
 ## Tecnologias
 
@@ -13,6 +15,8 @@
 <ul>
 <li><a href="https://rubyonrails.org/">Rails</a></li>
 <li><a href="https://tailwindcss.com/">TailwindCSS</a></li></ul>
+
+
 
 #### Gems
 
@@ -30,6 +34,7 @@
  	<li><a href="https://github.com/thoughtbot/shoulda-matchers/">Shoulda-matchers</a></li>
     <li><a href="https://github.com/simplecov-ruby/simplecov">Simplecov</a></li>
 </ul>
+
 ##### Javascript
 
 <ul>
@@ -40,11 +45,8 @@
 ##### Boas práticas
 
 <ul>
-    <li><a href="https://github.com/rubocop/rubocop">Rubocop</a></li></ul>
-## 💎 Versão do Ruby
-
-- Ruby v3.0.2 | Rails >= 6.1.4.1
-
+    <li><a href="https://github.com/rubocop/rubocop">Rubocop</a></li>
+</ul>
 
 ## Configuração
 
@@ -76,6 +78,24 @@ e os pacotes javasricpt para o front com yarn
 ```sh
 yarn install
 ```
+Criação do Banco de Dados
+
+```sh
+rails db:migrate
+```
+
+Inicialização do Banco de Dados
+
+```sh
+rails db:seed
+```
+
+Como rodar a suíte de testes
+
+```sh
+rspec
+rubocop
+```
 
 Para rodar a aplicação num servidor localmente, use
 
@@ -88,13 +108,6 @@ e no seu navegador, abra
 ```html
 http://127.0.0.1:3000
 ```
-
-Para rodar os testes
-
-```sh
-rspec
-```
-
 
 ##  Logins Disponíveis
 
