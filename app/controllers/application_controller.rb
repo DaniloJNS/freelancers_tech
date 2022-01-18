@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   def profile_complete_professsional!
     if current_professional.present? &&
-       current_professional.profile.blank?
+       current_professional&.profile.blank?
       redirect_to(new_professional_profile_path(current_professional),
                   notice: 'Por favor complete seu perfil antes de acessar a plata'\
                           'forma', status: :moved_permanently)

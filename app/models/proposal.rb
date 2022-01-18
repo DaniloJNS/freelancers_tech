@@ -31,7 +31,7 @@ class Proposal < ApplicationRecord
 
   enum status: { pending: 0, accepted: 1, refused: 2, cancel: 3 }
   scope :count_status, ->(parameter) { where(status: parameter).count }
-  scope :available, -> { where('status<> 3 or feedback is not ?', nil) }
+  scope :available, -> { where('status<> 4 or feedback is not ?', nil) }
 
   before_save :deadline_for_cancel_in_accepted
 

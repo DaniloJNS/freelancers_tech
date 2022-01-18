@@ -32,6 +32,11 @@ class Project < ApplicationRecord
                    where('(title like ? OR description like ?) and
                                          status = ?', "%#{parameter}%", "%#{parameter}%", 0)
                  }
+  scope :teams, lambda { |professional|
+                  joins(:proposals).where(proposals: { status: 'accepted',
+                                                       professional_id: professional.id },
+                                          status: 'closed')
+                }
 
   after_initialize :deadline_expired?
 

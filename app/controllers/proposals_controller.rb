@@ -73,9 +73,8 @@ class ProposalsController < ApplicationController
   end
 
   def proposal_params
-    { project_id: params[:project_id], **params.require(:proposal)
-                                               .permit(:justification, :price_hour, :weekly_hour,
-                                                       :completion_deadline) }
+    params.require(:proposal).permit(:justification, :price_hour, :weekly_hour, :completion_deadline)
+          .merge({ project_id: params.require(:project_id) })
   end
 
   def feedback_params

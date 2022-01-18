@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   devise_for :users
 
   root to: 'home#index'
-  post 'ajax', to: 'home#ajax'
 
   resources :projects, only: %i[new show create index] do
     collection do
@@ -31,20 +30,19 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :professionals do
-    resources :profiles, only: %i[new create show], shallow: true do
-      resources :formations, only: %i[new create], shallow: true
-      resources :experiences, only: %i[new create], shallow: true
-    end
-  end
-
   namespace :api do
     namespace :v1 do
       resources :projects, only: %i[index show]
     end
   end
-  scope ':name', as: 'professional' do
-    get 'my_projects', to: 'professionals/projects#index', as: :projects
-    get ':title', to: 'professionals/projects#show', as: :project
+
+  namespace :professionals, as: :professional do
+    resources :projects, only: %i[index] do
+      get :team
+    end
+    resources :profiles, only: %i[new create show], shallow: true do
+      resources :formations, only: %i[new create], shallow: true
+      resources :experiences, only: %i[new create], shallow: true
+    end
   end
 end

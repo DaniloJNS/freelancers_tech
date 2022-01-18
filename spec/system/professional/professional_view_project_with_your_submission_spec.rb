@@ -29,6 +29,7 @@ describe 'professional view projects with your submission' do
 
     login_as danilo, scope: :professional
     visit professional_projects_path(danilo)
+    click_on 'Minhas submissões'
 
     expect(current_path).to eq(professional_projects_path(danilo))
     expect(page).to have_content(blog.title)

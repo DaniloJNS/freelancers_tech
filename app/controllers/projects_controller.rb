@@ -59,12 +59,12 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    { user_id: current_user.id, **params.require(:project).permit(:title, :description, :deadline_submission,
-                                                                  :max_price_per_hour, :remote) }
+    params.require(:project).permit(:title, :description, :deadline_submission, :max_price_per_hour, :remote)
+          .merge(user_id: current_user.id)
   end
 
   def search_params
-    params[:q].present? ? params.require(:q) : "@#{$ERROR_INFO}@"
+    params[:query].present? ? params.require(:query) : "@#{$ERROR_INFO}@"
   end
 
   def closed_params

@@ -8,5 +8,11 @@ FactoryBot.define do
     completion_deadline { rand(1..300) }
     professional
     project
+    transient do
+      project_closed { false }
+    end
+    after(:create) do |proposal, evaluator|
+      proposal.project.closed! if evaluator.project_closed
+    end
   end
 end

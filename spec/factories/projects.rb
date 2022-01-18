@@ -8,6 +8,9 @@ FactoryBot.define do
     remote { true }
     max_price_per_hour { rand(100..30_000) }
     status { 'open' }
+    trait :closed do
+      status { 'closed' }
+    end
     user
   end
 end

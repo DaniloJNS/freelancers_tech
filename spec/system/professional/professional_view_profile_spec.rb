@@ -13,7 +13,7 @@ describe 'professional view profile' do
 
     click_on 'danilo'
 
-    expect(page).to have_link('Ver Perfil', href: profile_path(danilo.profile.id))
+    expect(page).to have_link('Ver Perfil', href: professional_profile_path(danilo.profile.id))
   end
   it 'sucessfuly' do
     danilo = create(:professional)

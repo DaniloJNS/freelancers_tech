@@ -61,8 +61,8 @@ describe 'user view team' do
       login_as user, scope: :user
       visit team_project_path(project)
 
-      expect(page).to have_link(danilo.profile.name, href: profile_path(danilo.profile))
-      expect(page).to have_link(caio.profile.name, href: profile_path(caio.profile))
+      expect(page).to have_link(danilo.profile.name, href: professional_profile_path(danilo.profile))
+      expect(page).to have_link(caio.profile.name, href: professional_profile_path(caio.profile))
     end
   end
 end

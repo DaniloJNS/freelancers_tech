@@ -1,0 +1,11 @@
+{
+  "speeches": {
+    "track A": {
+      "1": {
+        "time": 350,
+        "title": "Diminuindo tempo de execução de testes em aplicações Rails enterprise",
+        "duration": 60
+      }
+    }
+  }
+}

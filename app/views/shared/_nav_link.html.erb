@@ -31,7 +31,7 @@
             <li> <%= button_tag "Sair", class: "dropdown-menu-top bg-white border-l-4  hover:border-blue-500" %>
           <% end %>
           <% if current_professional.profile? %>
-           <%= link_to "Ver Perfil", profile_path(current_professional.profile.id) %>
+           <%= link_to "Ver Perfil", professional_profile_path(current_professional.profile) %>
           <% end %>
         </ul>
         </div>

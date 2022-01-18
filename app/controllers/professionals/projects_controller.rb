@@ -5,7 +5,11 @@ module Professionals
   class ProjectsController < ApplicationController
     before_action :profile_complete_professsional!, only: [:index]
     def index
-      @projects = current_professional.projects
+      @projects = Project.teams(current_professional)
+    end
+
+    def team
+      @project = Project.find(params.require(:project_id))
     end
   end
 end

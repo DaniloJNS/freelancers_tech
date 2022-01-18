@@ -57,12 +57,10 @@ describe 'professional fill profile' do
   end
   it 'successfully with formation' do
     maicon = create(:professional)
-    Profile.create!(name: 'maicon', description: 'Dev back-end laravel and django',
-                    birth_date: '11/4/1990', professional: maicon)
 
     login_as maicon, scope: :professional
 
-    visit new_profile_formation_path(maicon.profile)
+    visit new_professional_profile_formation_path(maicon.profile)
 
     fill_in 'Universidade', with: 'UFMA'
     check 'Concluído'
@@ -71,7 +69,7 @@ describe 'professional fill profile' do
     click_on 'Enviar'
 
     expect(page).to have_content('Formação registrada com sucesso')
-    expect(current_path).to eq(new_profile_experience_path(maicon.profile))
+    expect(current_path).to eq(new_professional_profile_experience_path(maicon.profile))
   end
   it 'successfully with formation empty' do
     maicon = create(:professional)
@@ -79,7 +77,7 @@ describe 'professional fill profile' do
 
     login_as maicon, scope: :professional
 
-    visit new_profile_formation_path(maicon.profile)
+    visit new_professional_profile_formation_path(maicon.profile)
 
     click_on 'Enviar'
 
@@ -92,17 +90,17 @@ describe 'professional fill profile' do
     create(:profile, professional: maicon)
 
     login_as maicon, scope: :professional
-    visit new_profile_formation_path(maicon.profile)
+    visit new_professional_profile_formation_path(maicon.profile)
 
     click_on 'Pular'
 
-    expect(current_path).to eq(new_profile_experience_path(maicon.profile))
+    expect(current_path).to eq(new_professional_profile_experience_path(maicon.profile))
   end
   it 'successfully with experience' do
     maicon = create(:professional)
 
     login_as maicon, scope: :professional
-    visit new_profile_experience_path(maicon.profile)
+    visit new_professional_profile_experience_path(maicon.profile)
 
     fill_in 'Empresa', with: 'The Coca-Cola Company'
     fill_in 'Cargo', with: 'Gerente de TI'
@@ -112,13 +110,13 @@ describe 'professional fill profile' do
     click_on 'Enviar'
 
     expect(page).to have_content('Experiência registrada com sucesso')
-    expect(current_path).to eq(profile_path(maicon.profile))
+    expect(current_path).to eq(professional_profile_path(maicon.profile))
   end
   it 'successfully with experience empty' do
     maicon = create(:professional)
 
     login_as maicon, scope: :professional
-    visit new_profile_experience_path(maicon.profile)
+    visit new_professional_profile_experience_path(maicon.profile)
 
     click_on 'Enviar'
     expect(page).to have_content('Empresa não pode ficar em branco')
@@ -130,9 +128,9 @@ describe 'professional fill profile' do
     danilo = create(:professional)
 
     login_as danilo, scope: :professional
-    visit new_profile_experience_path(danilo.profile)
+    visit new_professional_profile_experience_path(danilo.profile)
     click_on 'Pular'
 
-    expect(current_path).to eq profile_path(danilo.profile)
+    expect(current_path).to eq professional_profile_path(danilo.profile)
   end
 end

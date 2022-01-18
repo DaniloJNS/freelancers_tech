@@ -1,5 +1,5 @@
 <%= render ErrorMessagesComponent.new(model: @experience) %>
-<%= form_with model: [current_professional.profile, @experience] do |exp|%>
+<%= form_with model: [current_professional, current_professional.profile, @experience] do |exp|%>
   <%= exp.label :company %>
   <%= exp.text_field :company %>
 
@@ -21,4 +21,4 @@
   <%= exp.submit "Enviar" %>
 <% end %>
 
-<%= render ButtonComponent.new(text: "Pular", path: profile_path(current_professional.profile)) %>
+<%= render ButtonComponent.new(text: "Pular", path: professional_profile_path(current_professional.profile)) %>

@@ -43,7 +43,7 @@ Project.create!(title: 'Integração de api', description: 'Preciso de um dev pa
                 max_price_per_hour: 300, deadline_submission: 3.days.from_now, user: jackson)
 
 # Proposals
-proposal_portal = Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
+Proposal.create!(justification: 'Sou bom em java', price_hour: 100, weekly_hour: 20,
                                    completion_deadline: 50, professional: diego, project: portal_escolar)
 Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
                  completion_deadline: 30, professional: diego, project: ecommerce)
@@ -53,4 +53,6 @@ Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hou
                  completion_deadline: 40, professional: maicon, project: ecommerce,
                  status: 'cancel', feedback: 'Vou participar de outro projeto')
 Proposal.create!(justification: 'tenho habilidades para esse projeto', price_hour: 100, weekly_hour: 30,
-                 completion_deadline: 40, professional: maicon, project: tabuleiro)
+                  completion_deadline: 40, professional: maicon, project: tabuleiro)
+FactoryBot.create(:proposal, professional: maicon, project: portal_escolar, status: 'accepted')
+portal_escolar.closed!
