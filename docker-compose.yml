@@ -3,22 +3,37 @@ version: "3"
 services:
   web:
     build: .
+    container_name: free_lancers_tech
     command: "bin/setup"
     volumes:
       - .:/opt/app
     ports:
-      - 3000:3000
+      - 3
     tty: true
-    stdin_open: true
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      DB_HOST: db
-      DOCKER_COMPOSE_SESSION: true
+    env_file: .env.development
     depends_on:
       - db
+      - cache
+
+  jobs:
+    build: .
+    container_name: sidekiq
+    command: "bin/setup_sidekiq"
+    volumes:
+      - .:/opt/app
+    env_file: .env.development
+    depends_on:
+      - db
+      - cache
+
   db:
     image: postgres:13-alpine
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+    container_name: postgresql
+    env_file: .env.database
+    volumes:
+      - ./scripts/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
+
+  cache:
+    image: redis
+    container_name: redis
+    command: "redis-server"

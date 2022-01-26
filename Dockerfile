@@ -10,7 +10,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 
 RUN apt-get update -qq
 RUN apt-get install -y --no-install-recommends nodejs \
-      locales yarn
+      locales yarn postgresql-client
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 RUN locale-gen
