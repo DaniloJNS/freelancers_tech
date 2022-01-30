@@ -27,7 +27,7 @@ class Project < ApplicationRecord
 
   enum status: { open: 0, closed: 1, finished: 2 }
 
-  scope :available, -> { where(status: 0) }
+  scope :available, -> { where(status: "closed") }
   scope :search, lambda { |parameter|
                    where('(title like ? OR description like ?) and
                                          status = ?', "%#{parameter}%", "%#{parameter}%", 0)
@@ -52,9 +52,9 @@ class Project < ApplicationRecord
   end
 
   def belongs_to?(resource)
-    if resource.instance_of? Professional
+    if resource.is_a? Professional
       professionals.exists? resource.id
-    elsif resource.instance_of? User
+    elsif resource.is_a? User
       user.eql? resource
     else
       false

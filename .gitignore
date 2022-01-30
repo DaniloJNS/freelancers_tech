@@ -42,6 +42,6 @@ yarn-debug.log*
 # Ignore reports in tests
 coverage
 
-# Igonore all environment variables
+# Ignore all environment variables
 .env.development
 .env.database

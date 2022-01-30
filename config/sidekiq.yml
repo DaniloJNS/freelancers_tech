@@ -1,4 +1,15 @@
+:concurrency: 1
 :pidfile: ./tmp/pids/sidekiq.pid
 :logfile: ./log/sidekiq.log
 :queues:
   - default
+  - mailer
+
+tasks: &tasks
+  UpdateProjectStatusJob:
+    every: ["1 days", first_in: "0s"]
+    queue: default
+    class: UpdateProjectStatusJob
+
+:schedule:
+  <<: *tasks

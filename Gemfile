@@ -15,6 +15,7 @@ gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 gem 'redis'
 gem 'sass-rails', '>= 6'
 gem 'sidekiq'
+gem "sidekiq-scheduler", "~> 3.1"
 gem 'sinatra', require: nil
 gem 'sprockets-rails'
 gem 'stimulus-rails'

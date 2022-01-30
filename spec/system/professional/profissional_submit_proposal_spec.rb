@@ -7,13 +7,9 @@ describe 'profissional submit proposal' do
   it 'successfully' do
     blog = create(:project, remote: false)
     danilo = create(:professional)
-    mailer_spy = class_spy(ProposalMailer)
+    mailer_spy = class_spy(ProposalMailDeliverJob)
     stub_const('ProposalMailer', mailer_spy)
-    mail = double
-    allow(ProposalMailer).to receive(:notify_new_proposal)
-      .and_return(mail)
-    allow(mail).to receive(:deliver_now)
-
+    allow(ProposalMailDeliverJob).to receive(:perform_async)
     # stub_const('ProposalMailer',class_spy(
     #       ProposalMailer,
     #       notify_new_proposal: double(deliver_now: nil)
@@ -28,8 +24,7 @@ describe 'profissional submit proposal' do
     fill_in 'Prazo de conclusão', with: 50
     click_on 'Enviar'
 
-    expect(ProposalMailer).to have_received(:notify_new_proposal)
-    expect(mail).to have_received(:deliver_now)
+    expect(ProposalMailDeliverJob).to have_received(:perform_async)
     expect(current_path).to_not eq(project_path(blog))
     expect(page).to have_content('Proposta enviada com sucesso!')
     expect(page).to have_content('Sou um gênio')
