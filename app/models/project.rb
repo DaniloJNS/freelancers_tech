@@ -27,13 +27,11 @@ class Project < ApplicationRecord
 
   enum status: { open: 0, closed: 1, finished: 2 }
 
-  scope :available, -> { where(status: "closed") }
+  scope :available, -> { where(status: "open") }
   scope :search, lambda { |parameter|
                    where('(title like ? OR description like ?) and
                                          status = ?', "%#{parameter}%", "%#{parameter}%", 0)
                  }
-
-  after_initialize :deadline_expired?
 
   def days_remaining
     return (deadline_submission - Date.current).to_i if Date.current.before? deadline_submission
@@ -62,10 +60,6 @@ class Project < ApplicationRecord
   end
 
   private
-
-  def deadline_expired?
-    closed! if deadline_submission.present? && Date.current.after?(deadline_submission)
-  end
 
   def date_past
     errors.add(:deadline_submission, 'não pode está no passado') if !deadline_submission

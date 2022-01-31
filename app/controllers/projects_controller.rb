@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
   def closed
     if closed_params
       @project = Project.find(closed_params[:id])
-      @project.update!(status: closed_params[:status])
+      @project.update!(status: "closed")
       redirect_to projects_path, notice: 'Inscrições encerradas com sucesso'
     else
       redirect_to projects_path, alert: 'Não foi possível realizar essa operação'

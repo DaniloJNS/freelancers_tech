@@ -23,6 +23,7 @@ describe 'user view team' do
       create_list(:proposal, 2, project: project)
 
       travel_to 3.days.from_now do
+        UpdateProjectStatusJob.new.perform
         login_as user, scope: :user
         visit projects_path(project)
 
@@ -40,6 +41,7 @@ describe 'user view team' do
     create(:proposal, project: project, professional: caio)
 
     travel_to 3.days.from_now do
+      UpdateProjectStatusJob.new.perform
       login_as user, scope: :user
       visit projects_path(project)
       click_on 'Visualizar time'

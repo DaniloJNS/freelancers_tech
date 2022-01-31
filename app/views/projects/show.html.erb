@@ -67,16 +67,13 @@
             </div>
         </div>
     </div> 
+    <nav class="flex flex-wrap">
     <% if @project.belongs_to? current_professional %>
-      <nav>
-        <%= link_to "Visualizar Proposta", proposal_path(current_professional
-                                           .proposal_id_of_a @project) %>
-     </nav>
+      <%= render ButtonComponent.new(text: "Visualizar Proposta", path: proposal_path(current_professional.proposal_id_of_a @project), padding: 2) %>
     <% elsif current_professional.present? %>
       <%= render '/shared/form_proposal' %>
     <% end %>
-    <nav>
       <%= render ButtonComponent.new(text: "Voltar", padding: 2) %>
     </nav>
-   </div>
+</div>
 

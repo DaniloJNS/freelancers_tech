@@ -25,7 +25,7 @@ describe 'user ends registrations' do
 
     expect(page).to have_content('Inscrições encerradas com sucesso')
     expect(page).to_not have_button('Encerrar Inscrições')
-    expect(page).to have_link('Visualizar time')
+    expect(page).to have_content('Visualizar time')
   end
   it 'out deadline' do
     danilo = create(:user)
@@ -33,6 +33,7 @@ describe 'user ends registrations' do
     create(:project, user: danilo, deadline_submission: 1.week.from_now)
 
     travel_to 2.weeks.from_now do
+      UpdateProjectStatusJob.new.perform
       login_as danilo, scope: :user
       visit projects_path
 

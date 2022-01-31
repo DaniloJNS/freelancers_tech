@@ -1,22 +1,41 @@
-<% if @proposal.errors.present? %>
-  <ul>
-  <%= @proposal.errors.full_messages.each do |erro| %>
-      <li> <%= erro %> </li>
-    <% end %>
-  </ul>
+<div class="py-5 px-10 bg-white mx-auto w-4/5 space-y-1">
+  <h1 class="text-2xl font-bold text-center mb-5">Formulario de submissão de proposta</h1>
+  <%= form_with model: @proposal, url: project_proposals_path(@project) do |pl|%>
+    <div class="my-2">
+      <%= pl.label :justification, class: "font-semibold font-lg block" %>
+      <%= pl.text_area :justification, placeholder: "Escreva sua justificativa aqui...", cols: 45, rows: 5 ,
+                                       class: "w-1/2 ml-20 p-2 bg-gray-50 border border-black rounded-lg" %>
+      <% @proposal.errors.full_messages_for(:justification).each do |erro| %>
+        <span class="block"> <%= erro %> </span>
+       <% end %>
+    </div>
+
+    <div class="my-2">
+      <%= pl.label :price_hour, "Valor/Hora", class: "font-semibold font-lg block" %>
+      <%= pl.number_field :price_hour, class: "w-1/2 ml-20 border-b border-gray-500" %>
+      <% @proposal.errors.full_messages_for(:price_hour).each do |erro| %>
+        <span class="block"> <%= erro %> </span>
+       <% end %>
+    </div>
+
+    <div class="my-2">
+      <%= pl.label :weekly_hour, class: "font-semibold font-lg block" %>
+      <%= pl.number_field :weekly_hour, class: "w-1/2 ml-20 border-b border-gray-500" %>
+      <% @proposal.errors.full_messages_for(:weekly_hour).each do |erro| %>
+        <span class="block"> <%= erro %> </span>
+       <% end %>
+    </div>
+
+    <div class="my-2">
+      <%= pl.label :completion_deadline, class: "font-semibold font-lg block" %>
+      <%= pl.number_field :completion_deadline, step: 1, min: 1, class: "w-1/2 ml-20 border-b border-gray-500" %>
+      <% @proposal.errors.full_messages_for(:completion_deadline).each do |erro| %>
+        <span class="block"> <%= erro %> </span>
+       <% end %>
+    </div>
+
+    <div class="my-4">
+      <%= pl.submit "Enviar", class: "bg-gray-200 py-2 px-4 border border-gray-500 rounded"%>
+    </div>
   <% end %>
-<%= form_with model: @proposal, url: project_proposals_path(@project) do |pl|%>
-  <%= pl.label :justification %>
-  <%= pl.text_field :justification %>
-
-  <%= pl.label :price_hour, "Valor/Hora" %>
-  <%= pl.number_field :price_hour %>
-
-  <%= pl.label :weekly_hour %>
-  <%= pl.number_field :weekly_hour, step: 1, min: 1 %>
-
-  <%= pl.label :completion_deadline %>
-  <%= pl.number_field :completion_deadline, step: 1, min: 1 %>
-
-  <%= pl.submit "Enviar"%>
-<% end %>
+</div>

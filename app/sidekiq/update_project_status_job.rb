@@ -1,7 +1,8 @@
 class UpdateProjectStatusJob
   include Sidekiq::Job
 
-  def perform(*args)
-    # Do something
+  def perform 
+    @project = Project.open.where("deadline_submission > CURRENT_DATE")
+    @project.map(&:closed!)
   end
 end

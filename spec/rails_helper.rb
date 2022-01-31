@@ -31,7 +31,8 @@ Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
 # Sidekiq jobs fake
 require 'sidekiq/testing'
-Sidekiq::Testing.fake!
+require 'sidekiq/extensions/action_mailer'
+# Sidekiq::Testing.fake!
 
 # Clean queues jobs
 RSpec.configure do |config|
