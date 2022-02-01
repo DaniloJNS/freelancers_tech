@@ -1,4 +1,3 @@
-redis_host = ENV.fetch('REDIS_HOST') { 'redis://localhost:6370/0' }
-
-# The constant below will represent ONE connection, present globally in models, controllers, views etc for the instance. No need to do Redis.new everytime
-REDIS = Redis.new(url: redis_host)
+redis_yml = YAML.load(File.open(Rails.root.join('config/redis.yml'))).symbolize_keys[Rails.env.to_sym]
+$redis_config = redis_yml.transform_values { |value| ERB.new(value).result }
+$redis = Redis.new($redis_config)

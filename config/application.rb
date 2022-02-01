@@ -26,6 +26,8 @@ module FreelancersTech
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
+    config.active_job.queue_adapter = :sidekiq
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -38,5 +40,6 @@ module FreelancersTech
     config.generators.system_tests = nil
   end
 end
+
 Time::DATE_FORMATS[:default] = '%d/%m/%Y %H:%M'
 Date::DATE_FORMATS[:default] = '%d/%m/%Y'

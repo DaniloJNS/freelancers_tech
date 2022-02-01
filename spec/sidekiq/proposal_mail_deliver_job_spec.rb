@@ -18,10 +18,10 @@ RSpec.describe ProposalMailDeliverJob, type: :job do
       ProposalMailDeliverJob.perform_async proposal.id
 
       expect(ProposalMailDeliverJob.jobs.size).to eq 1
-      expect(ProposalMailDeliverJob.sidekiq_options["retry"]).to eq false
-      expect(ProposalMailDeliverJob.sidekiq_options["queue"]).to eq "default"
-      expect(Sidekiq::Queues["default"].size).to eq 1 
-      expect(Sidekiq::Queues["default"].first['args'][0]).to eq proposal.id
+      expect(ProposalMailDeliverJob.sidekiq_options["retry"]).to eq 10
+      expect(ProposalMailDeliverJob.sidekiq_options["queue"]).to eq "mailers"
+      expect(Sidekiq::Queues["mailers"].size).to eq 1 
+      expect(Sidekiq::Queues["mailers"].first['args'][0]).to eq proposal.id
     end
   end
 end

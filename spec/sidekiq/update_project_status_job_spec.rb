@@ -8,7 +8,7 @@ RSpec.describe UpdateProjectStatusJob, type: :job do
 
       expect(UpdateProjectStatusJob.jobs.size).to eq 1
       expect(Sidekiq::Queues["default"].size).to eq 1 
-      expect(nil).to eq Sidekiq::Queues["default"].first['args'][0]
+      expect(Sidekiq::Queues["default"].first['args'][0]).to eq nil 
     end
   end
 
