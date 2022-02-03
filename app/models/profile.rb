@@ -21,17 +21,38 @@ class Profile < ApplicationRecord
   validates :name, :description, :birth_date, presence: true
   validate :legal_age
 
-  before_validation do
-    self.age ||= Date.current.year.to_i - birth_date.year.to_i if birth_date.present?
+  enum gender: %w[male female]
+
+  after_initialize :current_age
+
+  def first_name
+    name.split.first
+  end
+
+  def self.translation_genders
+    genders.transform_keys { |key| human_enum_name(:gender, key) }.to_a
+  end
+
+  def last_name
+    _, *last_name = name.split
+    last_name.join(' ')
   end
 
   private
 
+  def current_age
+    self.age ||= Date.current.year.to_i - birth_date.year.to_i if birth_date.present?
+    self.age -= 1 if birth_date.present? && !after_birthday?
+  end
+
+  def after_birthday?
+    Date.current.month.to_i > birth_date.month.to_i ||
+            Date.current.month.to_i == birth_date.month.to_i && Date.current.day.to_i >= birth_date.day.to_i
+  end
+
   def legal_age
-    if age.present? &&
-       (age < 18)
-      errors.add(:age,
-                 'deve ser maior que 18 anos')
-    end
+    return unless age.present? && (age < 18)
+
+    errors.add(:age, 'deve ser maior que 18 anos')
   end
 end

@@ -38,6 +38,7 @@ describe 'professional fill profile' do
     fill_in 'Nome', with: 'Danilo da Silva'
     fill_in 'Data de Nascimento', with: '10/10/1980'
     fill_in 'Descrição', with: 'Entusiasta de cloud computer'
+    select 'Masculino', from: 'Gênero'
     click_on 'Enviar'
 
     expect(current_path).to_not eq(root_path)

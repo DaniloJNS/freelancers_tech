@@ -37,11 +37,17 @@ describe Profile do
       it 'name' do
         should validate_presence_of(:name)
       end
+
       it 'description' do
         should validate_presence_of(:description)
       end
+
       it 'birth_date' do
         should validate_presence_of(:birth_date)
+      end
+
+      it 'gender' do
+        should define_enum_for(:gender).with_values(%w[male female])
       end
     end
     context 'birth_date' do
@@ -53,10 +59,51 @@ describe Profile do
           'Idade deve ser maior que 18 anos'
         )
       end
+
       it 'is greater than 18 years' do
         profile.birth_date = 18.years.ago
         profile.valid?
         expect(profile.errors.full_messages_for(:age)).to eq([])
+      end
+
+      it 'age on birthday' do
+        profile.birth_date = 20.years.ago.to_date
+        profile.valid?
+
+        expect(profile.age).to eq 20 
+      end
+
+      it 'age after birth_date' do
+        profile.birth_date = 20.years.ago.to_date - 1.day
+        profile.valid?
+
+        expect(profile.age).to eq 20
+      end
+
+      it 'age after birth_date' do
+        profile.birth_date = 20.years.ago.to_date + 1.day
+        profile.valid?
+
+        expect(profile.age).to eq 19
+      end
+
+    end
+    context 'format names' do
+      let(:profile) { subject }
+      it 'first name with last name' do
+        profile.name = 'Aline Andrate'
+
+        expect(profile.first_name).to eq 'Aline'
+      end
+      it 'last name with 1 word' do
+        profile.name = 'Aline Andrade'
+
+        expect(profile.last_name).to eq 'Andrade'
+      end
+      it 'last name with 2 words' do
+        profile.name = 'Aline Andrade Oliveira'
+
+        expect(profile.last_name).to eq 'Andrade Oliveira'
       end
     end
   end

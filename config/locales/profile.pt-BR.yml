@@ -13,6 +13,10 @@ pt-BR:
         social_name: "Nome social"
         professional: "Profissional"
         age: "Idade"
+        gender: "Gênero"
+        genders:
+          male: "Masculino"
+          female: "Feminino"
       formation:
         university: "Universidade"
         conclusion: "Data de Conclusão"

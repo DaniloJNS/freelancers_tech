@@ -15,6 +15,7 @@ describe 'professional view profile' do
 
     expect(page).to have_link('Ver Perfil', href: profile_path(danilo.profile.id))
   end
+
   it 'sucessfuly' do
     danilo = create(:professional)
     create(:profile, name: 'danilo', description: 'Entusiasta de cloud computer',
@@ -30,5 +31,6 @@ describe 'professional view profile' do
     expect(page).to have_content('danilo')
     expect(page).to have_content('Entusiasta de cloud computer')
     expect(page).to have_content(danilo.profile.age)
+    expect(page).to have_content(danilo.profile.gender)
   end
 end

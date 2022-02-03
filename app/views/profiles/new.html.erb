@@ -7,6 +7,7 @@
       <% end %>
     </ul>
   <% end %>
+  <h1 class="font-semibold text-2xl text-center">Preencha seu perfil na plataforma</h1>
   <%= form_with model: [current_professional, @profile] do |p|%>
     <%= p.label :name, class: "block mb-2 text-sm font-bold text-gray-700" %>
     <%= p.text_field :name, class: "w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" %>
@@ -19,6 +20,9 @@
 
     <%= p.label :birth_date, class: "block mb-2 text-sm font-bold text-gray-700" %>
     <%= p.date_field :birth_date, class: "px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" %>
+
+    <%= p.label :gender, class: "block mb-2 text-sm font-bold text-gray-700" %>
+    <%= p.select :gender, Profile.translation_genders, class: "p-3 bg-white" %>
 
     <%= p.submit "Enviar", class: "w-full px-4 py-2 my-8 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"%>
   <% end %>

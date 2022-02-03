@@ -6,6 +6,7 @@ class ProfilesController < ApplicationController
   skip_before_action :profile_complete_professsional!, only: %i[new create]
   def new
     @profile = Profile.new
+    @profile_genders = Profile.translation_genders
   end
 
   def create
