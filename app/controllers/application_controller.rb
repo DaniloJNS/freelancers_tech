@@ -7,8 +7,7 @@ class ApplicationController < ActionController::Base
   private
 
   def after_sign_in_path_for(resource)
-    if resource.instance_of?(Professional) && resource.profile
-                                                      .blank?
+    if resource.instance_of?(Professional) && resource.profile.blank?
       new_professional_profile_path(resource)
     else
       root_path

@@ -53,10 +53,10 @@ describe Profile do
     context 'birth_date' do
       let(:profile) { subject }
       it 'is not greater than 18 years' do
-        profile.birth_date =  Date.current
+        profile.birth_date = Date.current
         profile.valid?
         expect(profile.errors.full_messages_for(:age)).to include(
-          'Idade deve ser maior que 18 anos'
+          'Idade deve ter idade maior que 18 anos'
         )
       end
 

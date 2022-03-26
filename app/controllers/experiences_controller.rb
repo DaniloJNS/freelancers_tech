@@ -20,9 +20,8 @@ class ExperiencesController < ApplicationController
   private
 
   def experience_params
-    { profile_id: profile_params, **params.require(:experience)
-                                          .permit(:company, :office, :description, :start_date, :end_date,
-                                                  :current_job) }
+    params.require(:experience).permit(:company, :office, :description, :start_date, :end_date,
+                                       :current_job).merge(profile_id: profile_params)
   end
 
   def profile_params

@@ -23,7 +23,7 @@ class Profile < ApplicationRecord
 
   enum gender: %w[male female]
 
-  after_initialize :current_age
+  before_validation :current_age
 
   def first_name
     name.split.first
@@ -52,7 +52,6 @@ class Profile < ApplicationRecord
 
   def legal_age
     return unless age.present? && (age < 18)
-
-    errors.add(:age, 'deve ser maior que 18 anos')
+    errors.add(:age, 'deve ter idade maior que 18 anos')
   end
 end

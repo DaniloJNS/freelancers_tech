@@ -31,6 +31,6 @@ describe 'professional view profile' do
     expect(page).to have_content('danilo')
     expect(page).to have_content('Entusiasta de cloud computer')
     expect(page).to have_content(danilo.profile.age)
-    expect(page).to have_content(danilo.profile.gender)
+    expect(page).to have_content('Masculino')
   end
 end
